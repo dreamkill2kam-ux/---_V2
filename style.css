@@ -391,6 +391,11 @@ header.banner-header {
     border-color: var(--primary-color);
 }
 
+.kb-card:hover .card-icon svg,
+.hub-card:hover .card-icon svg {
+    transform: translateY(-3px);
+}
+
 .card-top {
     display: flex;
     flex-direction: column;
@@ -398,9 +403,14 @@ header.banner-header {
 }
 
 .card-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.card-icon svg {
+    transition: transform 0.3s ease;
 }
 
 .kb-card h3 {
@@ -534,6 +544,12 @@ body.etrn_base-page {
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.2s;
+}
+
+.menu-category-btn,
+.menu-item {
+    display: flex;
+    align-items: center;
 }
 
 .menu-category-btn:hover {
