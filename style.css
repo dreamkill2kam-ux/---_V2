@@ -1488,3 +1488,58 @@ body.etrn_base-page {
     margin: 20px 15px;
     /* Отступы сверху/снизу и по бокам, чтобы линия не прилипала к краям */
 }
+
+/* ================= БАННЕР ЗАПРОСА В ОБУЧЕНИЕ ================= */
+.cta-request-box {
+    width: 100%;
+    margin-top: 50px;
+    padding: 35px 40px;
+    background: linear-gradient(135deg, var(--callout-info-bg), var(--bg-main));
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.cta-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cta-text h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0 0 8px 0;
+}
+
+.cta-text p {
+    font-size: 16.5px;
+    color: var(--text-sub);
+    margin: 0;
+}
+
+.cta-btn-override {
+    padding: 14px 28px !important;
+    font-size: 16px !important;
+    width: auto !important;
+    margin-top: 0 !important;
+    border-radius: 8px !important;
+    white-space: nowrap;
+}
+
+.cta-btn-override:hover {
+    background-color: var(--btn-hover) !important;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2) !important;
+}
+
+/* Ховер для карточек запросов */
+.kb-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-shadow-hover, 0 8px 24px rgba(0, 0, 0, 0.1));
+    border-color: var(--primary-color);
+}
