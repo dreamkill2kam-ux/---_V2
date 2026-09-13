@@ -1,0 +1,1474 @@
+/* Единый информационный портал (ЕИП) - Основной стиль */
+/* Автоматически сгенерировано для VS Code и локального использования */
+
+/* === Styles for index.html === */
+/* ================= 1. CSS ПЕРЕМЕННЫЕ (СВЕТЛАЯ И ТЕМНАЯ ТЕМА) ================= */
+/* Светлая тема (По умолчанию) */
+:root {
+    --bg-main: #f4f6f8;
+    --text-main: #202124;
+    --text-sub: #5f6368;
+    --card-bg: #ffffff;
+    --border-color: #dadce0;
+    --btn-bg: #1a73e8;
+    --btn-text: #ffffff;
+    --btn-hover: #1557b0;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    --card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --callout-info-bg: #e8f0fe;
+    --callout-warn-bg: #fdf2e2;
+    --callout-succ-bg: #e8f5e9;
+    --table-old-bg: #fdf2f2;
+    --table-new-bg: #f6fbf7;
+    --btn-blue-text: #1a73e8;
+    --btn-blue-border: #1a73e8;
+    --btn-orange-text: #b05c0f;
+    --btn-orange-bg: #feefe3;
+    --btn-orange-border: #fdc69c;
+}
+
+/* Тёмная тема */
+[data-theme="dark"] {
+    --bg-main: #121212;
+    --text-main: #e8eaed;
+    --text-sub: #9aa0a6;
+    --card-bg: #1e1e1e;
+    --border-color: #3c4043;
+    --btn-bg: #8ab4f8;
+    --btn-text: #202124;
+    --btn-hover: #aecbfa;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.5);
+    --callout-info-bg: rgba(26, 115, 232, 0.15);
+    /* Полупрозрачные цвета для темной темы */
+    --callout-warn-bg: rgba(251, 188, 4, 0.15);
+    --callout-succ-bg: rgba(52, 168, 83, 0.15);
+    --table-old-bg: rgba(197, 34, 31, 0.15);
+    --table-new-bg: rgba(19, 115, 51, 0.15);
+    --btn-blue-text: #8ab4f8;
+    --btn-blue-border: #8ab4f8;
+    --btn-orange-text: #fcad70;
+    --btn-orange-bg: rgba(176, 92, 15, 0.15);
+    --btn-orange-border: #fcad70;
+}
+
+/* ================= 2. БАЗОВЫЕ СТИЛИ С ПЕРЕМЕННЫМИ ================= */
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Стили для кнопки переключения темы */
+.theme-toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.1);
+    border-color: var(--text-sub);
+}
+
+/* ================= 3. ПРИМЕНЕНИЕ К КАРТОЧКАМ И КНОПКАМ ================= */
+.hub-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+}
+
+.hub-card:hover {
+    box-shadow: var(--card-shadow-hover);
+}
+
+.hub-card h3 {
+    color: var(--text-main);
+}
+
+.hub-card p {
+    color: var(--text-sub);
+}
+
+.enter-btn {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+}
+
+.enter-btn:hover {
+    background-color: var(--btn-hover);
+}
+
+.index-page {
+    --primary-color: #1a73e8;
+    /* Профессиональный синий */
+    --secondary-color: #34a853;
+    /* Зеленый акцент */
+    /* Остальные цвета удалены, чтобы они наследовались от глобальной темы */
+}
+
+body.index-page {
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-main);
+    /* Изменено с --bg-color на глобальную переменную */
+    color: var(--text-main);
+    margin: 0 !important;
+    padding-top: 25px !important;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ================= ВЕРХНЯЯ ШАПКА ПОРТАЛА (HEADER) ================= */
+/* Убираем лишние отступы у шапки для баннера */
+header.banner-header {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* Стили для баннера на весь экран */
+.header-banner {
+    display: block;
+    width: 100%;
+    max-width: 1920px;
+    /* Ограничиваем максимальную ширину под ПК */
+    height: 120px;
+    /* 📐 Жестко фиксируем высоту баннера */
+    margin: 0 auto;
+    object-fit: cover;
+    /* Картинка заполнит блок, аккуратно подрезав края, если монитор узкий */
+}
+
+/* ================= ГЛАВНЫЙ КОНТЕНТНЫЙ БЛОК ================= */
+.portal-container {
+    width: 100%;
+    max-width: 1200px;
+    /* Идеальная ширина под мониторы ПК */
+    padding: 50px 20px;
+    box-sizing: border-box;
+}
+
+.section-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* Монолитная сетка на 3 колонки для ПК */
+.grid-hub {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+/* КАРТОЧКА НАПРАВЛЕНИЯ ОБУЧЕНИЯ */
+.hub-card {
+    flex: 1;
+    max-width: 360px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 35px 30px;
+    text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 380px;
+}
+
+/* Эффект интерактивности на ПК */
+.hub-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(26, 115, 232, 0.08);
+    border-color: var(--primary-color);
+}
+
+.card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Большие иконки-эмодзи по центру */
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.hub-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 20px;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.hub-card p {
+    margin: 0;
+    font-size: 16.5px;
+    color: var(--text-sub);
+    line-height: 1.6;
+}
+
+/* КНОПКА ПЕРЕХОДА К ОБУЧЕНИЮ */
+.enter-btn {
+    display: inline-block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+
+.hub-card:hover .enter-btn {
+    background-color: #1557b0;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
+}
+
+/* Выделяем кнопку Базы знаний (где лежит ЭТрН) зеленым акцентом */
+.hub-card.knowledge-hub:hover .enter-btn {
+    background-color: #2b8c44;
+    border-color: var(--secondary-color);
+    box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2);
+}
+
+.hub-card.knowledge-hub:hover {
+    border-color: var(--secondary-color);
+}
+
+/* === Styles for knowledge_base.html === */
+.knowledge_base-page {
+    --primary-color: #008080;
+    /* Спокойный бирюзовый/изумрудный оттенок */
+    --secondary-color: #1a73e8;
+    /* Синий акцент */
+}
+
+body.knowledge_base-page {
+    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    background-color: var(--bg-main);
+    /* Изменено на глобальную переменную */
+    color: var(--text-main);
+    margin: 0 !important;
+    padding-top: 25px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ================= ШАПКА БАЗЫ ЗНАНИЙ ================= */
+/* Убираем лишние отступы у шапки для баннера */
+header.banner-header {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* Стили для баннера на весь экран */
+.header-banner {
+    display: block;
+    width: 100%;
+    max-width: 1920px;
+    /* Ограничиваем максимальную ширину под ПК */
+    height: 120px;
+    /* 📐 Жестко фиксируем высоту баннера */
+    margin: 0 auto;
+    object-fit: cover;
+    /* Картинка заполнит блок, аккуратно подрезав края, если монитор узкий */
+}
+
+
+/* Кнопка возврата на главный портал обучения */
+/* ✨ ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ КНОПКИ ВОЗВРАТА НА ПК */
+.header-back-btn {
+    display: inline-block;
+    /* Превращаем в аккуратную кнопочную плашку */
+    position: relative;
+    /* Отвязываем от координат шапки */
+    margin-bottom: 20px;
+    /* Делаем отступ вниз до заголовка секции */
+    float: left;
+    /* Прижимаем строго к левому краю контента */
+
+    color: var(--text-sub);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.header-back-btn:hover {
+    background-color: #f1f3f4;
+    color: var(--text-main);
+    border-color: var(--primary-color);
+}
+
+/* Технический сброс обтекания для контейнера, чтобы заголовок не съезжал из-за float */
+.kb-container::before {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* ================= ПРОМЕЖУТОЧНЫЙ НАВИГАТОР (СЕТКА КАРТОЧЕК) ================= */
+.kb-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 50px 20px;
+    box-sizing: border-box;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 35px;
+    text-align: center;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.grid-kb {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+}
+
+/* КАРТОЧКА РАЗДЕЛОВ */
+.kb-card {
+    flex: 1;
+    max-width: 360px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 35px 30px;
+    text-align: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 380px;
+}
+
+.kb-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 128, 128, 0.08);
+    border-color: var(--primary-color);
+}
+
+.card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.kb-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 19px;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.kb-card p {
+    margin: 0;
+    font-size: 16.5px;
+    color: var(--text-sub);
+    line-height: 1.6;
+}
+
+/* КНОПКА ОТКРЫТИЯ РАЗДЕЛА */
+.open-btn {
+    display: inline-block;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    margin-top: 25px;
+}
+
+.kb-card:hover .open-btn {
+    background-color: #006666;
+    box-shadow: 0 4px 12px rgba(0, 128, 128, 0.2);
+}
+
+/* Выделяем ЭТрН ярким акцентом реформы */
+.kb-card.etrn-focus {
+    border-color: #34a853;
+    background-color: rgba(52, 168, 83, 0.01);
+}
+
+.kb-card.etrn-focus .open-btn {
+    background-color: #34a853;
+}
+
+.kb-card.etrn-focus:hover {
+    box-shadow: 0 12px 24px rgba(52, 168, 83, 0.12);
+    border-color: #2b8c44;
+}
+
+.kb-card.etrn-focus:hover .open-btn {
+    background-color: #2b8c44;
+    box-shadow: 0 4px 12px rgba(52, 168, 83, 0.25);
+}
+
+/* === Styles for etrn_base.html === */
+.etrn_base-page {
+    --primary-color: #34a853;
+    --accent-color: #1a73e8;
+    --sidebar-bg: var(--bg-main);
+    /* Привязываем боковое меню к фону темы */
+    --sidebar-hover: rgba(52, 168, 83, 0.1);
+    /* Полупрозрачный зеленый для ховера */
+}
+
+body.etrn_base-page {
+    flex-direction: row;
+    font-family: 'Calibri Light', 'Calibri', 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--text-main);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ================= ОБНОВЛЕННОЕ БОКОВОЕ МЕНЮ (SIDEBAR) ================= */
+.sidebar {
+    width: 320px;
+    min-width: 320px;
+    background-color: var(--sidebar-bg);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.sidebar-top h2 {
+    font-size: 22px;
+    color: var(--primary-color);
+    padding: 0 20px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.sidebar-top p {
+    font-size: 16.5px;
+    color: var(--text-sub);
+    padding: 0 20px;
+    margin-bottom: 25px;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0 10px;
+    overflow-y: auto;
+    /* Включаем скролл внутри меню, если категорий станет слишком много */
+}
+
+/* 📁 СТИЛИ ДЛЯ КНОПОК-КАТЕГОРИЙ (РОДИТЕЛЬСКИЕ ПУНКТЫ) */
+.menu-category-btn {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 13px 15px;
+    font-size: 14.5px;
+    font-weight: bold;
+    color: var(--text-main);
+    /* Исправлен цвет текста */
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s;
+}
+
+.menu-category-btn:hover {
+    background-color: var(--border-color);
+    /* Исправлен фон при наведении */
+}
+
+/* Иконка стрелочки раскрытия */
+.category-arrow {
+    font-size: 11px;
+    color: #777;
+    transition: transform 0.3s ease;
+}
+
+/* Поворот стрелки, когда категория открыта */
+.menu-group.open .category-arrow {
+    transform: rotate(180deg);
+    color: var(--primary-color);
+}
+
+/* 📜 СКРЫТЫЙ КОНТЕЙНЕР ДЛЯ ПОДПУНКТОВ */
+.submenu-list {
+    max-height: 0;
+    /* Магия плавного выезда */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-left: 15px;
+    /* Сдвигаем подпункты вправо для иерархии */
+}
+
+/* Открытое состояние подменю */
+.menu-group.open .submenu-list {
+    margin-top: 3px;
+    margin-bottom: 5px;
+}
+
+/* 📄 СТИЛИ ДЛЯ КОНКРЕТНЫХ СТАТЕЙ (ПОДПУНКТЫ) */
+.menu-item {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 10px 15px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-sub);
+    /* Исправлен цвет текста */
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: var(--border-color);
+    color: var(--text-main);
+}
+
+/* Активный выбранный подпункт */
+.menu-item.active {
+    background-color: var(--sidebar-hover);
+    color: #1b5e20;
+}
+
+.sidebar-bottom {
+    padding: 0 15px;
+}
+
+.back-link {
+    display: block;
+    color: var(--text-sub);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.back-link:hover {
+    background-color: #f1f3f4;
+    color: #202124;
+}
+
+/* ================= ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА ================= */
+.main-content {
+    flex-grow: 1;
+    background-color: var(--card-bg);
+    /* Заменили жесткий белый на переменную */
+    padding: 40px 60px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.article-page {
+    display: none;
+    max-width: 780px;
+    animation: contentFadeIn 0.25s ease-out;
+}
+
+.article-page.active {
+    display: block;
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.article-page h1 {
+    font-size: 26px;
+    color: var(--text-main);
+    /* Заменили жесткий темный на переменную */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.article-body {
+    font-size: 23px;
+    line-height: 1.65;
+    color: var(--text-sub);
+    /* Заменили жесткий серый на переменную */
+}
+
+.article-body p {
+    margin-bottom: 15px;
+}
+
+.article-body ol,
+.article-body ul {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.article-body li {
+    margin-bottom: 6px;
+}
+
+.callout-box {
+    background-color: var(--callout-info-bg);
+    border-left: 4px solid var(--accent-color, #1a73e8);
+    padding: 16px 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+    font-size: 18.5px;
+}
+
+.callout-box.warning-type {
+    background-color: var(--callout-warn-bg);
+    border-left-color: #fbbc04;
+}
+
+.callout-box.success-type {
+    background-color: var(--callout-succ-bg);
+    border-left-color: var(--primary-color);
+}
+
+.callout-box strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18.5px;
+    color: var(--text-main);
+    /* Теперь текст будет белым в темной теме */
+}
+
+.instruction-img {
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    cursor: zoom-in;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.instruction-img:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.img-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Полупрозрачный черный фон */
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    /* Курсор "минус-лупа" для закрытия */
+    backdrop-filter: blur(5px);
+    /* Красивое размытие заднего фона */
+}
+
+@keyframes overlayFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.img-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.img-overlay-close {
+    display: none;
+    /* Крестик можно скрыть, так как закрывается по клику в любую область */
+}
+
+/* ================= КРАСИВАЯ СРАВНИТЕЛЬНАЯ ТАБЛИЦА ================= */
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* Убирает двойные рамки между ячейками */
+    margin: 25px 0;
+    font-size: 17px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    overflow: hidden;
+    /* Чтобы скругление углов применялось и к границам ячеек */
+    border: 1px solid var(--border-color);
+}
+
+/* Настройка шапки таблицы */
+.compare-table th {
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 14px 20px;
+    text-align: center;
+    width: 50%;
+    /* Ровно пополам разделяем экран ПК */
+}
+
+/* Стили для обычных ячеек данных */
+.compare-table td {
+    padding: 16px 20px;
+    vertical-align: top;
+    /* Текст выравнивается по верхнему краю ячейки */
+    line-height: 1.6;
+    border-bottom: 1px solid #e8eaed;
+}
+
+/* 🔴 Столбец "Было" (нечетные ячейки строк) */
+.compare-table td:nth-child(1) {
+    background-color: var(--table-old-bg);
+    border-right: 1px dashed var(--border-color);
+    color: var(--text-main);
+}
+
+/* 🟢 Столбец "Стало" (четные ячейки строк) */
+.compare-table td:nth-child(2) {
+    background-color: var(--table-new-bg);
+    color: var(--text-main);
+}
+
+/* Небольшие акценты внутри ячеек */
+.compare-table td b {
+    color: var(--text-main);
+}
+
+.compare-table td.old-process b {
+    color: #c5221f;
+    /* Выделяем ключевые старые слова темно-красным */
+}
+
+.compare-table td.new-process b {
+    color: #137333;
+    /* Выделяем ключевые новые слова темно-зеленым */
+}
+
+/* ================= ИНТЕРАКТИВНЫЕ ТЕРМИНЫ И ПОПОВЕРЫ ================= */
+/* Стиль для самого слова-термина в тексте */
+.term-keyword {
+    color: var(--accent-color, #1a73e8);
+    border-bottom: 1.5px dashed var(--accent-color, #1a73e8);
+    /* Пунктирное подчеркивание */
+    cursor: help;
+    /* Курсор в виде знака вопроса */
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.term-keyword:hover {
+    color: #1557b0;
+}
+
+/* ================= ИСПРАВЛЕННЫЕ ГЛОБАЛЬНЫЕ СТИЛИ ПОПОВЕРА (FIXED) ================= */
+.popover-box {
+    display: none;
+    /* Скрыто по умолчанию */
+    position: fixed;
+    /* 🚀 ГЛАВНОЕ ИСПРАВЛЕНИЕ: окно привязано к экрану, а не к скроллу документа */
+    background-color: #202124;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    width: 260px;
+    z-index: 9999;
+    /* Поверх всех элементов */
+    box-sizing: border-box;
+    animation: popoverFadeIn 0.15s ease-out;
+}
+
+@keyframes popoverFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стрелочка-указатель снизу (когда окно СВЕРХУ слова) */
+.popover-box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #202124 transparent transparent transparent;
+}
+
+/* Стрелочка-указатель сверху (когда окно СНИЗУ слова) */
+.popover-box.popover-bottom::after {
+    top: auto !important;
+    bottom: 100% !important;
+    border-color: transparent transparent #202124 transparent !important;
+}
+
+/* ================= ИНТЕРАКТИВНАЯ БЛОК-СХЕМА (FLOWCHART) ================= */
+.flowchart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin: 30px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.fc-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.fc-step {
+    background: #ffffff;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: #202124;
+    min-width: 220px;
+    z-index: 2;
+}
+
+/* Вертикальная соединительная стрелка */
+.fc-arrow-down {
+    height: 25px;
+    width: 1.5px;
+    background-color: #bdc1c6;
+    margin: 0 auto;
+    position: relative;
+}
+
+.fc-arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -4px;
+    border-width: 5px 5px 0;
+    border-style: solid;
+    border-color: #bdc1c6 transparent transparent transparent;
+}
+
+/* Кликабельные финальные блоки */
+.fc-btn {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-width: 2px;
+}
+
+.fc-btn span {
+    display: block;
+    font-size: 13.5px;
+    font-weight: normal;
+    margin-top: 6px;
+}
+
+/* 1. Договор перевозки (Сине-фиолетовый) */
+.fc-btn.fc-blue {
+    background-color: #f3f0ff;
+    border-color: #c7bfff;
+    color: #4328b7;
+}
+
+.fc-btn.fc-blue:hover {
+    background-color: #e5dfff;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(67, 40, 183, 0.15);
+}
+
+.fc-btn.fc-blue span {
+    color: #5a42d1;
+}
+
+/* 2. Договор ТЭУ (Зеленый) */
+.fc-btn.fc-green {
+    background-color: #e6f4ea;
+    border-color: #a8dab5;
+    color: #0d652d;
+}
+
+.fc-btn.fc-green:hover {
+    background-color: #ceead6;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(13, 101, 45, 0.15);
+}
+
+.fc-btn.fc-green span {
+    color: #137333;
+}
+
+/* 3. Агентский договор (Оранжевый) */
+.fc-btn.fc-orange {
+    background-color: #feefe3;
+    border-color: #fdc69c;
+    color: #b05c0f;
+}
+
+.fc-btn.fc-orange:hover {
+    background-color: #fce8e6;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(176, 92, 15, 0.15);
+}
+
+.fc-btn.fc-orange span {
+    color: #c06915;
+}
+
+/* Специальный класс для широких страниц (схемы, большие таблицы) */
+.article-page.wide-mode {
+    max-width: 100%;
+}
+
+/* ================= ВКЛАДКИ ДЛЯ РОЛЕЙ В КОНСТРУКТОРЕ ================= */
+.role-tabs-container {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.role-tabs-header {
+    display: flex;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.role-tab-btn {
+    flex: 1;
+    padding: 14px 15px;
+    background: none;
+    border: none;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-sub);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.role-tab-btn:last-child {
+    border-right: none;
+}
+
+.role-tab-btn:hover {
+    background-color: #e8eaed;
+    color: var(--text-main);
+}
+
+/* Активная вкладка */
+.role-tab-btn.active {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.role-tab-content {
+    padding: 25px 20px;
+    display: none;
+    font-size: 18px;
+    line-height: 1.6;
+    color: #3c4043;
+    animation: contentFadeIn 0.2s ease-out;
+}
+
+.role-tab-content.active {
+    display: block;
+}
+
+/* СТИЛИ ДЛЯ ВЫДЕЛЕННЫХ КНОПОК МЕНЮ */
+.menu-item.menu-item-blue {
+    font-size: 14.5px;
+    font-weight: bold;
+    padding: 13px 15px;
+    color: var(--btn-blue-text);
+    border: 1px solid var(--btn-blue-border);
+}
+
+.menu-item.menu-item-orange {
+    font-size: 14.5px;
+    font-weight: bold;
+    padding: 13px 15px;
+    color: var(--btn-orange-text);
+    background-color: var(--btn-orange-bg);
+    border: 1px solid var(--btn-orange-border);
+}
+
+/* МАГИЧЕСКОЕ ИСПРАВЛЕНИЕ КОНСТРУКТОРОВ ДЛЯ ТЕМНОЙ ТЕМЫ */
+[data-theme="dark"] .wizard-container,
+[data-theme="dark"] .logist-wizard-container {
+    background-color: var(--card-bg) !important;
+}
+
+[data-theme="dark"] .fc-question,
+[data-theme="dark"] .lw-question,
+[data-theme="dark"] .terminal-card h2,
+[data-theme="dark"] .role-tabs-container,
+[data-theme="dark"] .role-list {
+    color: var(--text-main) !important;
+    background-color: var(--bg-main) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .fc-text,
+[data-theme="dark"] .lw-text {
+    color: var(--text-sub) !important;
+}
+
+[data-theme="dark"] .fc-btn,
+[data-theme="dark"] .lw-btn {
+    background-color: var(--bg-main) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .placeholder-step {
+    background-color: var(--bg-main) !important;
+    border-color: var(--border-color) !important;
+    color: #8ab4f8 !important;
+}
+
+[data-theme="dark"] .placeholder-img {
+    background-color: var(--bg-main) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-sub) !important;
+}
+
+/* ================= FAQ ЭТрН (Интерактивные карточки) ================= */
+.faq-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.faq-search {
+    flex: 1 1 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-size: 15px;
+    margin-bottom: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.faq-search:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.faq-filter-chip {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-sub);
+    cursor: pointer;
+    font-size: 13.5px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.faq-filter-chip:hover {
+    background: var(--border-color);
+    color: var(--text-main);
+}
+
+.faq-filter-chip.active {
+    background: var(--primary-color);
+    color: #ffffff;
+    border-color: var(--primary-color);
+}
+
+.faq-filter-chip.red-zone {
+    border-color: #fbbc04;
+    color: #b07c00;
+}
+
+.faq-filter-chip.red-zone:hover {
+    background: #fdf2e2;
+}
+
+.faq-filter-chip.red-zone.active {
+    background: #fdf2e2;
+    color: #b07c00;
+    border-color: #fbbc04;
+    box-shadow: 0 0 0 2px rgba(251, 188, 4, 0.2);
+}
+
+[data-theme="dark"] .faq-filter-chip.red-zone.active {
+    background: rgba(251, 188, 4, 0.15);
+    color: #fbbc04;
+}
+
+/* Карточки аккордеона */
+.faq-card {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: var(--card-bg);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.faq-card:hover {
+    box-shadow: var(--card-shadow);
+}
+
+.faq-card.red-zone-card {
+    border-left: 4px solid #ea4335;
+}
+
+.faq-question {
+    padding: 18px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--text-main);
+    transition: background-color 0.2s;
+    user-select: none;
+}
+
+.faq-question:hover {
+    background-color: var(--bg-main);
+}
+
+.faq-title {
+    flex: 1;
+    padding-right: 15px;
+}
+
+.faq-badges {
+    display: flex;
+    gap: 8px;
+    margin-right: 15px;
+}
+
+.faq-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.faq-badge.green {
+    background: var(--callout-succ-bg);
+    color: #137333;
+}
+
+[data-theme="dark"] .faq-badge.green {
+    color: #81c995;
+}
+
+.faq-badge.red {
+    background: var(--callout-warn-bg);
+    color: #c5221f;
+}
+
+[data-theme="dark"] .faq-badge.red {
+    color: #f28b82;
+}
+
+.faq-arrow {
+    font-size: 12px;
+    color: var(--text-sub);
+    transition: transform 0.3s;
+}
+
+.faq-card.open .faq-arrow {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    display: none;
+    padding: 0 20px 20px 20px;
+    font-size: 16.5px;
+    color: var(--text-sub);
+    line-height: 1.6;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+    padding-top: 15px;
+}
+
+.faq-card.open .faq-answer {
+    display: block;
+    animation: contentFadeIn 0.2s ease-out;
+}
+
+.faq-answer strong {
+    color: var(--text-main);
+}
+
+/* ==========================================
+   КНОПКИ НАВИГАЦИИ (ДЛЯ ВНУТРЕННИХ ШАГОВ)
+   ========================================== */
+.nav-card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Выравнивание по центру */
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    /* Чуть более строгие углы */
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    color: var(--text-main);
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    /* Делаем текст жирнее */
+}
+
+/* Эффект при наведении мыши (Hover) */
+.nav-card-btn:hover {
+    background-color: #1a73e8;
+    /* Сплошная синяя заливка */
+    color: #ffffff;
+    /* Текст становится белым для контраста */
+    border-color: #1a73e8;
+    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.25);
+    /* Легкая тень в цвет кнопки */
+    transform: translateY(-2px);
+}
+
+/* Эффект при клике (Active) */
+.nav-card-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* ==========================================
+   БОКОВАЯ КНОПКА ВОЗВРАТА (ПЛАВАЮЩАЯ)
+   ========================================== */
+.side-back-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--card-bg);
+    color: var(--text-sub);
+    border: 1px solid var(--border-color);
+    border-radius: 30px;
+    /* Форма аккуратной таблетки */
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    white-space: nowrap;
+    /* Чтобы текст кнопки не переносился на узких экранах */
+}
+
+.side-back-btn:hover {
+    color: #1a73e8;
+    border-color: #1a73e8;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+    transform: translateX(-5px);
+    /* Плавно сдвигается влево при наведении */
+}
+
+/* ==========================================
+   ИКОНКИ СПРАВКИ И МОДАЛЬНОЕ ОКНО
+   ========================================== */
+
+/* Кнопка вопроса */
+/* Кнопка вопроса (Сниппет) */
+.eip-help {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.eip-help:hover {
+    background-color: #1a73e8;
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Затемнение фона модального окна */
+.help-modal-overlay {
+    display: none;
+    /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+/* Сама карточка модального окна */
+.help-modal-box {
+    background: var(--bg-main);
+    width: 90%;
+    max-width: 450px;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+
+/* Крестик закрытия */
+.help-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--text-sub);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.help-modal-close:hover {
+    color: #ea4335;
+}
+
+/* Разделитель для левого меню */
+.menu-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    /* Используем ваш фирменный цвет рамок */
+    margin: 20px 15px;
+    /* Отступы сверху/снизу и по бокам, чтобы линия не прилипала к краям */
+}

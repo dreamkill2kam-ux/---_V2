@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название нового раздела</title>
+    <!-- Подключаем единый файл стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="etrn_base-page"> 
+    
+    <!-- Автоматическая кнопка и переключение темной темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🧭 ЛЕВАЯ ПАНЕЛЬ: ИНТЕРАКТИВНОЕ ДЕРЕВО МЕНЮ -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <h2>Название раздела</h2>
+            <p>Краткое описание для кого этот раздел</p>
+
+            <nav class="menu-list">
+                <!-- ОДИНОЧНАЯ КНОПКА -->
+                <div class="menu-group">
+                    <button class="menu-item active" data-article="article_1" onclick="switchTab(this)">
+                        📄 Первая статья
+                    </button>
+                </div>
+
+                <!-- БЛОК FAQ -->
+                <div class="menu-group">
+                    <button class="menu-item" data-article="article_faq" onclick="switchTab(this)">
+                        ❓ Частые вопросы (FAQ)
+                    </button>
+                </div>
+
+                <!-- РАСКРЫВАЮЩИЙСЯ СПИСОК -->
+                <div class="menu-group" id="group_1">
+                    <button class="menu-category-btn" onclick="toggleMenuCategory('group_1')">
+                        <span>📂 Категория статей</span>
+                        <span class="category-arrow">▼</span>
+                    </button>
+                    <div class="submenu-list">
+                        <button class="menu-item" data-article="article_2" onclick="switchTab(this)">Вложенная статья</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="index.html" class="back-link">← На главную</a>
+        </div>
+    </aside>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА -->
+    <main class="main-content">
+        
+        <!-- СТАТЬЯ 1 (Открыта по умолчанию) -->
+        <div class="article-page active" id="article_1">
+            <h1>Заголовок первой статьи</h1>
+            <div class="article-body">
+                <p>Текст статьи. Здесь можно использовать сниппеты для callout-блоков, таблиц и картинок.</p>
+            </div>
+        </div>
+
+        <!-- СТАТЬЯ FAQ (Шаблон) -->
+        <div class="article-page wide-mode" id="article_faq">
+            <h1>Частые вопросы (FAQ)</h1>
+            <div class="article-body">
+                <div class="callout-box">
+                    <strong>К сведению:</strong> Здесь собраны ответы на типовые вопросы. Используйте фильтры или строку поиска.
+                </div>
+
+                <input type="text" id="faqSearch" class="faq-search" placeholder="🔍 Поиск по вопросам и ответам...">
+                
+                <div class="faq-controls">
+                    <button class="faq-filter-chip active" data-aud="Все">Все отделы</button>
+                    <button class="faq-filter-chip" data-aud="Группа1">Группа 1</button>
+                    <button class="faq-filter-chip" data-aud="Группа2">Группа 2</button>
+                    <button class="faq-filter-chip red-zone" id="filterRedZone">🚨 Только Красная зона</button>
+                </div>
+
+                <div class="faq-list">
+                    <!-- Пример карточки FAQ -->
+                    <div class="faq-card" data-audience="Все,Группа1" data-redzone="false">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-title">Пример вопроса для FAQ?</span>
+                            <div class="faq-badges"><span class="faq-badge green">Подтверждено</span></div>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Короткий ответ:</strong> Здесь находится текст ответа.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Пример Красной Зоны FAQ -->
+                    <div class="faq-card red-zone-card" data-audience="Группа2" data-redzone="true">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-title">Пример вопроса из красной зоны?</span>
+                            <div class="faq-badges">
+                                <span class="faq-badge red">Красная зона</span>
+                            </div>
+                            <span class="faq-arrow">▼</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p><strong>Короткий ответ:</strong> Текст ответа на критический вопрос.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- СТАТЬЯ 2 (Скрыта) -->
+        <div class="article-page" id="article_2">
+            <h1>Заголовок второй статьи</h1>
+            <div class="article-body">
+                <p>Содержимое второй статьи.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 🖼️ СИСТЕМНЫЕ ОКНА (Поповеры и картинки) -->
+    <!-- (Здесь ничего нет, base.js создаст их автоматически!) -->
+
+    <!-- ⚙️ ПОДКЛЮЧЕНИЕ БАЗОВОЙ ЛОГИКИ ПОРТАЛА -->
+    <script src="base.js"></script>
+
+</body>
+</html>

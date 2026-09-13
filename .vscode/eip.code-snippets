@@ -1,0 +1,169 @@
+{
+    "EIP Tooltip (Интерактивный термин)": {
+        "prefix": "eip-tooltip",
+        "body": [
+            "<span class=\"term-keyword\" onclick=\"openPopover(event, '$2')\">$1</span>"
+        ],
+        "description": "Всплывающая подсказка (поповер) для сложных терминов"
+    },
+    "EIP Callout Warning (Желтое предупреждение)": {
+        "prefix": "eip-warning",
+        "body": [
+            "<div class=\"callout-box warning-type\">",
+            "\t<strong>${1:Внимание:}</strong> ${2:Текст предупреждения}",
+            "</div>"
+        ],
+        "description": "Блок предупреждения (желтый)"
+    },
+    "EIP Callout Info (Синяя сноска)": {
+        "prefix": "eip-info",
+        "body": [
+            "<div class=\"callout-box\">",
+            "\t<strong>${1:К сведению:}</strong> ${2:Текст информации}",
+            "</div>"
+        ],
+        "description": "Информационный блок (синий)"
+    },
+    "EIP Callout Success (Зеленое правило)": {
+        "prefix": "eip-success",
+        "body": [
+            "<div class=\"callout-box success-type\">",
+            "\t<strong>${1:Правило:}</strong> ${2:Текст правила}",
+            "</div>"
+        ],
+        "description": "Блок успешного действия или правила (зеленый)"
+    },
+    "EIP Page Template (Простая страница без меню)": {
+        "prefix": "eip-page",
+        "body": [
+            "<!DOCTYPE html>",
+            "<html lang=\"ru\">",
+            "<head>",
+            "\t<meta charset=\"UTF-8\">",
+            "\t<title>${1:Название}</title>",
+            "\t<link rel=\"stylesheet\" href=\"style.css\">",
+            "</head>",
+            "<body class=\"${2:page-class}\">",
+            "\t${3:<!-- Контент -->}",
+            "</body>",
+            "</html>"
+        ],
+        "description": "Базовый шаблон новой страницы ЕИП (без бокового меню)"
+    },
+    "EIP Article Block (Контейнер статьи)": {
+        "prefix": "eip-article",
+        "body": [
+            "<div class=\"article-page\" id=\"${1:id_раздела}\">",
+            "\t<h1>${2:Главный заголовок статьи}</h1>",
+            "\t<div class=\"article-body\">",
+            "\t\t<p>${3:Текст начинается здесь...}</p>",
+            "\t</div>",
+            "</div>"
+        ],
+        "description": "Скрытый блок с новой статьей для центральной панели"
+    },
+    "EIP Menu Item (Пункт меню)": {
+        "prefix": "eip-menu-item",
+        "body": [
+            "<button class=\"menu-item\" data-article=\"${1:id_раздела}\" onclick=\"switchTab(this)\">📄 ${2:Название в меню}</button>"
+        ],
+        "description": "Кнопка для левого меню (переключает на нужную статью)"
+    },
+    "EIP Instruction Image (Картинка с зумом)": {
+        "prefix": "eip-img",
+        "body": [
+            "<img src=\"${1:img/имя_файла.png}\" alt=\"${2:Описание скриншота}\" class=\"instruction-img\" onclick=\"openFullscreenImage(this.src)\">"
+        ],
+        "description": "Скриншот инструкции, который увеличивается по клику"
+    },
+    "EIP Compare Table Row (Строка Было/Стало)": {
+        "prefix": "eip-tablerow",
+        "body": [
+            "<tr>",
+            "\t<td class=\"old-process\">",
+            "\t\t<b>${1:Было:}</b> ${2:Описание старого процесса}",
+            "\t</td>",
+            "\t<td class=\"new-process\">",
+            "\t\t<b>${3:Стало:}</b> ${4:Описание нового процесса}",
+            "\t</td>",
+            "</tr>"
+        ],
+        "description": "Добавляет новую строку в сравнительную таблицу"
+    },
+    "EIP Full Base Template (Каркас раздела с меню)": {
+        "prefix": "!base",
+        "body": [
+            "<!DOCTYPE html>",
+            "<html lang=\"ru\">",
+            "<head>",
+            "    <meta charset=\"UTF-8\">",
+            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+            "    <title>${1:Название нового раздела}</title>",
+            "    <link rel=\"stylesheet\" href=\"style.css\">",
+            "</head>",
+            "<body class=\"etrn_base-page\">",
+            "    <!-- Автоматическая кнопка и переключение темной темы -->",
+            "    <script src=\"theme.js\"></script>",
+            "",
+            "    <!-- 🧭 ЛЕВАЯ ПАНЕЛЬ: ИНТЕРАКТИВНОЕ ДЕРЕВО МЕНЮ -->",
+            "    <aside class=\"sidebar\">",
+            "        <div class=\"sidebar-top\">",
+            "            <h2>${2:Название раздела}</h2>",
+            "            <p>${3:Краткое описание для кого этот раздел}</p>",
+            "",
+            "            <nav class=\"menu-list\">",
+            "                <div class=\"menu-group\">",
+            "                    <button class=\"menu-item active\" data-article=\"article_1\" onclick=\"switchTab(this)\">",
+            "                        📄 ${4:Первая статья}",
+            "                    </button>",
+            "                </div>",
+            "",
+            "                <div class=\"menu-group\" id=\"group_1\">",
+            "                    <button class=\"menu-category-btn\" onclick=\"toggleMenuCategory('group_1')\">",
+            "                        <span>📂 ${5:Категория статей}</span>",
+            "                        <span class=\"category-arrow\">▼</span>",
+            "                    </button>",
+            "                    <div class=\"submenu-list\">",
+            "                        <button class=\"menu-item\" data-article=\"article_2\" onclick=\"switchTab(this)\">${6:Вложенная статья}</button>",
+            "                    </div>",
+            "                </div>",
+            "            </nav>",
+            "        </div>",
+            "",
+            "        <div class=\"sidebar-bottom\">",
+            "            <a href=\"index.html\" class=\"back-link\">← На главную</a>",
+            "        </div>",
+            "    </aside>",
+            "",
+            "    <!-- 🖥️ ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА -->",
+            "    <main class=\"main-content\">",
+            "        <div class=\"article-page active\" id=\"article_1\">",
+            "            <h1>${4:Первая статья}</h1>",
+            "            <div class=\"article-body\">",
+            "                <p>Текст статьи. Здесь можно использовать сниппеты eip-info, eip-warning и другие.</p>",
+            "            </div>",
+            "        </div>",
+            "",
+            "        <div class=\"article-page\" id=\"article_2\">",
+            "            <h1>${6:Вложенная статья}</h1>",
+            "            <div class=\"article-body\">",
+            "                <p>Содержимое второй статьи.</p>",
+            "            </div>",
+            "        </div>",
+            "    </main>",
+            "",
+            "    <!-- ⚙️ ПОДКЛЮЧЕНИЕ БАЗОВОЙ ЛОГИКИ ПОРТАЛА (Меню, картинки, поповеры) -->",
+            "    <script src=\"base.js\"></script>",
+            "</body>",
+            "</html>"
+        ],
+        "description": "Полный интерактивный каркас нового раздела со скриптами, темой и боковым меню"
+    },
+    "EIP Help (Иконка подсказки)": {
+        "prefix": "eip-help",
+        "body": [
+            "<span class=\"eip-help\" data-title=\"${1:Заголовок подсказки}\" data-text=\"${2:Текст подсказки}\">?</span>"
+        ],
+        "description": "Значок '?' открывающий модальное окно с подробным описанием"
+    }
+}

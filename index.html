@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учебный портал компании: Корпоративная Академия</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="index-page">
+
+    <!-- Кнопка переключения темы -->
+    <button id="theme-toggle" class="theme-toggle-btn" title="Переключить тему">
+        <span class="theme-icon">🌓</span>
+    </button>
+
+    <!-- 🏢 ШАПКА ПОРТАЛА -->
+    <header>
+        <img src="img/banner.png" alt="Баннер" class="header-banner">
+    </header>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНОЕ ПРОСТРАНСТВО -->
+    <div class="portal-container">
+        <div class="section-title"></div>
+
+        <div class="grid-hub">
+
+            <!-- БЛОК 1: БАЗА ЗНАНИЙ (Зеленый акцент на фокус ЭТрН) -->
+            <div class="hub-card knowledge-hub">
+                <div class="card-top">
+                    <span class="card-icon">📚</span>
+                    <h3>База знаний</h3>
+                    <p>Не нужно держать важную информацию в голове - достаточно знать, где её проверить</p>
+                </div>
+                <a href="knowledge_base.html" class="enter-btn">Открыть базу</a>
+            </div>
+
+            <!-- БЛОК 2: ПРОГРАММЫ ОБУЧЕНИЯ -->
+            <div class="hub-card">
+                <div class="card-top">
+                    <span class="card-icon">🎯</span>
+                    <h3>Профильный 1СРБ</h3>
+                    <p>Обучение функционалу 1СРБ для сотрудников разных департаментов </p>
+                </div>
+                <a href="programs.html" class="enter-btn">Перейти к курсам</a>
+            </div>
+
+            <!-- БЛОК 3: ДООБУЧЕНИЯ -->
+            <div class="hub-card">
+                <div class="card-top">
+                    <span class="card-icon">⚡</span>
+                    <h3>Аттестация</h3>
+                    <p>Обязательные курсы, дообучения и тестирования на проверку знаний</p>
+                </div>
+                <a href="extra_training.html" class="enter-btn">Начать обучение</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Скрипт переключения темы -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const rootElement = document.documentElement; // тег <html>
+
+        // Проверяем, есть ли уже сохраненная тема в localStorage
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            rootElement.setAttribute('data-theme', currentTheme);
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            let theme = rootElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                rootElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light'); // Запоминаем выбор
+            } else {
+                rootElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark'); // Запоминаем выбор
+            }
+        });
+    </script>
+</body>
+
+</html>

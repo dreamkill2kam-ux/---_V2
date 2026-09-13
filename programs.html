@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профильное обучение 1С</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="knowledge_base-page">
+
+    <!-- Скрипт переключения темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🏢 ШАПКА -->
+    <header class="banner-header">
+        <a href="index.html">
+            <img src="img/knowledge_banner.png" alt="Баннер 1С" class="header-banner">
+        </a>
+    </header>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНЫЙ БЛОК -->
+    <div class="kb-container">
+        <a href="index.html" class="header-back-btn">← Вернуться на главную</a>
+
+        <p style="text-align: center; color: var(--text-sub); margin-bottom: 40px; font-size: 16px;">
+            Выберите вашу роль для перехода к детальным пошаговым инструкциям.
+        </p>
+
+        <!-- 📚 СПИСОК КАРТОЧЕК ПРОГРАММ -->
+        <div class="grid-kb" style="justify-content: center;">
+
+            <!-- КАРТОЧКА 1: ДЛЯ ЛОГИСТА -->
+            <div class="kb-card">
+                <div class="card-top">
+                    <span class="card-icon" style="font-size: 40px; display: block; margin-bottom: 15px;">🚛</span>
+                    <h3>1С для логиста</h3>
+                    <p>Полное руководство по оформлению заявок (ПЗ/ОЗ), работе с АТИ, проверке контрагентов (ОЭБ) и
+                        контролю рейсов.</p>
+                </div>
+                <!-- Эта ссылка будет вести на сам справочник -->
+                <a href="1c_logistics.html" class="open-btn">Перейти к инструкциям</a>
+            </div>
+
+            <!-- КАРТОЧКА 2: ДЛЯ КМ -->
+            <div class="kb-card">
+                <div class="card-top">
+                    <span class="card-icon" style="font-size: 40px; display: block; margin-bottom: 15px;">💼</span>
+                    <h3>1С для клиентского менеджера</h3>
+                    <p>Регламенты заведения новых заказчиков, маршрутизация коммерческих предложений и специфика
+                        документооборота.</p>
+                </div>
+                <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ⚙️ БАЗОВЫЕ СКРИПТЫ -->
+    <script src="base.js"></script>
+</body>
+
+</html>

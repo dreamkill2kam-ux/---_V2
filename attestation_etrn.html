@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор ЭТрН: Аттестация</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="knowledge_base-page">
+
+    <script src="theme.js"></script>
+
+    <div class="kb-container" style="max-width: 900px;">
+
+        <a href="extra_training.html" class="header-back-btn">← Назад в каталог аттестаций</a>
+        <div style="clear: both;"></div>
+
+        <div class="article-page wide-mode active"
+            style="margin-top: 40px; padding: 50px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--card-shadow);">
+
+            <h1 id="main-title" style="text-align: center; margin-top: 0; margin-bottom: 30px;">Аттестация ЭТрН</h1>
+
+            <div class="article-body">
+
+                <!-- 🎯 ЭКРАН ВЫБОРА РЕЖИМА -->
+                <div id="mode-selection" style="text-align: center; padding: 40px 0;">
+                    <h2 style="margin-bottom: 20px;">Выберите режим:</h2>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <button class="fc-btn"
+                            style="padding: 20px 40px; font-size: 18px; border-color: #34a853; color: #137333; display: flex; flex-direction: column; align-items: center; gap: 10px;"
+                            onclick="selectMode('attestation')">
+                            <span style="font-size: 24px;">🏆</span>
+                            <span>Основная аттестация</span>
+                            <span style="font-size: 14px; color: var(--text-sub); font-weight: normal;">Оценка знаний с
+                                занесением в базу</span>
+                        </button>
+                        <button class="fc-btn"
+                            style="padding: 20px 40px; font-size: 18px; border-color: #fbbc04; color: #b07c00; display: flex; flex-direction: column; align-items: center; gap: 10px;"
+                            onclick="selectMode('training')">
+                            <span style="font-size: 24px;">🛠️</span>
+                            <span>Отработка ошибок</span>
+                            <span style="font-size: 14px; color: var(--text-sub); font-weight: normal;">Тренажер без
+                                оценки на основе FAQ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 🔀 ЭКРАН ВЫБОРА ВЕТКИ (Для аттестации) -->
+                <div id="branch-selection" style="display: none; text-align: center; padding: 40px 0;">
+                    <h2 style="margin-bottom: 20px;">Выберите направление для тестирования:</h2>
+                    <p style="color: var(--text-sub); margin-bottom: 30px;">Ситуации и правила подписания документов
+                        отличаются в зависимости от типа используемого транспорта.</p>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <button class="fc-btn"
+                            style="padding: 20px 40px; font-size: 18px; border-color: #1a73e8; color: #1a73e8;"
+                            onclick="selectBranch('ST')">🚛 Собственный транспорт (СТ)</button>
+                        <button class="fc-btn"
+                            style="padding: 20px 40px; font-size: 18px; border-color: #b05c0f; color: #b05c0f;"
+                            onclick="selectBranch('PT')">🤝 Привлеченный транспорт (ПТ)</button>
+                    </div>
+                </div>
+
+                <!-- 🛠️ КОНТЕЙНЕР ТРЕНАЖЕРА (Отработка ошибок) -->
+                <div class="wizard-container" id="training-container"
+                    style="display: none; background: transparent; border: none; box-shadow: none; padding: 0; margin-top: 20px; min-height: auto;">
+                    <div class="callout-box info-type">
+                        <strong>Режим тренировки:</strong> Здесь собраны сложные ситуации из практики и красной зоны.
+                        Оценка не производится.
+                    </div>
+
+                    <div
+                        style="margin-top: 30px; margin-bottom: 25px; font-weight: bold; color: var(--text-sub); text-align: center; font-size: 18px;">
+                        Ситуация <span id="training-current-num">1</span> из <span id="training-total-num">X</span>
+                    </div>
+
+                    <div class="fc-question" id="training-question"
+                        style="text-align: left; font-size: 20px; line-height: 1.6; color: var(--text-main);">
+                        Загрузка...
+                    </div>
+
+                    <div class="fc-actions" id="training-answers"
+                        style="flex-direction: column; align-items: stretch; margin-top: 30px; gap: 12px;">
+                        <!-- Кнопки -->
+                    </div>
+
+                    <div id="training-explanation" class="callout-box"
+                        style="display: none; margin-top: 30px; animation: contentFadeIn 0.3s ease-out;">
+                        <strong id="training-exp-title" style="font-size: 19px;"></strong>
+                        <span id="training-exp-text" style="font-size: 17px; line-height: 1.5;"></span>
+                        <div style="text-align: center; margin-top: 25px;">
+                            <button class="fc-btn"
+                                style="background-color: #1a73e8; color: white; border: none; padding: 16px 36px; font-size: 18px; font-weight: bold; border-radius: 8px;"
+                                onclick="nextTraining()">Следующая ситуация ➔</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🏆 ЭКРАН ЗАВЕРШЕНИЯ ТРЕНАЖЕРА -->
+                <div class="wizard-container" id="training-result-container"
+                    style="display: none; text-align: center; background: transparent; border: none; box-shadow: none; padding: 0; margin-top: 40px;">
+                    <div class="fc-question" style="font-size: 32px; margin-bottom: 15px;">Тренажер пройден!</div>
+                    <div
+                        style="margin-bottom: 30px; font-size: 18px; line-height: 1.6; padding: 25px; border-radius: 8px; background: var(--bg-main); border: 1px solid var(--border-color);">
+                        Вы успешно отработали все сложные сценарии. Теперь вы лучше готовы к нестандартным ситуациям.
+                    </div>
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button class="fc-btn" onclick="location.reload()">↺ В начало</button>
+                        <button class="fc-btn fc-btn-primary"
+                            onclick="location.reload(); setTimeout(() => selectMode('attestation'), 100)">Перейти к
+                            аттестации</button>
+                    </div>
+                </div>
+
+                <!-- 🕹️ КОНТЕЙНЕР ПЛЕЕРА КЕЙСОВ -->
+                <div class="wizard-container" id="quiz-container"
+                    style="display: none; background: transparent; border: none; box-shadow: none; padding: 0; margin-top: 20px; min-height: auto;">
+
+                    <div class="callout-box">
+                        <strong>Инструкция:</strong> Внимательно читайте условия кейса и выбирайте правильное действие.
+                        Система даст обратную связь после каждого ответа.
+                    </div>
+
+                    <div
+                        style="margin-top: 30px; margin-bottom: 25px; font-weight: bold; color: var(--text-sub); text-align: center; font-size: 18px;">
+                        Вопрос <span id="current-question-num">1</span> из <span id="total-questions">10</span>
+                    </div>
+
+                    <div class="fc-question" id="question-text"
+                        style="text-align: left; font-size: 20px; line-height: 1.6; color: var(--text-main);">
+                        Загрузка кейса...
+                    </div>
+
+                    <div class="fc-actions" id="answer-buttons"
+                        style="flex-direction: column; align-items: stretch; margin-top: 30px; gap: 12px;">
+                        <!-- Кнопки генерируются JS -->
+                    </div>
+
+                    <div id="explanation-box" class="callout-box"
+                        style="display: none; margin-top: 30px; animation: contentFadeIn 0.3s ease-out;">
+                        <strong id="explanation-title" style="font-size: 19px;"></strong>
+                        <span id="explanation-text" style="font-size: 17px; line-height: 1.5;"></span>
+
+                        <div style="text-align: center; margin-top: 25px;">
+                            <button class="fc-btn"
+                                style="background-color: #1a73e8; color: white; border: none; padding: 16px 36px; font-size: 18px; font-weight: bold; border-radius: 8px;"
+                                id="next-btn" onclick="nextQuestion()">Следующий кейс ➔</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 🏆 ЭКРАН РЕЗУЛЬТАТОВ -->
+                <div class="wizard-container" id="result-container"
+                    style="display: none; text-align: center; background: transparent; border: none; box-shadow: none; padding: 0; margin-top: 40px;">
+                    <div class="fc-question" style="font-size: 32px; margin-bottom: 15px;">Аттестация завершена</div>
+
+                    <div id="score-text"
+                        style="font-size: 26px; font-weight: bold; margin-bottom: 30px; color: var(--text-main);"></div>
+                    <div id="result-message"
+                        style="margin-bottom: 30px; font-size: 18px; line-height: 1.6; padding: 25px; border-radius: 8px; background: var(--bg-main); border: 1px solid var(--border-color);">
+                    </div>
+
+                    <div id="registration-block"
+                        style="background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; box-shadow: var(--card-shadow);">
+                        <h3 style="margin-top: 0; color: var(--text-main);">Зафиксировать результат</h3>
+                        <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 15px;">Укажите ваши данные,
+                            чтобы передать результат в базу.</p>
+
+                        <input type="text" id="employee-name" placeholder="Фамилия Имя Отчество"
+                            style="width: 100%; max-width: 400px; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; margin-bottom: 20px; background: var(--bg-main); color: var(--text-main);">
+                        <br>
+                        <button class="fc-btn"
+                            style="background-color: #34a853; color: white; border: none; padding: 16px 36px; font-size: 16px; font-weight: bold;"
+                            onclick="sendResultToSheet(event)">📨 Отправить результат</button>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button class="fc-btn" onclick="location.reload()">↺ Пройти заново</button>
+                        <a href="extra_training.html" class="fc-btn"
+                            style="background-color: var(--text-sub); color: white; border: none; text-decoration: none; padding: 14px 24px; display: inline-flex; align-items: center;">В
+                            каталог</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="base.js"></script>
+    <script>
+        // === БАЗА ВОПРОСОВ: СОБСТВЕННЫЙ ТРАНСПОРТ (СТ) ===
+        const questionsST = [
+            {
+                question: "1. С клиентом заключен Договор перевозки груза. Рейс выполняется собственным транспортом компании (Сценарий 1.1 СТ). Кто подписывает Титул 1?",
+                answers: [
+                    {text: "А) Наша компания (ООО «ТТ»)", correct: false},
+                    {text: "Б) Клиент (Заказчик)", correct: true},
+                    {text: "В) Грузополучатель", correct: false}
+                ],
+                explanation: "В сценарии 1.1 СТ грузоотправителем является Клиент, именно он открывает перевозку и подписывает Титул 1."
+            },
+            {
+                question: "2. Вы работаете по договору транспортной экспедиции (ТЭУ) и приняли груз во владение (Сценарий 3.1 СТ). В какой роли будет выступать ООО «ТТ» в ЭТрН?",
+                answers: [
+                    {text: "А) Только Экспедитор, мы не участвуем в подписании ЭТрН", correct: false},
+                    {text: "Б) И Грузоотправитель, и Перевозчик одновременно", correct: true},
+                    {text: "В) Только Перевозчик", correct: false}
+                ],
+                explanation: "В 3.1 СТ наша компания принимает груз и везет его своим транспортом, поэтому выступает и ГО, и ПРВ, подписывая Титулы 1, 2 и 4."
+            },
+            {
+                question: "3. В каком порядке должны быть проставлены электронные подписи при приемке груза перевозчиком (Титул 2)?",
+                answers: [
+                    {text: "А) Сначала водитель (ПЭП / Госключ), затем логист (УКЭП + МЧД)", correct: true},
+                    {text: "Б) Сначала логист (УКЭП), затем водитель (ПЭП)", correct: false},
+                    {text: "В) Подписи ставятся одновременно любой из сторон", correct: false}
+                ],
+                explanation: "Правило: подписи всегда идут последовательно. Сначала водитель подтверждает факт приемки ПЭП, и только затем логист подписывает титул своей УКЭП."
+            },
+            {
+                question: "4. Вы подписали Титул 2, но через час обнаружили ошибку в реквизитах (например, неверно указан номер ТС). Ваши действия?",
+                answers: [
+                    {text: "А) Отредактировать черновик Титула 2 в системе", correct: false},
+                    {text: "Б) Удалить документ из ГИС ЭПД и создать новый", correct: false},
+                    {text: "В) Эскалировать вопрос ответственному за ЭДО", correct: true}
+                ],
+                explanation: "Подписанный документ не редактируется как черновик и ничего не удаляется из ГИС ЭПД. Это красная зона — требуется эскалация для корректировки по установленной процедуре."
+            },
+            {
+                question: "5. Обязателен ли Электронный путевой лист (ЭПЛ) для всех без исключения рейсов с 1 сентября 2026 года?",
+                answers: [
+                    {text: "А) Да, для всех рейсов", correct: false},
+                    {text: "Б) Нет, обязателен только для перевозки алкогольной продукции", correct: true},
+                    {text: "В) Нет, ЭПЛ полностью отменен", correct: false}
+                ],
+                explanation: "ЭПЛ обязателен только для перевозок алкогольной и спиртосодержащей продукции. В остальных случаях он остается добровольным."
+            },
+            {
+                question: "6. Машина прибыла на выгрузку. Грузополучатель еще не подписал Титул 3. Можете ли вы подписать Титул 4 (выдача груза), чтобы не задерживать водителя?",
+                answers: [
+                    {text: "А) Да, если водитель фактически сдал груз", correct: false},
+                    {text: "Б) Нет, без подписанного Т3 титул Т4 оформить нельзя", correct: true},
+                    {text: "В) Да, система позволяет пропустить Т3", correct: false}
+                ],
+                explanation: "Порядок всегда последовательный: Т1 → Т2 → Т3 → Т4. Без подписи грузополучателя о приемке (Т3) рейс закрыть невозможно."
+            },
+            {
+                question: "7. При формировании рейса 4.1 СТ (Субэкспедирование) в заказ-заявке (ОЗ) заказчиком указан конечный грузовладелец, а не Экспедитор 1. Что делать?",
+                answers: [
+                    {text: "А) Проигнорировать, так как грузовладелец важнее", correct: false},
+                    {text: "Б) Самостоятельно изменить заказчика в ЭТрН на Экспедитора 1", correct: false},
+                    {text: "В) Остановить оформление и эскалировать вопрос", correct: true}
+                ],
+                explanation: "Это красная зона. В 4.1 СТ заказчиком по документам (ЭПЭ) выступает Экспедитор 1. Если данные ОЗ и ЭПЭ расходятся, логист обязан эскалировать вопрос."
+            },
+            {
+                question: "8. Водитель звонит на погрузке и жалуется, что не видит ЭТрН на подпись. Что нужно проверить в первую очередь?",
+                answers: [
+                    {text: "А) Совпадение номера телефона в рейсе и справочнике оператора", correct: true},
+                    {text: "Б) Наличие у водителя УКЭП", correct: false},
+                    {text: "В) Правильность заполнения Титула 4", correct: false}
+                ],
+                explanation: "В 9 случаях из 10 проблема техническая — номер телефона водителя в рейсе не совпадает со справочником. Роль водителя подтверждается простой подписью (ПЭП / Госключ), УКЭП ему не нужна."
+            },
+            {
+                question: "9. Какой титул ЭТрН отвечает за отметку о переадресовке со стороны перевозчика?",
+                answers: [
+                    {text: "А) Титул 7", correct: true},
+                    {text: "Б) Титул 8", correct: false},
+                    {text: "В) Титул 9", correct: false}
+                ],
+                explanation: "В девятититульной модели за переадресацию отвечают два титула: Т9 (указание изменить адрес от ГО/ГП) и Т7 (отметка о переадресовке со стороны перевозчика)."
+            },
+            {
+                question: "10. Если рейс выполняется собственной машиной компании, значит ли это, что мы автоматически становимся Перевозчиком во всех документах?",
+                answers: [
+                    {text: "А) Да, физическое наличие машины определяет роль", correct: false},
+                    {text: "Б) Нет, роль компании зависит исключительно от договора с клиентом", correct: true},
+                    {text: "В) Роль выбирает водитель в мобильном приложении", correct: false}
+                ],
+                explanation: "Роль компании определяется договором и утверждённой схемой конкретной перевозки, а не тем, чья машина фактически едет."
+            }
+        ];
+
+        // === БАЗА ВОПРОСОВ: ПРИВЛЕЧЕННЫЙ ТРАНСПОРТ (ПТ) ===
+        const questionsPT = [
+            {
+                question: "1. С клиентом заключен агентский договор. Вы действуете по поручению и от имени клиента (Сценарий 2.1). Какова роль нашей компании в ЭТрН?",
+                answers: [
+                    {text: "А) Мы выступаем Перевозчиком", correct: false},
+                    {text: "Б) Мы выступаем Грузоотправителем", correct: false},
+                    {text: "В) Мы не являемся участником ЭТрН", correct: true}
+                ],
+                explanation: "В сценарии 2.1 агент действует от имени клиента. Стороной договора перевозки является клиент, а наша компания в ЭТрН не фигурирует (может лишь подписать Т1 по МЧД за клиента)."
+            },
+            {
+                question: "2. Вы организуете перевозку по договору ТЭУ, но груз во владение НЕ принимаете (Сценарий 3.2). Какие документы оформляются между нашей компанией и клиентом?",
+                answers: [
+                    {text: "А) Только Электронное поручение экспедитору (ЭПЭ)", correct: true},
+                    {text: "Б) ЭПЭ и Экспедиторская расписка (ЭЭР)", correct: false},
+                    {text: "В) Электронная заказ-заявка (ЭЗЗ)", correct: false}
+                ],
+                explanation: "Так как груз не передается в руки экспедитора, оформляется только ЭПЭ как постановка задачи. ЭЭР (расписка) в данном сценарии отсутствует."
+            },
+            {
+                question: "3. Вы привлекаете стороннего перевозчика под рейс (например, 3.1 ПТ). При проверке черновика ЭТрН вы видите, что оператор ЭДО отображает нашу компанию в роли Перевозчика. Ваши действия?",
+                answers: [
+                    {text: "А) Подписать документы, чтобы не срывать рейс", correct: false},
+                    {text: "Б) Не подписывать документ и эскалировать вопрос", correct: true},
+                    {text: "В) Попросить привлеченного водителя подписать за нас", correct: false}
+                ],
+                explanation: "Это красная зона. Если роль в системе не совпадает с утвержденным сценарием, подписывать документ запрещено, необходимо сразу передать вопрос ответственному."
+            },
+            {
+                question: "4. Вы сформировали рейс субэкспедирования 4.1 ПТ2 (наш привлеченный перевозчик нанял еще одного). Что вы должны сделать?",
+                answers: [
+                    {text: "А) Оформить всё по аналогии со сценарием 4.1 ПТ1", correct: false},
+                    {text: "Б) Эскалировать вопрос ответственному до формирования ЭТрН", correct: true},
+                    {text: "В) Указать первого перевозчика грузоотправителем", correct: false}
+                ],
+                explanation: "Сценарий 4.1 ПТ2 находится в статусе «тестируется». Договорная роль первого привлеченного перевозчика (ПТ1) не определена, оформлять рейс самостоятельно категорически запрещено."
+            },
+            {
+                question: "5. В каком случае необходимо оформлять Электронную заказ-заявку (ЭЗЗ)?",
+                answers: [
+                    {text: "А) На каждую перевозку между заказчиком и перевозчиком для согласования условий", correct: true},
+                    {text: "Б) Только если нет возможности оформить ЭТрН", correct: false},
+                    {text: "В) Только при работе по агентским договорам", correct: false}
+                ],
+                explanation: "ЭЗЗ оформляется на каждую перевозку с каждым перевозчиком для закрепления условий конкретного рейса. Без нее перевозка не считается надлежаще оформленной."
+            },
+            {
+                question: "6. Привлеченный перевозчик согласовал ставку в мессенджере, но в присланной им ЭЗЗ указана другая (большая) стоимость. Как поступить?",
+                answers: [
+                    {text: "А) Отклонить ЭЗЗ и потребовать переделать", correct: false},
+                    {text: "Б) Подтвердить ЭЗЗ, а разницу вычесть из других рейсов", correct: false},
+                    {text: "В) Ничего не править самому, передать информацию ответственному", correct: true}
+                ],
+                explanation: "Любое расхождение стоимости с перевозчиком — это красная зона. Подтверждать или отклонять ЭЗЗ самостоятельно запрещено, требуется эскалация руководителю направления."
+            },
+            {
+                question: "7. При подписании Титула 1 за клиента (Сценарий 2.1) возникла ошибка. В тексте ошибки упоминаются реквизиты доверенности. Что это значит?",
+                answers: [
+                    {text: "А) У привлеченного водителя нет ПЭП", correct: false},
+                    {text: "Б) Истек срок действия или неверно выбрана МЧД (машиночитаемая доверенность)", correct: true},
+                    {text: "В) Сбой на стороне ГИС ЭПД", correct: false}
+                ],
+                explanation: "Если логист подписывает документы не от своего имени (например, за клиента), используется МЧД. Ошибки доверенности чаще всего связаны с истечением её срока."
+            },
+            {
+                question: "8. При формировании черновика ЭТрН вы не можете найти контрагента в справочнике оператора. Можно ли создать дубль контрагента вручную?",
+                answers: [
+                    {text: "А) Да, чтобы ускорить процесс погрузки", correct: false},
+                    {text: "Б) Нет, нужно проверить ID ЭДО и настройки роуминга, при ошибке — в техподдержку", correct: true},
+                    {text: "В) Да, но только если контрагент подтвердит это по телефону", correct: false}
+                ],
+                explanation: "Создавать дубли контрагентов запрещено. Проблема обычно кроется в настройках роуминга или неверном ID ЭДО, вопрос решается через техподдержку."
+            },
+            {
+                question: "9. Грузополучатель при выгрузке обнаружил недостачу товара. Должны ли мы из-за этого отменять Титул 1?",
+                answers: [
+                    {text: "А) Да, ЭТрН аннулируется полностью", correct: false},
+                    {text: "Б) Нет, расхождения фиксируются грузополучателем в Титуле 3, Титул 1 не меняется", correct: true},
+                    {text: "В) Да, нужно переписать весь документ задним числом", correct: false}
+                ],
+                explanation: "В системе ничего не редактируется задним числом. Если есть расхождения при выгрузке, получатель фиксирует их в своем Титуле 3 и оформляет акт."
+            },
+            {
+                question: "10. Клиент настаивает, чтобы перевозку оформили на бумаге, хотя рейс не попадает под юридический перечень исключений. Что ответит клиентский отдел?",
+                answers: [
+                    {text: "А) Пойдет навстречу клиенту ради лояльности", correct: false},
+                    {text: "Б) Оформит бумагу, но выпишет штраф", correct: false},
+                    {text: "В) Откажет и эскалирует запрос юристу/владельцу процесса", correct: true}
+                ],
+                explanation: "Бумажный документооборот допустим только в строго утвержденных исключениях. Любые нестандартные запросы от клиентов подлежат обязательной эскалации."
+            }
+        ];
+        // === БАЗА ВОПРОСОВ: ТРЕНАЖЕР (НА ОСНОВЕ FAQ) ===
+        const questionsTraining = [
+            {
+                question: "Вы формируете Титул 1, но система выдает ошибку «DocumentService.InvalidTitleContent». Ваши действия?",
+                answers: [
+                    {text: "А) Попробовать поменять грузоотправителя, вдруг ошибка в нём", correct: false},
+                    {text: "Б) Сохранить скриншот, номер ОЗ, текст ошибки и передать в техподдержку", correct: true},
+                    {text: "В) Удалить черновик и попытаться создать ЭЗЗ вместо ЭТрН", correct: false}
+                ],
+                explanation: "Это техническая ошибка содержимого титула. Менять юридически значимые данные наугад нельзя. Нужно зафиксировать ошибку и передать в техподдержку."
+            },
+            {
+                question: "Вы вводите данные привлеченного водителя в карточку рейса, но 1С выдает ошибку 403. Что вы пропустили?",
+                answers: [
+                    {text: "А) Водитель не добавлен в справочник «Наши водители»", correct: true},
+                    {text: "Б) У водителя истек срок действия Госключа", correct: false},
+                    {text: "В) Неправильно выбран оператор ЭДО", correct: false}
+                ],
+                explanation: "Ввод данных водителя напрямую в карточку рейса не сработает. Сначала водителя нужно добавить в справочник «Наши водители»."
+            },
+            {
+                question: "У контрагента настроен роуминг с несколькими операторами. В созданном черновике ЭТрН выбран не тот оператор. Как его поменять?",
+                answers: [
+                    {text: "А) Выбрать нужного оператора в выпадающем списке прямо в черновике", correct: false},
+                    {text: "Б) Создать дубль контрагента в справочнике с нужным оператором", correct: false},
+                    {text: "В) Сделать дубликат черновика и там сменить оператора в блоке «Перевозчик»", correct: true}
+                ],
+                explanation: "Внутри уже созданного черновика сменить оператора нельзя. Создавать дубли контрагентов запрещено. Правильный путь — продублировать черновик и поменять оператора там."
+            },
+            {
+                question: "С 17.08.2026 вы пытаетесь сохранить заявку в 1С, но система выдает жесткий запрет. В чем может быть причина?",
+                answers: [
+                    {text: "А) Не заполнены данные по договору аренды/лизинга или ИНН собственника ТС", correct: true},
+                    {text: "Б) ЭПЛ еще не подписан механиком", correct: false},
+                    {text: "В) У контрагента нет активного ЭДО", correct: false}
+                ],
+                explanation: "С 17 августа 1С жестко блокирует сохранение заявки, если не заполнены все данные по контрагенту и аренде/лизингу транспорта."
+            },
+            {
+                question: "Сценарий 3.1СТ (договор ТЭУ, свой транспорт). Вы приняли груз и должны оформить Экспедиторскую расписку (ЭЭР). Кто ее подписывает?",
+                answers: [
+                    {text: "А) И наша компания, и клиент", correct: false},
+                    {text: "Б) Только наша компания (ТТ) в одностороннем порядке", correct: true},
+                    {text: "В) Только клиент", correct: false}
+                ],
+                explanation: "ЭЭР — это односторонний документ. Ее формирует и подписывает только экспедитор (ТТ) после приема груза. Клиент в подписании не участвует."
+            }
+        ];
+        // === ЛОГИКА СИМУЛЯТОРА ===
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedBranchName = "";
+        let currentMode = ""; // 'attestation' или 'training'
+
+        const modeSelection = document.getElementById('mode-selection');
+        const branchSelection = document.getElementById('branch-selection');
+        const quizContainer = document.getElementById('quiz-container');
+        const questionTextElement = document.getElementById('question-text');
+        const answerButtonsElement = document.getElementById('answer-buttons');
+        const explanationBox = document.getElementById('explanation-box');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationText = document.getElementById('explanation-text');
+        const currentNumElement = document.getElementById('current-question-num');
+        const totalNumElement = document.getElementById('total-questions');
+        const mainTitle = document.getElementById('main-title');
+        const trainingContainer = document.getElementById('training-container');
+        const tQuestionEl = document.getElementById('training-question');
+        const tAnswersEl = document.getElementById('training-answers');
+        const tExplanationBox = document.getElementById('training-explanation');
+        const tExpTitle = document.getElementById('training-exp-title');
+        const tExpText = document.getElementById('training-exp-text');
+
+
+        // ВЫБОР РЕЖИМА
+        function selectMode(mode) {
+            currentMode = mode;
+            modeSelection.style.display = 'none';
+            
+            if (mode === 'attestation') {
+                branchSelection.style.display = 'block';
+            } else if (mode === 'training') {
+                mainTitle.innerText = "Отработка ошибок (Тренажер)";
+                currentQuestions = questionsTraining;
+                document.getElementById('training-total-num').innerText = currentQuestions.length;
+                trainingContainer.style.display = 'block';
+                startTraining();
+            }
+        }
+
+        // --- ЛОГИКА ТРЕНАЖЕРА ---
+        function startTraining() {
+            currentQuestionIndex = 0;
+            showTrainingQuestion(currentQuestions[currentQuestionIndex]);
+        }
+
+        function showTrainingQuestion(qData) {
+            document.getElementById('training-current-num').innerText = currentQuestionIndex + 1;
+            tQuestionEl.innerText = qData.question;
+            tAnswersEl.innerHTML = '';
+            tExplanationBox.style.display = 'none';
+
+            qData.answers.forEach(answer => {
+                const btn = document.createElement('button');
+                btn.innerText = answer.text;
+                btn.className = 'fc-btn';
+                btn.style.textAlign = 'left';
+                btn.style.padding = '16px 20px';
+                btn.style.fontSize = '16.5px';
+                btn.style.width = '100%';
+                
+                btn.onclick = () => selectTrainingAnswer(btn, answer.correct, qData.explanation);
+                tAnswersEl.appendChild(btn);
+            });
+        }
+        function selectTrainingAnswer(btn, isCorrect, explanation) {
+            const allBtns = tAnswersEl.children;
+            for (let b of allBtns) { b.disabled = true; b.style.opacity = '0.6'; }
+            
+            btn.style.opacity = '1';
+            tExplanationBox.style.display = 'block';
+            tExpText.innerText = explanation;
+
+            if (isCorrect) {
+                btn.style.backgroundColor = 'var(--callout-succ-bg)';
+                btn.style.borderColor = '#34a853';
+                tExplanationBox.className = 'callout-box success-type';
+                tExpTitle.innerText = "✅ Верно! ";
+            } else {
+                btn.style.backgroundColor = 'var(--callout-warn-bg)';
+                btn.style.borderColor = '#ea4335';
+                tExplanationBox.className = 'callout-box warning-type';
+                tExplanationBox.style.borderLeftColor = '#ea4335';
+                tExpTitle.innerText = "❌ Ошибка. ";
+            }
+        }
+
+        function nextTraining() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showTrainingQuestion(currentQuestions[currentQuestionIndex]);
+            } else {
+                trainingContainer.style.display = 'none';
+                document.getElementById('training-result-container').style.display = 'block';
+            }
+        }
+        // ВЫБОР ВЕТКИ
+        function selectBranch(branch) {
+            if (branch === 'ST') {
+                currentQuestions = questionsST;
+                selectedBranchName = "Собственный транспорт (СТ)";
+            } else {
+                currentQuestions = questionsPT;
+                selectedBranchName = "Привлеченный транспорт (ПТ)";
+            }
+
+            mainTitle.innerText = `Аттестация ЭТрН: ${selectedBranchName}`;
+            totalNumElement.innerText = currentQuestions.length;
+
+            branchSelection.style.display = 'none';
+            quizContainer.style.display = 'block';
+
+            startQuiz();
+        }
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuestion(currentQuestions[currentQuestionIndex]);
+        }
+
+        function showQuestion(questionData) {
+            currentNumElement.innerText = currentQuestionIndex + 1;
+            questionTextElement.innerText = questionData.question;
+            answerButtonsElement.innerHTML = '';
+            explanationBox.style.display = 'none';
+
+            questionData.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.classList.add('fc-btn');
+                button.style.textAlign = 'left';
+                button.style.padding = '16px 20px';
+                button.style.fontSize = '16.5px';
+                button.style.justifyContent = 'flex-start';
+                button.style.width = '100%';
+
+                button.addEventListener('click', () => selectAnswer(button, answer.correct, questionData.explanation));
+                answerButtonsElement.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedButton, isCorrect, explanation) {
+            const allButtons = answerButtonsElement.children;
+            for (let i = 0; i < allButtons.length; i++) {
+                allButtons[i].disabled = true;
+                allButtons[i].style.opacity = '0.6';
+                allButtons[i].style.cursor = 'default';
+            }
+
+            selectedButton.style.opacity = '1';
+            explanationBox.style.display = 'block';
+            explanationText.innerText = explanation;
+
+            if (isCorrect) {
+                selectedButton.style.backgroundColor = 'var(--callout-succ-bg)';
+                selectedButton.style.borderColor = '#34a853';
+                selectedButton.style.color = 'var(--text-main)';
+                explanationBox.className = 'callout-box success-type';
+                explanationTitle.innerText = "✅ Верно! ";
+                score++;
+            } else {
+                selectedButton.style.backgroundColor = 'var(--callout-warn-bg)';
+                selectedButton.style.borderColor = '#ea4335';
+                selectedButton.style.color = 'var(--text-main)';
+                explanationBox.className = 'callout-box warning-type';
+                explanationBox.style.borderLeftColor = '#ea4335';
+                explanationTitle.innerText = "❌ Ошибка! ";
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion(currentQuestions[currentQuestionIndex]);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.style.display = 'block';
+
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('score-text').innerText = `Ваш результат: ${score} из ${currentQuestions.length} (${percentage}%)`;
+
+            const messageEl = document.getElementById('result-message');
+            const regBlock = document.getElementById('registration-block');
+
+            if (percentage >= 80) {
+                messageEl.innerHTML = "🏆 <strong>Аттестация пройдена!</strong> Вы уверенно ориентируетесь в регламентах ЭТрН.";
+                messageEl.style.borderLeft = "4px solid #34a853";
+            } else if (percentage >= 60) {
+                messageEl.innerHTML = "👍 <strong>Тест сдан, но есть пробелы.</strong> Рекомендуем освежить в памяти раздел «Красная зона» в Базе знаний.";
+                messageEl.style.borderLeft = "4px solid #fbbc04";
+            } else {
+                messageEl.innerHTML = "🚨 <strong>Аттестация не пройдена.</strong> Изучите материалы перед повторной попыткой. Результат отправлять не нужно.";
+                messageEl.style.borderLeft = "4px solid #ea4335";
+                regBlock.style.display = 'none';
+            }
+        }
+
+        function sendResultToSheet(event) {
+            const empName = document.getElementById('employee-name').value.trim();
+            if (!empName) {
+                alert("Пожалуйста, введите ваше ФИО перед отправкой.");
+                return;
+            }
+
+            // ВСТАВЬТЕ СЮДА ВАШ URL ИЗ GOOGLE APPS SCRIPT
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx6dFSYqmzpitZ5xXlB4auQF4-wnN8W4zCE9tOh2K5nrF5ek9Emd4s4XD_8eFh-hJs36A/exec';
+
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            const resultString = `${score} из ${currentQuestions.length} (${percentage}%)`;
+
+            const urlWithParams = new URL(scriptURL);
+            urlWithParams.searchParams.append("name", empName);
+            urlWithParams.searchParams.append("test", `ЭТрН (${selectedBranchName})`);
+            urlWithParams.searchParams.append("result", resultString);
+            urlWithParams.searchParams.append("status", percentage >= 80 ? "Сдано отлично" : "Сдано с недочетами");
+
+            const btn = event.target;
+            btn.innerText = "⏳ Отправка...";
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            fetch(urlWithParams, {mode: 'no-cors'})
+                .then(() => {
+                    btn.innerText = "✅ Результат сохранен в базе";
+                    btn.style.backgroundColor = "var(--border-color)";
+                    btn.style.color = "var(--text-sub)";
+                })
+                .catch(error => {
+                    alert("Произошла ошибка при отправке. Проверьте интернет-соединение.");
+                    btn.innerText = "📨 Отправить результат";
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
+        }
+    </script>
+</body>
+
+</html>

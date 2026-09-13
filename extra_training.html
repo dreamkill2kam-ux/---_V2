@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аттестация и проверка знаний</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="knowledge_base-page"> <!-- Используем этот класс для центрированного широкого дизайна -->
+
+    <!-- Скрипт переключения темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🏢 ШАПКА -->
+    <header class="banner-header">
+        <!-- Сюда можно добавить свой баннер для аттестаций, пока используем заглушку или баннер базы знаний -->
+        <a href="index.html">
+            <img src="img/attestat_banner.png" alt="Баннер Аттестации" class="header-banner">
+        </a>
+    </header>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНЫЙ БЛОК -->
+    <div class="kb-container">
+        <a href="index.html" class="header-back-btn">← Вернуться на главную</a>
+
+        <!-- 🎛️ ПАНЕЛЬ ФИЛЬТРОВ -->
+        <div class="faq-controls" style="justify-content: center; margin-bottom: 40px;">
+            <button class="faq-filter-chip active" data-aud="Все">Все отделы</button>
+            <button class="faq-filter-chip" data-aud="ЛСТ">Логист СТ</button>
+            <button class="faq-filter-chip" data-aud="ЛПТ">Логист ПТ</button>
+            <button class="faq-filter-chip" data-aud="КО">Клиентский отдел</button>
+            <button class="faq-filter-chip" data-aud="Б">Бухгалтерия</button>
+            <button class="faq-filter-chip" data-aud="Р">Руководители</button>
+        </div>
+
+        <!-- 📚 СПИСОК КАРТОЧЕК ТЕСТОВ -->
+        <div class="grid-kb" id="tests-grid" style="flex-wrap: wrap;">
+
+            <!-- КАРТОЧКА 1: ЭТрН (Отображается для ЛСТ и ЛПТ) -->
+            <div class="kb-card test-card" data-audience="ЛСТ,ЛПТ">
+                <div class="card-top">
+                    <span class="card-icon">🚛</span>
+                    <h3>Аттестация: ЭТрН</h3>
+                    <p>Обязательная проверка знаний по работе с электронными транспортными накладными. Интерактивный
+                        симулятор рабочих кейсов.</p>
+                </div>
+                <!-- Ссылка на файл самого симулятора, который мы сделаем следующим -->
+                <a href="attestation_etrn.html" class="open-btn">Начать тестирование</a>
+            </div>
+
+            <!-- КАРТОЧКА 2: Пример другого теста (Для Клиентского отдела) -->
+            <div class="kb-card test-card" data-audience="КО">
+                <div class="card-top">
+                    <span class="card-icon">🤝</span>
+                    <h3>Стандарты общения</h3>
+                    <p>Проверка знания регламентов общения с клиентами и порядка эскалации нестандартных запросов.</p>
+                </div>
+                <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
+            </div>
+
+            <!-- КАРТОЧКА 3: Пример теста для всех -->
+            <div class="kb-card test-card" data-audience="Все">
+                <div class="card-top">
+                    <span class="card-icon">🛡️</span>
+                    <h3>Информационная безопасность</h3>
+                    <p>Ежегодное тестирование на знание правил цифровой гигиены и защиты коммерческой тайны.</p>
+                </div>
+                <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ⚙️ БАЗОВЫЕ СКРИПТЫ И ЛОГИКА ФИЛЬТРАЦИИ -->
+    <script src="base.js"></script>
+    <script>
+        // Логика фильтрации карточек тестов
+        const filterChips = document.querySelectorAll('.faq-filter-chip');
+        const testCards = document.querySelectorAll('.test-card');
+
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function () {
+                // Меняем активную кнопку
+                filterChips.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+
+                const targetAudience = this.getAttribute('data-aud');
+
+                // Скрываем/показываем карточки
+                testCards.forEach(card => {
+                    const audiences = card.getAttribute('data-audience').split(',');
+
+                    if (targetAudience === 'Все' || audiences.includes('Все') || audiences.includes(targetAudience)) {
+                        card.style.display = 'flex'; // Используем flex, так как это .kb-card
+                        card.style.animation = 'contentFadeIn 0.3s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
