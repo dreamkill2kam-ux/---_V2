@@ -15,7 +15,6 @@
 
     <!-- 🏢 ШАПКА -->
     <header class="banner-header">
-        <!-- Сюда можно добавить свой баннер для аттестаций, пока используем заглушку или баннер базы знаний -->
         <a href="index.html">
             <img src="img/attestat_banner.png" alt="Баннер Аттестации" class="header-banner">
         </a>
@@ -38,42 +37,48 @@
         <!-- 📚 СПИСОК КАРТОЧЕК ТЕСТОВ -->
         <div class="grid-kb" id="tests-grid" style="flex-wrap: wrap;">
 
-            <!-- КАРТОЧКА 1: ЭТрН (Отображается для ЛСТ и ЛПТ) -->
-            <div class="kb-card test-card" data-audience="ЛСТ,ЛПТ">
+            <!-- КАРТОЧКА 1: Единая точка входа для всех ролей -->
+            <div class="kb-card test-card" data-audience="Все">
                 <div class="card-top">
-                    <span class="card-icon">🚛</span>
-                    <h3>Аттестация: ЭТрН</h3>
-                    <p>Обязательная проверка знаний по работе с электронными транспортными накладными. Интерактивный
-                        симулятор рабочих кейсов.</p>
+                    <span class="card-icon">🎯</span>
+                    <h3>Аттестация по ЭТрН</h3>
+                    <p>Выберите Вашу должность и пройдите аттестацию по ЭТрН</p>
                 </div>
-                <!-- Ссылка на файл самого симулятора, который мы сделаем следующим -->
                 <a href="attestation_etrn.html" class="open-btn">Начать тестирование</a>
             </div>
 
-            <!-- КАРТОЧКА 2: Пример другого теста (Для Клиентского отдела) -->
+            <!-- КЛИЕНТСКИЙ ОТДЕЛ -->
             <div class="kb-card test-card" data-audience="КО">
                 <div class="card-top">
-                    <span class="card-icon">🤝</span>
+                    <span class="card-icon">🎧</span>
                     <h3>Стандарты общения</h3>
-                    <p>Проверка знания регламентов общения с клиентами и порядка эскалации нестандартных запросов.</p>
+                    <p>Проверка знания регламентов общения с клиентами и эскалации запросов.</p>
                 </div>
                 <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
             </div>
 
-            <!-- КАРТОЧКА 3: Пример теста для всех -->
-            <div class="kb-card test-card" data-audience="Все">
+            <!-- БУХГАЛТЕРИЯ -->
+            <div class="kb-card test-card" data-audience="Б">
                 <div class="card-top">
-                    <span class="card-icon">🛡️</span>
-                    <h3>Информационная безопасность</h3>
-                    <p>Ежегодное тестирование на знание правил цифровой гигиены и защиты коммерческой тайны.</p>
+                    <span class="card-icon">📊</span>
+                    <h3>Документооборот</h3>
+                    <p>Аттестация по правилам закрытия отчетных периодов и работе с первичкой.</p>
                 </div>
                 <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
             </div>
 
+            <!-- РУКОВОДИТЕЛИ -->
+            <div class="kb-card test-card" data-audience="Р">
+                <div class="card-top">
+                    <span class="card-icon">👔</span>
+                    <h3>Управление рисками</h3>
+                    <p>Стратегическое планирование и действия в критических ситуациях.</p>
+                </div>
+                <a href="#" class="open-btn" style="background-color: var(--text-sub);">В разработке</a>
+            </div>
         </div>
     </div>
 
-    <!-- ⚙️ БАЗОВЫЕ СКРИПТЫ И ЛОГИКА ФИЛЬТРАЦИИ -->
     <script src="base.js"></script>
     <script>
         // Логика фильтрации карточек тестов
@@ -82,18 +87,15 @@
 
         filterChips.forEach(chip => {
             chip.addEventListener('click', function () {
-                // Меняем активную кнопку
                 filterChips.forEach(c => c.classList.remove('active'));
                 this.classList.add('active');
 
                 const targetAudience = this.getAttribute('data-aud');
 
-                // Скрываем/показываем карточки
                 testCards.forEach(card => {
                     const audiences = card.getAttribute('data-audience').split(',');
-
                     if (targetAudience === 'Все' || audiences.includes('Все') || audiences.includes(targetAudience)) {
-                        card.style.display = 'flex'; // Используем flex, так как это .kb-card
+                        card.style.display = 'flex';
                         card.style.animation = 'contentFadeIn 0.3s ease-out';
                     } else {
                         card.style.display = 'none';
