@@ -85,23 +85,86 @@ body {
 }
 
 /* ================= 3. ПРИМЕНЕНИЕ К КАРТОЧКАМ И КНОПКАМ ================= */
+/* ================= ЕДИНЫЙ СТИЛЬ ДЛЯ СЕТОК ================= */
+/* Сетка для выравнивания (без stretch, чтобы карточки не вытягивались) */
+.grid-kb,
+.grid-hub {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+    /* Позволяет карточкам переноситься на новую строку */
+}
+
+/* ================= ЕДИНЫЙ СТИЛЬ ДЛЯ КАРТОЧЕК ================= */
+.kb-card,
 .hub-card {
+    flex: 1;
+    max-width: 360px;
+    min-height: 380px;
+    /* Вернули жесткую минимальную высоту */
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 35px 30px;
+    text-align: center;
+    box-sizing: border-box;
     box-shadow: var(--card-shadow);
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+/* Единый эффект наведения с использованием глобальных переменных */
+.kb-card:hover,
 .hub-card:hover {
+    transform: translateY(-5px);
     box-shadow: var(--card-shadow-hover);
+    border-color: var(--primary-color, var(--text-sub));
 }
 
+/* Плавная анимация иконок внутри карточек при наведении */
+.kb-card:hover .card-icon svg,
+.hub-card:hover .card-icon svg {
+    transform: translateY(-3px);
+}
+
+/* Внутренняя структура карточек */
+.card-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 48px;
+    /* Оставлено для совместимости с эмодзи, если где-то забыли заменить */
+}
+
+.card-icon svg {
+    transition: transform 0.3s ease;
+}
+
+.kb-card h3,
 .hub-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 19px;
     color: var(--text-main);
+    font-weight: 600;
 }
 
+.kb-card p,
 .hub-card p {
+    margin: 0;
+    font-size: 16.5px;
     color: var(--text-sub);
+    line-height: 1.6;
 }
 
 .enter-btn {
@@ -122,9 +185,8 @@ body {
 }
 
 body.index-page {
-    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-main);
-    /* Изменено с --bg-color на глобальную переменную */
     color: var(--text-main);
     margin: 0 !important;
     padding-top: 25px !important;
@@ -182,29 +244,7 @@ header.banner-header {
 }
 
 /* КАРТОЧКА НАПРАВЛЕНИЯ ОБУЧЕНИЯ */
-.hub-card {
-    flex: 1;
-    max-width: 360px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    padding: 35px 30px;
-    text-align: center;
-    box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 380px;
-}
 
-/* Эффект интерактивности на ПК */
-.hub-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(26, 115, 232, 0.08);
-    border-color: var(--primary-color);
-}
 
 .card-top {
     display: flex;
@@ -219,19 +259,7 @@ header.banner-header {
     display: block;
 }
 
-.hub-card h3 {
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    color: var(--text-main);
-    font-weight: 600;
-}
 
-.hub-card p {
-    margin: 0;
-    font-size: 16.5px;
-    color: var(--text-sub);
-    line-height: 1.6;
-}
 
 /* КНОПКА ПЕРЕХОДА К ОБУЧЕНИЮ */
 .enter-btn {
@@ -249,21 +277,7 @@ header.banner-header {
     margin-top: 25px;
 }
 
-.hub-card:hover .enter-btn {
-    background-color: #1557b0;
-    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
-}
 
-/* Выделяем кнопку Базы знаний (где лежит ЭТрН) зеленым акцентом */
-.hub-card.knowledge-hub:hover .enter-btn {
-    background-color: #2b8c44;
-    border-color: var(--secondary-color);
-    box-shadow: 0 4px 12px rgba(52, 168, 83, 0.2);
-}
-
-.hub-card.knowledge-hub:hover {
-    border-color: var(--secondary-color);
-}
 
 /* === Styles for knowledge_base.html === */
 .knowledge_base-page {
@@ -274,9 +288,8 @@ header.banner-header {
 }
 
 body.knowledge_base-page {
-    font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-main);
-    /* Изменено на глобальную переменную */
     color: var(--text-main);
     margin: 0 !important;
     padding-top: 25px !important;
@@ -350,6 +363,8 @@ header.banner-header {
     max-width: 1200px;
     padding: 50px 20px;
     box-sizing: border-box;
+    margin: 0 auto;
+    /* 🔥 Добавлено: центрирует блок на любых страницах */
 }
 
 .section-title {
@@ -368,33 +383,9 @@ header.banner-header {
 }
 
 /* КАРТОЧКА РАЗДЕЛОВ */
-.kb-card {
-    flex: 1;
-    max-width: 360px;
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 14px;
-    padding: 35px 30px;
-    text-align: center;
-    box-sizing: border-box;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 380px;
-}
 
-.kb-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 128, 128, 0.08);
-    border-color: var(--primary-color);
-}
 
-.kb-card:hover .card-icon svg,
-.hub-card:hover .card-icon svg {
-    transform: translateY(-3px);
-}
+
 
 .card-top {
     display: flex;
@@ -413,60 +404,38 @@ header.banner-header {
     transition: transform 0.3s ease;
 }
 
-.kb-card h3 {
-    margin: 0 0 12px 0;
-    font-size: 19px;
-    color: var(--text-main);
-    font-weight: 600;
-}
-
-.kb-card p {
-    margin: 0;
-    font-size: 16.5px;
-    color: var(--text-sub);
-    line-height: 1.6;
-}
 
 /* КНОПКА ОТКРЫТИЯ РАЗДЕЛА */
+/* КНОПКА ОТКРЫТИЯ РАЗДЕЛА (Единый стиль для ссылок <a> и кнопок <button>) */
 .open-btn {
-    display: inline-block;
+    display: block;
     width: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color, var(--btn-bg));
     color: #ffffff;
     text-decoration: none;
+    text-align: center;
+    /* Центрируем текст */
     padding: 12px 0;
     border-radius: 8px;
     font-size: 15px;
     font-weight: bold;
-    transition: all 0.2s;
+    font-family: inherit;
+    /* Наследуем шрифт портала */
+    border: none;
+    /* Убираем системные рамки у <button> */
+    cursor: pointer;
+    /* Делаем курсор-руку */
+    transition: all 0.2s ease;
     box-sizing: border-box;
     margin-top: 25px;
 }
 
-.kb-card:hover .open-btn {
-    background-color: #006666;
-    box-shadow: 0 4px 12px rgba(0, 128, 128, 0.2);
+.open-btn:hover {
+    background-color: var(--btn-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
 }
 
-/* Выделяем ЭТрН ярким акцентом реформы */
-.kb-card.etrn-focus {
-    border-color: #34a853;
-    background-color: rgba(52, 168, 83, 0.01);
-}
-
-.kb-card.etrn-focus .open-btn {
-    background-color: #34a853;
-}
-
-.kb-card.etrn-focus:hover {
-    box-shadow: 0 12px 24px rgba(52, 168, 83, 0.12);
-    border-color: #2b8c44;
-}
-
-.kb-card.etrn-focus:hover .open-btn {
-    background-color: #2b8c44;
-    box-shadow: 0 4px 12px rgba(52, 168, 83, 0.25);
-}
 
 /* === Styles for etrn_base.html === */
 .etrn_base-page {
@@ -1538,8 +1507,110 @@ body.etrn_base-page {
 }
 
 /* Ховер для карточек запросов */
-.kb-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--card-shadow-hover, 0 8px 24px rgba(0, 0, 0, 0.1));
-    border-color: var(--primary-color);
+
+/* ================= ШАБЛОН СТАТЬИ ЛОНГРИДА ================= */
+/* Подложка статьи (как большая карточка) */
+.article-wrapper {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 50px 60px;
+    box-shadow: var(--card-shadow);
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+/* 🔥 Ограничение ширины контента для комфортного чтения */
+.article-wrapper p,
+.article-wrapper h1,
+.article-wrapper h2,
+.article-wrapper h3,
+.article-wrapper .callout-box,
+.article-wrapper ul,
+.article-wrapper ol {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Переопределение стилей заголовков внутри статьи */
+.article-wrapper h1 {
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: var(--text-main);
+    /* border-bottom и padding удалены, граница перенесена в .article-meta */
+}
+
+/* ================= НОВЫЕ ЭЛЕМЕНТЫ ЛОНГРИДА 2.0 ================= */
+
+/* Метаданные статьи (Автор, время чтения) */
+.article-meta {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-size: 14px;
+    color: var(--text-sub);
+    padding-bottom: 25px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Вводный абзац (Лид) */
+.article-lead {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-main);
+    font-weight: 500;
+    margin-bottom: 35px;
+}
+
+/* Стилизованные цитаты и выноски */
+.article-wrapper blockquote {
+    margin: 40px 0;
+    padding: 20px 30px;
+    background-color: var(--bg-main);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-sub);
+}
+
+/* Красивые списки */
+.article-wrapper ul,
+.article-wrapper ol {
+    padding-left: 25px;
+    margin-bottom: 25px;
+}
+
+.article-wrapper li {
+    margin-bottom: 12px;
+}
+
+.article-wrapper ul li::marker {
+    color: var(--primary-color);
+}
+
+.article-wrapper h2 {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-top: 50px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.article-wrapper p,
+.article-wrapper li {
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+/* Воздух для акцентных блоков */
+.article-wrapper .callout-box {
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
