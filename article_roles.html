@@ -10,14 +10,16 @@
 </head>
 
 <body>
+
+
     <!-- Скрипт переключения темы -->
     <script src="theme.js"></script>
 
+    <!-- Кнопка возврата -->
+    <a href="general_base.html" class="header-back-btn">← Вернуться назад</a>
+
     <!-- Центрированный контейнер -->
     <div class="kb-container" style="max-width: 1000px; padding: 50px 20px; margin: 0 auto;">
-
-        <!-- Кнопка возврата -->
-        <a href="general_base.html" class="header-back-btn">← Вернуться назад</a>
 
         <!-- ================= ОБЕРТКА СТАТЬИ ================= -->
         <div class="article-wrapper">
@@ -28,8 +30,37 @@
 
             <!-- 2. Метаданные -->
             <div class="article-meta">
-                <span>👤 Автор: Методологический отдел</span>
                 <span>⏱ Время чтения: ~4 мин</span>
+            </div>
+
+            <!-- БЛОК АУДИОПЕРЕСКАЗА -->
+            <div class="audio-summary-card">
+                <!-- Скрытый системный плеер -->
+                <audio id="summary-audio" src="audio/LogisticRoles.mp3" preload="metadata"></audio>
+
+                <!-- Кнопка Play/Pause -->
+                <button class="audio-play-btn" id="audio-play-btn">
+                    <!-- Иконка Play -->
+                    <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <!-- Иконка Pause (скрыта по умолчанию) -->
+                    <svg id="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                    </svg>
+                </button>
+
+                <div class="audio-track-info">
+                    <div class="audio-title">Слушать аудиоразбор статьи от ИИ</div>
+                    <div class="audio-progress-container">
+                        <!-- Ползунок прогресса -->
+                        <div class="audio-progress-bg" id="audio-progress-bg">
+                            <div class="audio-progress-fill" id="audio-progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <!-- Тайминг -->
+                        <span class="audio-time" id="audio-time">00:00 / 00:00</span>
+                    </div>
+                </div>
             </div>
 
             <!-- 3. Вводный абзац (Лид) -->

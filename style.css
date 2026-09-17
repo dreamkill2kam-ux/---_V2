@@ -25,6 +25,9 @@
     --btn-orange-text: #b05c0f;
     --btn-orange-bg: #feefe3;
     --btn-orange-border: #fdc69c;
+    --brand-primary: #3373b0;
+    --brand-danger: #6e0000;
+    --brand-neutral: #d9d9d9;
 }
 
 /* Тёмная тема */
@@ -50,6 +53,9 @@
     --btn-orange-text: #fcad70;
     --btn-orange-bg: rgba(176, 92, 15, 0.15);
     --btn-orange-border: #fcad70;
+    --brand-primary: #528fcb;
+    --brand-danger: #a83636;
+    --brand-neutral: #3a3b3c;
 }
 
 /* ================= 2. БАЗОВЫЕ СТИЛИ С ПЕРЕМЕННЫМИ ================= */
@@ -344,9 +350,8 @@ header.banner-header {
 }
 
 .header-back-btn:hover {
-    background-color: #f1f3f4;
-    color: var(--text-main);
-    border-color: var(--primary-color);
+    transform: translateX(-5px);
+    color: var(--brand-primary);
 }
 
 /* Технический сброс обтекания для контейнера, чтобы заголовок не съезжал из-за float */
@@ -680,13 +685,18 @@ body.etrn_base-page {
 }
 
 .callout-box.warning-type {
+    border-left: 4px solid var(--brand-danger);
     background-color: var(--callout-warn-bg);
-    border-left-color: #fbbc04;
 }
 
 .callout-box.success-type {
     background-color: var(--callout-succ-bg);
     border-left-color: var(--primary-color);
+}
+
+.callout-box.warning-type strong {
+    color: var(--brand-danger);
+    /* Фокус на слове "Важно/Риск" */
 }
 
 .callout-box strong {
@@ -820,19 +830,21 @@ body.etrn_base-page {
 /* ================= ИНТЕРАКТИВНЫЕ ТЕРМИНЫ И ПОПОВЕРЫ ================= */
 /* Стиль для самого слова-термина в тексте */
 .term-keyword {
-    color: var(--accent-color, #1a73e8);
-    border-bottom: 1.5px dashed var(--accent-color, #1a73e8);
+    color: var(--text-main);
+    border-bottom: 1px dashed var(--brand-primary);
     /* Пунктирное подчеркивание */
     cursor: help;
     /* Курсор в виде знака вопроса */
     font-weight: 600;
     display: inline-block;
     position: relative;
-    transition: color 0.2s;
+    transition: all 0.2s ease;
 }
 
 .term-keyword:hover {
-    color: #1557b0;
+    color: var(--brand-primary);
+    border-bottom-style: solid;
+    background-color: var(--bg-main);
 }
 
 /* ================= ИСПРАВЛЕННЫЕ ГЛОБАЛЬНЫЕ СТИЛИ ПОПОВЕРА (FIXED) ================= */
@@ -1347,27 +1359,58 @@ body.etrn_base-page {
 .side-back-btn {
     display: inline-flex;
     align-items: center;
-    background-color: var(--card-bg);
+    gap: 8px;
+    /* Отступ между стрелкой и текстом */
+    background-color: transparent;
+    /* Облегчаем кнопку, убираем var(--card-bg) */
     color: var(--text-sub);
+    /* Сохраняем приглушенный цвет текста по умолчанию */
     border: 1px solid var(--border-color);
+    /* Сохраняем системную границу */
     border-radius: 30px;
-    /* Форма аккуратной таблетки */
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 600;
+    /* Сохраняем форму таблетки */
+    padding: 8px 16px;
+    /* Делаем кнопку компактнее (было 12px 24px) */
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    white-space: nowrap;
-    /* Чтобы текст кнопки не переносился на узких экранах */
+    transition: all 0.2s ease;
+    margin-bottom: 24px;
+    /* Задаем жесткий отступ вниз до .article-wrapper */
+    text-decoration: none;
+    box-shadow: none;
+    /* Убираем старую постоянную тень */
+}
+
+/* Настройка иконки внутри кнопки */
+.side-back-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+    transition: transform 0.2s ease;
 }
 
 .side-back-btn:hover {
-    color: #1a73e8;
-    border-color: #1a73e8;
-    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.15);
+    color: var(--brand-primary);
+    /* Используем наш новый фирменный акцент */
+    border-color: var(--brand-primary);
+    background-color: var(--bg-main);
+    /* Легкий контрастный фон при наведении */
     transform: translateX(-5px);
-    /* Плавно сдвигается влево при наведении */
+    /* UX-паттерн: сдвиг влево при наведении */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* Мягкая тень только при наведении */
+}
+
+/* Дополнительный сдвиг самой стрелочки для динамики */
+.side-back-btn:hover svg {
+    transform: translateX(-2px);
+}
+
+.side-back-btn:active {
+    transform: translateX(-2px);
+    /* Эффект "нажатия" */
+    box-shadow: none;
 }
 
 /* ==========================================
@@ -1511,14 +1554,11 @@ body.etrn_base-page {
 /* ================= ШАБЛОН СТАТЬИ ЛОНГРИДА ================= */
 /* Подложка статьи (как большая карточка) */
 .article-wrapper {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background: var(--card-bg);
     border-radius: 14px;
     padding: 50px 60px;
+    /* Увеличенные боковые отступы */
     box-shadow: var(--card-shadow);
-    width: 100%;
-    box-sizing: border-box;
-    margin-top: 20px;
 }
 
 /* 🔥 Ограничение ширины контента для комфортного чтения */
@@ -1526,9 +1566,10 @@ body.etrn_base-page {
 .article-wrapper h1,
 .article-wrapper h2,
 .article-wrapper h3,
-.article-wrapper .callout-box,
 .article-wrapper ul,
-.article-wrapper ol {
+.article-wrapper ol,
+.article-wrapper .callout-box,
+.article-wrapper blockquote {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -1537,8 +1578,10 @@ body.etrn_base-page {
 /* Переопределение стилей заголовков внутри статьи */
 .article-wrapper h1 {
     font-size: 32px;
+    text-align: center;
     margin-top: 0;
     margin-bottom: 30px;
+    margin: 0 auto;
     color: var(--text-main);
     /* border-bottom и padding удалены, граница перенесена в .article-meta */
 }
@@ -1548,31 +1591,39 @@ body.etrn_base-page {
 /* Метаданные статьи (Автор, время чтения) */
 .article-meta {
     display: flex;
-    gap: 20px;
-    align-items: center;
-    font-size: 14px;
-    color: var(--text-sub);
-    padding-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    padding-bottom: 24px;
     margin-bottom: 30px;
     border-bottom: 1px solid var(--border-color);
 }
 
-/* Вводный абзац (Лид) */
-.article-lead {
-    font-size: 18px;
-    line-height: 1.6;
+.article-meta span {
+    background-color: var(--brand-neutral);
     color: var(--text-main);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13.5px;
     font-weight: 500;
-    margin-bottom: 35px;
 }
 
-/* Стилизованные цитаты и выноски */
+/* Вводный абзац (Лид) */
+.article-lead {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+/* Современное оформление цитат */
 .article-wrapper blockquote {
-    margin: 40px 0;
-    padding: 20px 30px;
     background-color: var(--bg-main);
-    border-left: 4px solid var(--primary-color);
-    border-radius: 0 8px 8px 0;
+    border-left: 4px solid var(--brand-primary);
+    padding: 24px 32px;
+    border-radius: 0 12px 12px 0;
+    margin: 40px auto;
     font-style: italic;
     color: var(--text-sub);
 }
@@ -1597,20 +1648,152 @@ body.etrn_base-page {
     color: var(--primary-color);
     margin-top: 50px;
     margin-bottom: 25px;
+    margin: 0 auto;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 10px;
 }
 
 .article-wrapper p,
 .article-wrapper li {
-    font-size: 16.5px;
+    font-size: 20.5px;
     line-height: 1.75;
     color: var(--text-main);
     margin-bottom: 20px;
+
 }
 
 /* Воздух для акцентных блоков */
 .article-wrapper .callout-box {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+/* ==========================================
+   СТАТИЧНЫЕ ИЗОБРАЖЕНИЯ И ИКОНКИ (БЕЗ ИНТЕРАКТИВА)
+   Новый класс для общих статей
+========================================== */
+
+.static-img {
+    display: block;
+    max-width: 100%;
+    /* Картинка не превысит ширину контейнера */
+    height: auto;
+    /* Сохранение оригинальных пропорций */
+    margin: 32px auto;
+    /* Центрирование и отступы сверху/снизу */
+    border-radius: 8px;
+    /* Системное скругление углов ЕИП */
+    border: 1px solid var(--border-color);
+    /* Защита от сливания с фоном */
+
+    /* Жесткий сброс любых интерактивов */
+    cursor: default;
+    pointer-events: none;
+    /* Игнорирует клики (опционально, предотвращает выделение) */
+    box-shadow: none;
+    transition: none;
+}
+
+/* ==========================================    
+   АУДИОПЕРЕСКАЗ СТАТЬИ (AUDIO SUMMARY)    
+========================================== */
+
+.audio-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin: 0 auto 35px auto;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+/* Кнопка Play / Pause */
+.audio-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: var(--brand-primary);
+    color: var(--bg-main);
+    /* Используем цвет фона для контрастной иконки */
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.audio-play-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+#play-icon {
+    margin-left: 2px;
+    /* Компенсация центра только для треугольника */
+}
+
+.audio-play-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px var(--border-color);
+    /* Использование переменной для тени */
+}
+
+.audio-play-btn:active {
+    transform: scale(0.95);
+}
+
+/* Контейнер информации и прогресса */
+.audio-track-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.audio-title {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+/* Блок ползунка и времени */
+.audio-progress-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Фон прогресс-бара */
+.audio-progress-bg {
+    flex-grow: 1;
+    height: 6px;
+    background-color: var(--border-color);
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+/* Заполненная часть прогресс-бара */
+.audio-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--brand-primary);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+/* Тайминг */
+.audio-time {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-sub);
+    white-space: nowrap;
 }
