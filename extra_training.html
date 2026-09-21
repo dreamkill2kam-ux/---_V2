@@ -89,30 +89,7 @@
     </div>
 
     <script src="base.js"></script>
-    <script>
-        // Логика фильтрации карточек тестов
-        const filterChips = document.querySelectorAll('.faq-filter-chip');
-        const testCards = document.querySelectorAll('.test-card');
 
-        filterChips.forEach(chip => {
-            chip.addEventListener('click', function () {
-                filterChips.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-
-                const targetAudience = this.getAttribute('data-aud');
-
-                testCards.forEach(card => {
-                    const audiences = card.getAttribute('data-audience').split(',');
-                    if (targetAudience === 'Все' || audiences.includes('Все') || audiences.includes(targetAudience)) {
-                        card.style.display = 'flex';
-                        card.style.animation = 'contentFadeIn 0.3s ease-out';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

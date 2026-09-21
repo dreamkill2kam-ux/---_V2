@@ -8,15 +8,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="knowledge_base-page">
     <!-- Автоматическая кнопка и переключение темной темы -->
     <script src="theme.js"></script>
+    <!-- 🏢 ШАПКА БАЗЫ ЗНАНИЙ -->
+    <header>
+        <a href="index.html">
+            <img src="img/knowledge_banner.png" alt="Баннер" class="header-banner">
+        </a>
+    </header>
 
     <!-- 🖥️ ЦЕНТРАЛЬНЫЙ БЛОК -->
     <div class="kb-container">
 
         <!-- Кнопка возврата в Базу знаний -->
         <a href="knowledge_base.html" class="header-back-btn">← Вернуться в Базу знаний</a>
+        <!-- 🎛️ ПАНЕЛЬ ФИЛЬТРОВ -->
+        <div class="faq-controls" style="justify-content: center; margin-bottom: 40px;">
+            <button class="faq-filter-chip active" data-aud="Все">Все отделы</button>
+            <button class="faq-filter-chip" data-aud="ЛСТ">Логист СТ</button>
+            <button class="faq-filter-chip" data-aud="ЛПТ">Логист ПТ</button>
+            <button class="faq-filter-chip" data-aud="КО">Клиентский отдел</button>
+            <button class="faq-filter-chip" data-aud="Б">Бухгалтерия</button>
+            <button class="faq-filter-chip" data-aud="Р">Руководители</button>
+        </div>
 
         <!-- Заголовок раздела -->
         <h1 style="text-align: center; margin-bottom: 40px; color: var(--text-main); clear: both;">Общие статьи и
@@ -27,7 +42,7 @@
 
             <!-- Карточка 1: Базовые виды договоров -->
             <!-- Карточка 1: Базовые виды договоров -->
-            <div class="kb-card">
+            <div class="kb-card test-card" data-audience="Все">
                 <div class="card-top">
                     <span class="card-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -44,7 +59,7 @@
                 <a href="article_contracts.html" class="open-btn">Читать статью</a>
             </div>
 
-            <div class="kb-card">
+            <div class="kb-card test-card" data-audience="Все">
                 <div class="card-top">
                     <span class="card-icon">
                         <!-- Иконка: Маршрут/Два пути -->

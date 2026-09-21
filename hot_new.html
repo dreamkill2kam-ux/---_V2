@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Важные новинки</title>
     <link rel="stylesheet" href="style.css">
+
 </head>
 
-<body>
+<body class="knowledge_base-page">
+    <!-- 🏢 ШАПКА БАЗЫ ЗНАНИЙ -->
+    <header>
+        <a href="index.html">
+            <img src="img/knowledge_banner.png" alt="Баннер" class="header-banner">
+        </a>
+    </header>
     <!-- Автоматическая кнопка и переключение темной темы -->
     <script src="theme.js"></script>
 
@@ -17,24 +24,38 @@
 
         <!-- Кнопка возврата в Базу знаний -->
         <a href="knowledge_base.html" class="header-back-btn">← Вернуться назад</a>
+        <!-- 🎛️ ПАНЕЛЬ ФИЛЬТРОВ -->
+        <div class="faq-controls" style="justify-content: center; margin-bottom: 40px;">
+            <button class="faq-filter-chip active" data-aud="Все">Все отделы</button>
+            <button class="faq-filter-chip" data-aud="ЛСТ">Логист СТ</button>
+            <button class="faq-filter-chip" data-aud="ЛПТ">Логист ПТ</button>
+            <button class="faq-filter-chip" data-aud="КО">Клиентский отдел</button>
+            <button class="faq-filter-chip" data-aud="Б">Бухгалтерия</button>
+            <button class="faq-filter-chip" data-aud="Р">Руководители</button>
+        </div>
 
         <!-- Заголовок раздела -->
-        <h1 style="text-align: center; margin-bottom: 40px; color: var(--text-main); clear: both;">Самый важные нововведения</h1>
+        <h1 style="text-align: center; margin-bottom: 40px; color: var(--text-main); clear: both;">Самый важные
+            нововведения</h1>
 
         <!-- 📚 СЕТКА КАРТОЧЕК СО СТАТЬЯМИ -->
         <div class="grid-kb">
             <!-- БЛОК 1: РЕФОРМА ЭТрН (Фокусный блок) -->
-            <div class="kb-card etrn-focus">
+            <div class="kb-card etrn-focus test-card" data-audience="Все">
                 <div class="card-top">
                     <span class="card-icon">
                         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.25v5.25m-9-5.25h9m-9 0v5.25M3.375 9h9" />
+                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Контур документа с загнутым углом -->
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <path d="M14 2v6h6"></path>
+                            <!-- Символ "@" / цифрового обмена внутри документа -->
+                            <circle cx="12" cy="14" r="2"></circle>
+                            <path d="M14 14v1a2 2 0 1 0 4 0 4 4 0 0 0-8 0"></path>
                         </svg>
                     </span>
                     <h3>Электронная транспортная накладная (ЭТрН)</h3>
-                    <p>Что из себя представляют <b>Электронные транспортные накладные с 01.09.2026</b>. Полный разбор
+                    <p>Что из себя представляют <b>Электронные транспортные накладные</b>.<br> Полный разбор
                         изменений, готовые конструкторы для выбора сценария, ответы на вопросы.</p>
                 </div>
                 <!-- Переход на выделенную страницу ЭТрН в стиле Sidebar Layout -->
