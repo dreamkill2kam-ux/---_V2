@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информационное пособие по грузоперевозкам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="etrn_base-page">
+
+    <!-- Автоматическая кнопка и переключение темной темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🧭 ЛЕВАЯ ПАНЕЛЬ: ИНТЕРАКТИВНОЕ ДЕРЕВО МЕНЮ -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <h2>Грузоперевозки</h2>
+            <p>Методическое информационное пособие по составляющим грузоперевозки</p>
+
+            <nav class="menu-list">
+                <div class="menu-group">
+                    <button class="menu-item active" data-article="article_trucks" onclick="switchTab(this)">
+                        🚛 Транспортные средства
+                    </button>
+                </div>
+                <div class="menu-group">
+                    <button class="menu-item" data-article="article_lifts" onclick="switchTab(this)">
+                        🏗️ Грузоподъемные механизмы
+                    </button>
+                </div>
+                <div class="menu-group">
+                    <button class="menu-item" data-article="article_packaging" onclick="switchTab(this)">
+                        📦 Тара и упаковка
+                    </button>
+                </div>
+                <div class="menu-group">
+                    <button class="menu-item" data-article="article_norms" onclick="switchTab(this)">
+                        ⚖️ Нормативы и габариты
+                    </button>
+                </div>
+                <div class="menu-group">
+                    <button class="menu-item" data-article="article_docs" onclick="switchTab(this)">
+                        💻 Электронный документооборот
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="cargo_base.html" class="back-link">← К грузоперевозкам</a>
+        </div>
+    </aside>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА -->
+    <main class="main-content">
+
+        <!-- ================= БЛОК 1: ТРАНСПОРТ ================= -->
+        <div class="article-page active" id="article_trucks">
+            <h1>Типы грузовых автомобилей и транспортных средств</h1>
+            <div class="article-body">
+
+                <h3>Седельный тягач</h3>
+                <p>Работает с полуприцепами при помощи специального сцепного механизма — <span class="term-keyword"
+                        onclick="openPopover(event, 'Сцепной механизм для крепления полуприцепа')">седла</span>.
+                    Европейские модели в основном бескапотные (кабина из стали, дисковые тормоза, подкатные мосты),
+                    американские — капотные (кабина из пластика, барабанные тормоза).</p>
+                <img src="img/EU_VS_USA.jpg" alt="Разница между американским и европейским тягачом"
+                    class="instruction-img" onclick="openFullscreenImage(this.src)">
+
+                <h3>Тентованные полуприцепы</h3>
+                <p>Подразделяются на бортовые, шторные и шторно-бортовые. В зависимости от типа груза возможна верхняя,
+                    задняя или боковая погрузка (при боковой погрузке требуются сдвижные или съемные стойки).</p>
+                <img src="img/TENT.jpg" alt="Тентованные прицепы" class="instruction-img"
+                    onclick="openFullscreenImage(this.src)">
+
+                <div class="callout-box info-type">
+                    <strong>К сведению:</strong> Стандартная «Еврофура» вмещает 33 европаллета, имеет объем 82-92 м³ и
+                    грузоподъемность до 27 тонн.
+                </div>
+
+                <h3>Полуприцепы увеличенного объема</h3>
+                <ul>
+                    <li><strong>«Jumbo»</strong> (до 96 м³, ломаная рама-ступенька, не подходит для длинномерных
+                        грузов).</li>
+                    <li><strong>«MEGA»</strong> (до 105 м³, ровный пол, высота до 3,1 м).</li>
+                    <li><strong>«Тонар»</strong> (увеличенный объем за счет длины 16,5 м).</li>
+                </ul>
+
+                <h3>Фургоны и температурные полуприцепы</h3>
+                <ul>
+                    <li><strong>Промтоварные:</strong> цельнометаллические, для грузов без особых температурных
+                        требований.</li>
+                    <img src="img/PROMT.png" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    <li><strong>Изотермические:</strong> работают по принципу термоса, сохраняя исходную температуру
+                        погрузки. Эксплуатируются при внешней температуре от -40 до +40 °C.</li>
+                    <img src="img/IZOTERM.jpg" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    <li><strong>Рефрижераторы:</strong> оснащены холодильно-отопительной установкой для поддержания
+                        температуры от -20 до +12 °C (контролируется <span class="term-keyword"
+                            onclick="openPopover(event, 'Приборы для фиксации температурного режима на протяжении всего пути')">термописцами
+                            и логгерами</span>).</li>
+                    <img src="img/REF.jpg" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                </ul>
+
+                <h3>Открытые полуприцепы (бортовые, платформы)</h3>
+                <p>Используются для труб, металла, железобетонных конструкций (длина 9-16 м, г/п 20-40 тонн). Платформы
+                    без бортов удобны для грузов на всю ширину пола (например, блок-контейнеры).</p>
+                <p><b>Особенности крепления труб и металлопроката</b></p>
+                <ul>
+                    <li>Для крепления используются:
+                        <span class="term-keyword"
+                            onclick="openPopover(event, 'П-образные конструкции высотой до 2,2 м')">«Коники»</span>,
+                        <span class="term-keyword"
+                            onclick="openPopover(event, 'Металлические стойки / ребра жесткости, вставляемые в пол')">«Ригели»</span>,
+                        а также стяжные ремни с храповым замком.
+                    </li>
+                    <li>Арматура строительная упаковывается в связки.</li>
+                    <li>Катанка (горячекатаная проволока) упаковывается в бухты.</li>
+                    <li>Профнастил, металлочерепица и балки упаковываются в пачки. Листовая сталь может перевозиться в
+                        рулонах.</li>
+                </ul>
+                <img src="img/OTHER.jpg" alt="Описание скриншота" class="instruction-img"
+                    onclick="openFullscreenImage(this.src)">
+
+                <h3>Автопоезда-сцепки</h3>
+                <p>Состоят из автомобиля и прицепа. Сцепки увеличенного объема (110-120 м³) позволяют перевозить
+                    легковесные и объемные грузы (например: утеплитель, чипсы, бытовая техника).</p>
+                <img src="img/SCEPKA.jpg" alt="Описание скриншота" class="instruction-img"
+                    onclick="openFullscreenImage(this.src)">
+
+                <h3>Спецтехника</h3>
+                <ul>
+                    <li><strong>Самосвалы</strong> (задняя и боковая разгрузка).</li>
+                    <li><strong>Зерновозы</strong> (сельхозгрузы, возможна верхняя погрузка рулонов стали или
+                        биг-бегов).</li>
+                    <li><strong>Контейнеровозы</strong> (для 20 и 40 футовых контейнеров).</li>
+                    <li><strong>Низкорамные полуприцепы / «тралы»</strong> (для негабаритных и тяжеловесных грузов от 15
+                        до 200 тонн).</li>
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- ================= БЛОК 2: МЕХАНИЗМЫ ================= -->
+        <div class="article-page" id="article_lifts">
+            <h1>Грузоподъемные механизмы</h1>
+            <div class="article-body">
+
+                <ul>
+                    <li><strong>Тележки:</strong> Гидравлические ручные тележки <span class="eip-help"
+                            data-title="Сленг" data-text="В народе называются «рокла» или «рохля»">?</span> —
+                        используются на складах и в магазинах.</li>
+                    <img src="img/ROHLA.jpg" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    <li><strong>Погрузчики:</strong> Бывают электропогрузчики (на аккумуляторных батареях) и
+                        автопогрузчики (дизельные, бензиновые, газовые). Типы захватов: вилы, крюковая подвеска стрелы,
+                        ковш, захват-кантователь.</li>
+                    <img src="img/POGRUZSHIK.jpg" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    <li><strong>Краны:</strong> Разделяются на самоходные, прицепные, приставные, универсальные.
+                        Наиболее часто встречаются козловые и портальные (на припортовых терминалах) краны.</li>
+                    <img src="img/KRANI.jpg" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                </ul>
+
+                <div class="callout-box warning-type">
+                    <strong>Внимание:</strong> При погрузке механизмом водитель обязан контролировать распределение веса
+                    груза по осям во избежание штрафов ПДД.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================= БЛОК 3: ТАРА И УПАКОВКА ================= -->
+        <div class="article-page" id="article_packaging">
+            <h1>Виды тары, упаковки и особенности перевозок</h1>
+            <div class="article-body">
+
+                <h3>Поддоны и транспортные пакеты</h3>
+                <table class="compare-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background-color: var(--card-bg); text-align: left;">
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Вид поддона</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Размеры</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Максимальная
+                                грузоподъемность</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Европоддон (EUR)</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">800х1200х145 мм</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">2000 кг</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Финский европоддон (FIN)
+                            </td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">1200х1000х145 мм</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">2500 кг</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <img src="img/PODDON.jpg" alt="Европоддон" class="instruction-img"
+                    onclick="openFullscreenImage(this.src)">
+
+                <div class="callout-box info-type">
+                    <strong>Важно понимать:</strong> Скомплектованный груз на поддоне называется <b>«паллет»</b>. Груз
+                    укрепляется термоусадочной пленкой, картоном или лентами.
+                </div>
+
+                <h3>Мягкие контейнеры и мешки</h3>
+                <ul>
+                    <li><strong>Биг-бэг</strong> (мягкий контейнер): размеры обычно 90х90 см с высотой 90-200 см, имеет
+                        от 1 до 4 петель и грузоподъемность 1000-3000 кг. Используется для сыпучих грузов, защищает от
+                        влаги (полипропиленовая ткань с вкладышем).</li>
+                    <img src="img/BIGBAG.jpg" alt="Европоддон" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    <li><strong>Мешки:</strong> из грубой ткани, джута, бумаги или полипропилена, рассчитаны на вес
+                        20-50 кг.</li>
+                    <img src="img/MESHKI.jpg" alt="Европоддон" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                </ul>
+
+                <h3>Бочки</h3>
+                <p>Изготавливаются из дерева, пластмассы или металла. Стандартные объемы:</p>
+                <table class="compare-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background-color: var(--card-bg); text-align: left;">
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Тип тары</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Доступные объемы</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Стандартная бочка</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">120, 150, 200 литров</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <img src="img/BOCHKA.jpg" alt="Европоддон" class="instruction-img"
+                    onclick="openFullscreenImage(this.src)">
+
+                <div class="callout-box info-type">
+                    <strong>Сборные грузы:</strong> Это совместная отправка партии грузов по общему маршруту для разных
+                    получателей, как правило, в одном транспортном средстве, что экономически выгодно заказчикам.
+                </div>
+
+            </div>
+        </div>
+        <!-- ================= БЛОК 4: НОРМАТИВЫ И ГАБАРИТЫ ================= -->
+        <div class="article-page" id="article_norms">
+            <h1>Нормативы и габариты транспортных средств</h1>
+            <div class="article-body">
+                <h3>Предельно допустимые габариты</h3>
+                <table class="compare-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background-color: var(--card-bg); text-align: left;">
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Параметр</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Тип ТС</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Допустимое значение</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);" rowspan="2">Длина</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Одиночное ТС и прицеп</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">до 12 метров</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Автопоезд</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">до 20 метров</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);" rowspan="2">Ширина</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Все ТС</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">2,55 метра</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Изотермические кузова</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">2,6 метра</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Высота</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Все ТС</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">до 4 метров</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Плейсхолдер для векторной инфографики (с прозрачным фоном для темной темы) -->
+
+                <h3>Предельно допустимые массы</h3>
+                <table class="compare-table" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background-color: var(--card-bg); text-align: left;">
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Категория</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Двухосный</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Трехосный</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Четырехосный</th>
+                            <th style="padding: 12px; border: 1px solid var(--border-color);">Пятиосный и более</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Автомобиль</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">18 тонн</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">25 тонн</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">32 тонны</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color); color: var(--text-sub);">-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">Автопоезд</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color); color: var(--text-sub);">-
+                            </td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">28 тонн</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">36 тонн</td>
+                            <td style="padding: 12px; border: 1px solid var(--border-color);">40 тонн</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ================= БЛОК 5: ЭЛЕКТРОННЫЙ ДОКУМЕНТООБОРОТ (ЭДО) ================= -->
+        <div class="article-page" id="article_docs">
+            <h1>Современный документооборот при перевозках (ЭДО)</h1>
+            <div class="article-body">
+
+                <div class="callout-box info-type">
+                    С 1 сентября 2026 года применение ЭТрН обязательно. Она полностью заменяет бумажные
+                    накладные.
+                </div>
+
+                <h3>Основные и специфические документы</h3>
+                <ul>
+                    <li><strong>Обязательные документы на ТС:</strong> Водительское удостоверение, СТС (свидетельство о
+                        регистрации), путевой лист, полис ОСАГО.</li>
+                    <li><strong>ПТС:</strong> Паспорт транспортного средства (ПТС) содержит VIN, данные о собственниках
+                        и подтверждает право собственности на технику.</li>
+                    <li><strong>Документ-основание:</strong> Документом-основанием для формирования рейса выступает
+                        <span class="term-keyword"
+                            onclick="openPopover(event, 'Электронная заказ-заявка')">ЭЗЗ</span>.
+                    </li>
+                    <li><strong>Пищевые продукты:</strong> Для перевозки пищевых продуктов транспортное средство должно
+                        иметь санитарный паспорт (выдается на срок до 6 месяцев, для скоропортящихся продуктов — на 3
+                        месяца), а водитель обязан иметь личную медицинскую книжку.</li>
+                </ul>
+
+                <h3>Архитектура подписания ЭТрН по титулам</h3>
+                <p>В ЭДО роли участников строго распределены:</p>
+                <ul>
+                    <li>Грузоотправитель формирует Титул 1.</li>
+                    <li>Перевозчик (водитель) подписывает Титул 2 на этапе погрузки и Титул 4 на этапе выгрузки
+                        .</li>
+                    <li>Грузополучатель принимает груз, подписывая Титул 3.</li>
+                </ul>
+
+                <img src="img/ETRN.jpg"
+                    alt="Маршрутизация электронных титулов ЭТрН: Титул 1 -> Титул 2 -> Титул 3 -> Титул 4"
+                    class="instruction-img" onclick="openFullscreenImage(this.src)">
+
+                <div class="callout-box warning-type">
+                    <strong>Критическое требование:</strong> Для легитимного подписания электронных титулов от лица
+                    компании сотруднику (или водителю) строго необходимы УКЭП (усиленная квалифицированная электронная
+                    подпись) и действующая МЧД (машиночитаемая доверенность).
+                </div>
+
+                <h3>Договор транспортной экспедиции (ТЭУ)</h3>
+                <p>Если компания выступает экспедитором (привлекает сторонний транспорт), основанием для перевозки
+                    служат Электронное поручение экспедитору (ЭПЭ) и Электронная экспедиторская расписка (ЭЭР).
+                    ЭЭР подписывается только экспедитором и является строго односторонним документом.</p>
+
+                <!-- 📚 КРОСС-НАВИГАЦИЯ НА ДРУГИЕ СТАТЬИ БАЗЫ ЗНАНИЙ -->
+                <h3 style="margin-top: 40px;">Связанные материалы Базы знаний</h3>
+                <div class="grid-kb" style="margin-top: 20px;">
+                    <div class="kb-card">
+                        <div class="card-top">
+                            <h3>Реформа ЭТрН</h3>
+                            <p>Полный разбор изменений, архитектуры титулов и переходных положений.</p>
+                        </div>
+                        <a href="etrn_base.html" class="open-btn">Открыть раздел ЭТрН</a>
+                    </div>
+
+                    <div class="kb-card">
+                        <div class="card-top">
+                            <h3>Базовые виды договоров</h3>
+                            <p>Отличия перевозки от ТЭУ и агентских договоров.</p>
+                        </div>
+                        <a href="general_base.html" class="open-btn">Архитектура сделок в логистике</a>
+                    </div>
+
+                    <div class="kb-card">
+                        <div class="card-top">
+                            <h3>Роли в логистике</h3>
+                            <p>Специфика работы компании в качестве Перевозчика и Экспедитора.</p>
+                        </div>
+                        <a href="general_base.html" class="open-btn">Два лица логистики</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ⚙️ ПОДКЛЮЧЕНИЕ БАЗОВОЙ ЛОГИКИ ПОРТАЛА -->
+    <script src="base.js"></script>
+</body>
+
+</html>
