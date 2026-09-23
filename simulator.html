@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор отработки возражений</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="eip-page">
+    <!-- Скрипт темы -->
+    <script src="theme.js"></script>
+
+    <div class="kb-container" style="max-width: 1100px; display: flex; flex-direction: column;">
+        <a href="extra_training.html" class="header-back-btn">← Вернуться в каталог</a>
+
+        <!-- ЭКРАН ЗАПУСКА СЦЕНАРИЯ («Чистый стол») -->
+        <div id="sim-start-screen" style="text-align: center; padding: 60px 20px; display: block;">
+            <h1 style="margin-bottom: 15px;">Входящий звонок</h1>
+            <p style="color: var(--text-sub); margin-bottom: 40px; font-size: 16px;">Ваша задача — отработать
+                возражения, удержать лояльность и не нарушить регламенты ЕИП.</p>
+
+            <div class="kb-card" style="max-width: 400px; margin: 0 auto; padding: 30px;">
+                <span style="font-size: 48px; display: block; margin-bottom: 15px;">📞</span>
+                <h3 id="incoming-caller-name">Контрагент</h3>
+                <button class="open-btn" onclick="startScenario()" style="margin-top: 25px;">Принять звонок</button>
+            </div>
+        </div>
+
+        <!-- ОСНОВНОЙ ИНТЕРФЕЙС СИМУЛЯТОРА (Изолированная среда) -->
+        <div class="simulator-wrapper" id="simulator-wrapper" style="display: none;">
+            <!-- ЛЕВАЯ ПАНЕЛЬ: Аватар и Лояльность -->
+            <div class="sim-sidebar">
+                <div class="sim-avatar-box">
+                    <span class="sim-avatar-emoji" id="sim-avatar">😐</span>
+                    <div class="loyalty-container">
+                        <div class="loyalty-fill" id="loyalty-fill" style="width: 50%;"></div>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 14px; color: var(--text-sub); font-weight: bold;">
+                        Лояльность: <span id="loyalty-score-text">50</span>
+                    </p>
+                </div>
+                <div class="callout-box info-type" style="font-size: 14px;">
+                    <strong>Инструкция:</strong> Время на ответ ограничено. Каждый неверный аргумент или спор сжигает
+                    лояльность.
+                </div>
+            </div>
+
+            <!-- ЦЕНТРАЛЬНАЯ ПАНЕЛЬ: Чат и Управление -->
+            <div class="sim-chat-area">
+                <div class="sim-chat-history" id="sim-chat-history">
+                    <!-- Реплики генерируются через JS -->
+                </div>
+
+                <div class="sim-controls" id="sim-controls">
+                    <div class="sim-timer" id="sim-timer">⏱ 00:20</div>
+                    <div id="sim-replies" style="display: flex; flex-direction: column; gap: 10px;">
+                        <!-- Кнопки генерируются через JS -->
+                    </div>
+                </div>
+
+                <!-- Окно обратной связи (Скрыто по умолчанию) -->
+                <div id="sim-feedback" style="display: none; padding: 30px;">
+                    <!-- Разбор генерируется через JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Базовые скрипты портала (Поповеры, картинки) -->
+    <script src="base.js"></script>
+
+    <script>
+        // === СТРУКТУРА ДАННЫХ V2 (Дерево диалогов) ===
+        const simulatorScenariosV2 = [
+            // СЦЕНАРИЙ 1: Коммерция ➔ Финансы ➔ ЭДО
+            {
+                id: "scenario_1",
+                title: "ИП Иванов (Коммерция и финансы)",
+                steps: {
+                    "step_1": {
+                        carrier: "У вас слишком низкая ставка. В минус не поеду.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Это рыночная ставка, посмотрите средние цены в АТИ.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Спор с перевозчиком. Ссылка на АТИ убивает маржинальность сделки."
+                            },
+                            {
+                                text: "Смотрите на комплекс: легкий груз, выгрузка по тайм-слоту. Сделаем быстрый рейс за 2 дня.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно (Продажа ценности):</strong> Фокус переведен на скорость оборачиваемости."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Допустим. Но у вас оплата через 20 дней, платить водителям нечем!",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "У нас такой регламент, без предоплат.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Сухая ссылка на стандартные условия без аргументации выгоды."
+                            },
+                            {
+                                text: "Мы работаем по ЭТрН. Как только получатель принимает груз, Титул 3 позволяет оплатить рейс в 1С без ожидания почты.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно (Аргументация технологиями):</strong> Продана выгода ЭТрН и моментальной юридической силы документа."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Мой водитель старой закалки, просит бумажную ТТН. Распечатаете?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Хорошо, распечатаю бумагу, чтобы рейс не срывать.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Согласие распечатать бумагу без эскалации недопустимо."
+                            },
+                            {
+                                text: "Водителю нужна только УКЭП и МЧД (доверенность). Мы сами поможем ему всё настроить за 5 минут.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Обучение водителя и снятие технического страха."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 2: Маршрут ➔ Перегруз ➔ Договорные штрафы
+            {
+                id: "scenario_2",
+                title: "ООО Логистика Юг (Маршруты и страхи)",
+                steps: {
+                    "step_1": {
+                        carrier: "Не мое направление. Оттуда пустым возвращаться, вся прибыль сгорит.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Ну съездите один раз, может там на месте что-то найдете на обрат.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Уговоры без реальной помощи."
+                            },
+                            {
+                                text: "Давайте я прямо сейчас подберу вам нашу обратную загрузку из этой точки. Закроем кругорейс.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно (Партнерство):</strong> Предложение решить проблему «под ключ» на линии."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Хорошо. Но у вас стройматериалы, я боюсь перегруза по осям и штрафов.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да не переживайте, там весовых на трассе сейчас нет.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Пустые обещания не снимают страх."
+                            },
+                            {
+                                text: "Мы грузим строго по ГОСТам. На погрузке есть весовая рамка, при пробитии нормы — перераспределим на месте.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно (Технологичность):</strong> Снятие страха конкретными технологическими решениями."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Ладно. А что по договору? У вас конские штрафы за опоздание!",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Это юристы писали, мы на самом деле не штрафуем.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Обесценивание договора компании."
+                            },
+                            {
+                                text: "Штрафы для тех, кто пропадает со связи. Если в пути форс-мажор и вы предупредили — мы просто сдвигаем окно выгрузки без санкций.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех (Адекватность):</strong> Объяснен партнерский подход без обесценивания договора."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 3: Скрытый отказ ➔ Конкурент ➔ Пробный рейс
+            {
+                id: "scenario_3",
+                title: "ИП Смирнов (Холодный звонок)",
+                steps: {
+                    "step_1": {
+                        carrier: "Нет, спасибо, нам ваши грузы не интересны. До свидания.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Извините за беспокойство.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Потеря клиента при первом отказе."
+                            },
+                            {
+                                text: "Понял вас. Скажите в двух словах, какие направления вам интересны? Зафиксирую и позвоню только с горячим предложением.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Снятие давления и перевод в сбор потребностей."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Я езжу только от одного завода на постоянном контракте.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Но мы можем платить больше, чем ваш завод!",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Попытка «отжать» клиента через обесценивание его текущего партнера."
+                            },
+                            {
+                                text: "Стабильность — это отлично. Давайте пройдем проверку СБ бесплатно, и у вас будет надежный План «Б» на случай профилактики на заводе.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Предложение занять место «запасного аэродрома»."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Первый раз вас вижу. Поеду только по 100% предоплате.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Мы федеральная компания, мы никого не кидаем!",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Агрессивная реакция."
+                            },
+                            {
+                                text: "Посмотрите наш зеленый рейтинг в АТИ. Давайте сделаем один пробный рейс по стандарту, сами убедитесь в нашей надежности.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Использование социального доказательства (рейтинг АТИ)."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 4: ОЭБ ➔ Подмена машины ➔ Изменение адреса
+            {
+                id: "scenario_4",
+                title: "ТрансАльянс (Красные зоны)",
+                steps: {
+                    "step_1": {
+                        carrier: "ИНН и ОГРН скинул. Зачем СБ мой паспорт и СТС? Личные данные слать не буду.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Ладно, попробую провести карточку без паспорта.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Уступка в вопросах регламента безопасности."
+                            },
+                            {
+                                text: "Это требование СБ для всех. Паспорт — для личности, СТС — для проверки машины. Поставлю приоритет «В» для быстрой проверки.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Твердая защита регламента + предложение помощи."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Слушай, мой тягач сломался. Я нанял друга (ИП), он поедет. Документы от него, а платите мне!",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Хорошо, сейчас оформлю как субэкспедирование.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Нарушение Сценария 4.1 ПТ2. Строго запрещено выдумывать логику в этой ситуации."
+                            },
+                            {
+                                text: "Стоп. Это несанкционированное субэкспедирование. Останавливаю оформление, эскалирую вопрос руководителю.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Своевременная остановка процесса и эскалация сложного сценария."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Окей, согласовали. Но клиент звонит и говорит ехать на другой склад. Поправишь адрес в 1С?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да, пусть едет, я в ЭТрН черновик изменю.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Логист не может самостоятельно править адрес выгрузки."
+                            },
+                            {
+                                text: "Нет, любое изменение адреса требует официальной переадресации в ЭДО от грузоотправителя.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Следование регламенту ЭДО при изменении маршрута."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 5: Простои на РЦ ➔ Ошибки в ЭТрН ➔ ЭЭР
+            {
+                id: "scenario_5",
+                title: "ИП Петров (Экспедирование и РЦ)",
+                steps: {
+                    "step_1": {
+                        carrier: "На этих Распределительных Центрах машины сутками стоят. Не поеду.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Вам просто не везло в прошлые разы.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Отрицание негативного опыта клиента."
+                            },
+                            {
+                                text: "Сейчас мы заходим туда по электронной очереди (тайм-слот). Приезжаете вовремя — выгружают за 2 часа, плюс есть компенсация за простой.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Информирование о новых вводных и гарантиях компенсации."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Водитель на погрузке, но там вес в ЭТрН указали неправильно. Можно он в приложении исправит?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да, пусть перед подписанием Титула 2 впишет правильный вес.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Титул 1, подписанный КЭП, изменять нельзя."
+                            },
+                            {
+                                text: "Нет, подписанный Титул 1 изменить нельзя. Грузоотправитель должен аннулировать документ и сформировать новый.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Точное знание механики работы с ошибочными титулами."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Понял. Мы с вами по договору ТЭУ работаем. Где клиенту подписать вашу Экспедиторскую расписку (ЭЭР)?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Отправлю ему на подпись через ЭДО.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Непонимание природы документа ЭЭР."
+                            },
+                            {
+                                text: "ЭЭР — это строго односторонний документ. Ее подписывает только наша компания, клиент ее не подписывает.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Верная трактовка документооборота при ТЭУ."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 6: Страх перед ЭДО ➔ Роуминг ЭДО ➔ Закрытие рейса
+            {
+                id: "scenario_6",
+                title: "Вектор-Транс (Технические вопросы ЭДО)",
+                steps: {
+                    "step_1": {
+                        carrier: "У меня интернета нет на трассе, как я вам ЭТрН на выгрузке подпишу? Давайте бумагу!",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Без интернета ЭТрН не работает, давайте бумагу.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Необоснованный отказ от ЭДО из-за незнания функционала приложения."
+                            },
+                            {
+                                text: "Приложение работает оффлайн. Водитель жмет кнопку, и как только появится сеть — Титул 4 автоматически уйдет нам.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Обучение клиента оффлайн-функционалу мобильного приложения."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Приехали на выгрузку, а грузополучатель говорит, что не видит нашу ЭТрН в своей базе.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Скажите ему лучше искать в папке входящих.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Игнорирование технической причины."
+                            },
+                            {
+                                text: "Скорее всего, между операторами ЭДО не настроен роуминг. Сейчас я проверю настройки маршрутизации.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Техническая поддержка и проверка роуминга операторов."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Всё, получатель подписал Титул 3 через оператора. Мне теперь оригиналы почтой слать для оплаты?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да, ждем документы с синими печатями.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Двойная работа и затягивание сроков. ЭДО не требует дублирования."
+                            },
+                            {
+                                text: "Ничего слать не нужно! Титул 3 имеет полную юридическую силу, рейс уже готов к закрытию в 1С.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Демонстрация ключевой выгоды ЭТрН — скорости получения оплаты."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 7: Возражение по терминам ➔ Перегруз ➔ Агентский риск
+            {
+                id: "scenario_7",
+                title: "МегаАвто (Терминология и риски)",
+                steps: {
+                    "step_1": {
+                        carrier: "Мы же с вами по экспедированию работаем. Скинь мне Электронную заказ-заявку (ЭЗЗ).",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Хорошо, сейчас сформирую ЭЗЗ в системе.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Использование неверного документа-основания для договора ТЭУ."
+                            },
+                            {
+                                text: "Немного поправлю: при экспедировании (ТЭУ) формируется Электронное поручение экспедитору (ЭПЭ). Сейчас пришлю.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Строгое соблюдение терминологии ЕИП."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "У вас сборный груз. Боюсь, что оси пробьем.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Вес небольшой, не пробьем, езжайте.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Игнорирование правил погрузки."
+                            },
+                            {
+                                text: "Водитель обязан контролировать распределение веса при погрузке механизмами. Если есть нарушение — будем перераспределять паллеты.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Напоминание о зоне ответственности водителя на погрузке."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Слушай, у нас тут агентский договор. Вы же будете в Титуле 1 как грузоотправитель указаны?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да, мы агенты, мы будем грузоотправителем.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Указание агента грузоотправителем приведет к переквалификации договора в ТЭУ со стороны ФНС."
+                            },
+                            {
+                                text: "Нет, по агентскому договору грузоотправителем выступает фактический владелец груза.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Понимание архитектуры сделок и налоговых рисков агентирования."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 8: Низкая ставка ➔ Угроза ухода ➔ МЧД
+            {
+                id: "scenario_8",
+                title: "ИП Сидоров (Кросс-сценарий 1)",
+                steps: {
+                    "step_1": {
+                        carrier: "У вас слишком низкая ставка. В минус не поеду.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Это рыночная ставка, посмотрите в АТИ.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Спор с перевозчиком."
+                            },
+                            {
+                                text: "Смотрите на комплекс: легкий груз, выгрузка по тайм-слоту. Сделаете быстрый кругорейс за 2 дня.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Фокус переведен на скорость оборачиваемости."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Да у меня есть постоянный заказчик, я лучше его груза подожду.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Извините за беспокойство.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Потеря контакта."
+                            },
+                            {
+                                text: "Стабильность — это супер. Давайте пройдем аккредитацию сейчас, и у вас будет надежный 'План Б' на случай окон у заказчика.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Предложение занять место запасного партнера."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Ладно, едем. Но при подписании Титула 2 у моего водителя выдает ошибку. Что делать?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Оформляйте бумажную ТТН.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Необоснованный переход на бумагу."
+                            },
+                            {
+                                text: "Вероятнее всего, у него не привязана или просрочена МЧД (машиночитаемая доверенность). Проверьте ее наличие.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Быстрое техническое решение проблемы."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 9: Предоплата ➔ ОЭБ ➔ Самовывоз
+            {
+                id: "scenario_9",
+                title: "ТрансЛогистик-Групп (Кросс-сценарий 2)",
+                steps: {
+                    "step_1": {
+                        carrier: "Первый раз вас вижу. Поеду только по предоплате.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Мы крупная компания, никого не кидаем!",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Агрессия."
+                            },
+                            {
+                                text: "Посмотрите наш зеленый рейтинг в АТИ. Давайте сделаем первый пробный рейс по стандарту.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Использование социального доказательства."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Хорошо. ИНН скинул, а паспорт и СТС не дам. Не буду личные данные слать.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Ладно, попробую провести карточку без паспорта.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Нарушение требований ОЭБ."
+                            },
+                            {
+                                text: "Паспорт подтверждает личность, СТС — чистоту транспорта. Скидывайте документы, поставлю приоритет 'В' для быстрой проверки.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Твердая опора на регламент СБ."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Согласовали. Мы готовы грузиться, но ваш клиент просит забрать груз со стороннего склада на условиях самовывоза. Едем?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Да, подберите в 1С ближайший сценарий отгрузки.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Сценарий самовывоза со стороннего склада не описан в базе. Выдумывать логику запрещено."
+                            },
+                            {
+                                text: "Стоп. Этот сценарий не описан в базе ЕИП. Останавливаю оформление, эскалирую вопрос руководителю.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Своевременная остановка неописанного в регламентах процесса."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            // СЦЕНАРИЙ 10: Просто "Нет" ➔ Обратки ➔ Бумага
+            {
+                id: "scenario_10",
+                title: "ИП Николаев (Кросс-сценарий 3)",
+                steps: {
+                    "step_1": {
+                        carrier: "Нет, спасибо, нам это не интересно. До свидания.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Извините за беспокойство.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Быстрая сдача позиций."
+                            },
+                            {
+                                text: "Понял. Чтобы не отвлекать в будущем — скажите, какие направления ищете? Позвоню с целевым предложением.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_2",
+                                feedback: "<strong>Верно:</strong> Перехват инициативы."
+                            }
+                        ]
+                    },
+                    "step_2": {
+                        carrier: "Я туда не езжу. Мне оттуда возвращаться пустым, прибыль сгорит.",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Съездите один раз, может там на месте что-то найдете.",
+                                loyaltyDelta: -30,
+                                isCritical: false,
+                                nextStep: "fail",
+                                feedback: "<strong>Ошибка:</strong> Уговоры."
+                            },
+                            {
+                                text: "Давайте я прямо сейчас посмотрю вам обратную загрузку нашими грузами? Закроем кругорейс.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "step_3",
+                                feedback: "<strong>Верно:</strong> Комплексное решение проблемы клиента."
+                            }
+                        ]
+                    },
+                    "step_3": {
+                        carrier: "Супер. Но у меня водитель в возрасте, с интернетом беда. Давайте просто ТТН бумажную подпишем?",
+                        timer: 20,
+                        replies: [
+                            {
+                                text: "Хорошо, распечатаю бумагу, чтобы рейс не срывать.",
+                                loyaltyDelta: -50,
+                                isCritical: true,
+                                nextStep: "fail",
+                                feedback: "<strong>Красная зона:</strong> Необоснованный отказ от ЭТрН."
+                            },
+                            {
+                                text: "Приложение ЭТрН работает интуитивно, и документ уйдет даже без сети (при ее появлении). Мы поможем ему настроить всё за 5 минут.",
+                                loyaltyDelta: 20,
+                                isCritical: false,
+                                nextStep: "success",
+                                feedback: "<strong>Успех:</strong> Обучение и снятие страха перед ЭДО."
+                            }
+                        ]
+                    }
+                }
+            }
+        ];
+
+        // === ЛОГИКА ДВИЖКА ===
+        let currentScenarioIndex = 0;
+        let currentStepId = "step_1";
+        let loyalty = 50;
+        let timerInterval;
+        let timeLeft = 0;
+
+        const startScreen = document.getElementById('sim-start-screen');
+        const simWrapper = document.getElementById('simulator-wrapper');
+        const callerName = document.getElementById('incoming-caller-name');
+
+        const chatHistory = document.getElementById('sim-chat-history');
+        const controls = document.getElementById('sim-controls');
+        const feedbackBox = document.getElementById('sim-feedback');
+        const loyaltyFill = document.getElementById('loyalty-fill');
+        const avatarEmoji = document.getElementById('sim-avatar');
+        const loyaltyScoreText = document.getElementById('loyalty-score-text');
+        const timerUI = document.getElementById('sim-timer');
+        const repliesBox = document.getElementById('sim-replies');
+
+        // Перемешивание вариантов ответа
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        // Инициализация стартового экрана
+        function initStartScreen() {
+            if (currentScenarioIndex >= simulatorScenariosV2.length) {
+                showFinalResult();
+                return;
+            }
+            const currentData = simulatorScenariosV2[currentScenarioIndex];
+            callerName.innerText = currentData.title;
+            startScreen.style.display = 'block';
+            simWrapper.style.display = 'none';
+        }
+
+        // Запуск конкретного сценария
+        function startScenario() {
+            startScreen.style.display = 'none';
+            simWrapper.style.display = 'flex';
+
+            loyalty = 50; // Базовое значение для каждого нового звонка
+            currentStepId = "step_1";
+            chatHistory.innerHTML = ''; // Изоляция (чистый стол)
+            updateLoyaltyUI();
+
+            loadStep(currentStepId);
+        }
+
+        function loadStep(stepId) {
+            const scenario = simulatorScenariosV2[currentScenarioIndex];
+            const stepData = scenario.steps[stepId];
+
+            controls.style.display = 'flex';
+            feedbackBox.style.display = 'none';
+
+            // Отрисовка сообщения контрагента
+            const bubble = document.createElement('div');
+            bubble.className = 'sim-bubble sim-bubble-carrier';
+            bubble.innerHTML = stepData.carrier;
+            chatHistory.appendChild(bubble);
+            scrollToBottom();
+
+            // Отрисовка кнопок
+            repliesBox.innerHTML = '';
+            const randomizedReplies = shuffle([...stepData.replies]);
+
+            randomizedReplies.forEach(reply => {
+                const btn = document.createElement('button');
+                btn.className = 'sim-reply-btn';
+                btn.innerHTML = reply.text;
+                btn.onclick = () => selectReply(reply);
+                repliesBox.appendChild(btn);
+            });
+
+            // Старт таймера
+            timeLeft = stepData.timer || 20;
+            updateTimerUI();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerUI();
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeout();
+                }
+            }, 1000);
+        }
+
+        function updateTimerUI() {
+            timerUI.innerText = `⏱ 00:${timeLeft < 10 ? '0' + timeLeft : timeLeft}`;
+            if (timeLeft <= 5) {
+                timerUI.classList.add('critical');
+            } else {
+                timerUI.classList.remove('critical');
+            }
+        }
+
+        function handleTimeout() {
+            loyalty = 0;
+            updateLoyaltyUI();
+
+            const timeoutReply = {
+                isCritical: false,
+                loyaltyDelta: -50,
+                nextStep: 'fail',
+                feedback: "<strong>Время вышло!</strong> Вы слишком долго думали, и контрагент повесил трубку."
+            };
+            showFeedback(timeoutReply);
+        }
+
+        function selectReply(reply) {
+            clearInterval(timerInterval);
+
+            // Отрисовка нашего ответа
+            const bubble = document.createElement('div');
+            bubble.className = 'sim-bubble sim-bubble-user';
+            bubble.innerHTML = reply.text;
+            chatHistory.appendChild(bubble);
+            scrollToBottom();
+
+            // Обновление лояльности
+            if (reply.isCritical) {
+                loyalty -= 50;
+            } else {
+                loyalty += reply.loyaltyDelta;
+            }
+
+            if (loyalty > 100) loyalty = 100;
+            if (loyalty <= 0) loyalty = 0;
+            updateLoyaltyUI();
+
+            showFeedback(reply);
+        }
+
+        function updateLoyaltyUI() {
+            loyaltyFill.style.width = loyalty + '%';
+            loyaltyFill.className = 'loyalty-fill';
+            loyaltyScoreText.innerText = loyalty;
+
+            if (loyalty <= 30) {
+                loyaltyFill.classList.add('danger');
+                avatarEmoji.innerText = '😡';
+            } else if (loyalty >= 75) {
+                loyaltyFill.classList.add('success');
+                avatarEmoji.innerText = '🤝';
+            } else {
+                avatarEmoji.innerText = '😐';
+            }
+        }
+
+        function showFeedback(reply) {
+            controls.style.display = 'none';
+            feedbackBox.style.display = 'block';
+
+            let calloutClass = 'callout-box';
+            let btnAction = '';
+            let btnText = '';
+
+            // Логика визуализации исхода шага
+            if (reply.isCritical || loyalty <= 0) {
+                calloutClass = 'callout-box warning-type sim-critical-error'; // Красная зона
+                btnText = 'Завершить звонок (Срыв)';
+                btnAction = `finalizeCall(false)`;
+            } else if (reply.nextStep === 'fail') {
+                calloutClass = 'callout-box warning-type'; // Обычная ошибка
+                btnText = 'Сделка сорвана ➔';
+                btnAction = `finalizeCall(false)`;
+            } else if (reply.nextStep === 'success') {
+                calloutClass = 'callout-box success-type';
+                btnText = 'Сделка заключена ➔';
+                btnAction = `finalizeCall(true)`;
+            } else {
+                calloutClass = 'callout-box info-type';
+                btnText = 'Продолжить диалог ➔';
+                btnAction = `loadStep('${reply.nextStep}')`;
+            }
+
+            feedbackBox.innerHTML = `
+                <div class="${calloutClass}" style="animation: contentFadeIn 0.3s ease-out;">
+                    <p style="margin-top: 0;">${reply.feedback}</p>
+                    <button class="open-btn" style="margin-top: 15px; width: auto; padding: 10px 24px;" onclick="${btnAction}">${btnText}</button>
+                </div>
+            `;
+            scrollToBottom();
+        }
+
+        function finalizeCall(isSuccess) {
+            currentScenarioIndex++;
+            initStartScreen(); // Возврат на чистый стол для следующего звонка
+        }
+
+        function showFinalResult() {
+            startScreen.style.display = 'none';
+            simWrapper.style.display = 'none';
+
+            document.querySelector('.kb-container').innerHTML += `
+                <div class="callout-box success-type" style="text-align: center; max-width: 600px; margin: 50px auto;">
+                    <h3 style="margin-top: 0;">Все сценарии пройдены</h3>
+                    <p>Вы завершили тренировку в симуляторе. Практика помогает увереннее вести переговоры.</p>
+                    <a href="extra_training.html" class="fc-btn" style="margin-top: 20px; text-decoration: none; display: inline-block;">Выйти в каталог</a>
+                </div>
+            `;
+        }
+
+        function scrollToBottom() {
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // Запуск при загрузке: перемешиваем базу сценариев и инициируем стартовый экран
+        window.onload = function () {
+            shuffle(simulatorScenariosV2); // Рандомизируем порядок звонков при каждом обновлении страницы
+            initStartScreen();
+        };
+    </script>
+</body>
+
+</html>
+</script>
+</body>
+
+</html>

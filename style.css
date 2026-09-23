@@ -27,9 +27,9 @@
     --btn-orange-border: #fdc69c;
     --brand-primary: #3373b0;
     --brand-danger: #6e0000;
+    --brand-success: #137333;
     --brand-neutral: #d9d9d9;
     --brand-fire: #F15A24;
-    --brand-primary: #3373b0;
     --table-header-bg: #d9d9d9;
     --callout-risk-bg: #fdf2f2;
     --callout-risk-border: #6e0000;
@@ -61,8 +61,8 @@
     --btn-orange-border: #fcad70;
     --brand-primary: #528fcb;
     --brand-danger: #a83636;
+    --brand-success: #81c995;
     --brand-neutral: #3a3b3c;
-    --brand-primary: #5a9bd4;
     --table-header-bg: #2d2d2d;
     --callout-risk-bg: rgba(110, 0, 0, 0.2);
     --callout-risk-border: #ff6b6b;
@@ -71,9 +71,21 @@
 
 /* ================= 2. БАЗОВЫЕ СТИЛИ С ПЕРЕМЕННЫМИ ================= */
 body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-main);
     color: var(--text-main);
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Базовый layout для страниц без бокового меню (index, knowledge_base) */
+.page-centered-layout {
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Стили для кнопки переключения темы */
@@ -128,7 +140,7 @@ body {
     text-align: center;
     box-sizing: border-box;
     box-shadow: var(--card-shadow);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -218,7 +230,7 @@ body.index-page {
 /* ================= ВЕРХНЯЯ ШАПКА ПОРТАЛА (HEADER) ================= */
 /* Убираем лишние отступы у шапки для баннера */
 header.banner-header {
-    padding: 0 !important;
+    padding: 0;
     overflow: hidden;
 }
 
@@ -227,12 +239,9 @@ header.banner-header {
     display: block;
     width: 100%;
     max-width: 1920px;
-    /* Ограничиваем максимальную ширину под ПК */
     height: 120px;
-    /* 📐 Жестко фиксируем высоту баннера */
     margin: 0 auto;
     object-fit: cover;
-    /* Картинка заполнит блок, аккуратно подрезав края, если монитор узкий */
 }
 
 /* ================= ГЛАВНЫЙ КОНТЕНТНЫЙ БЛОК ================= */
@@ -318,24 +327,8 @@ body.knowledge_base-page {
 }
 
 /* ================= ШАПКА БАЗЫ ЗНАНИЙ ================= */
-/* Убираем лишние отступы у шапки для баннера */
-header.banner-header {
-    padding: 0 !important;
-    overflow: hidden;
-}
 
-/* Стили для баннера на весь экран */
-.header-banner {
-    display: block;
-    width: 100%;
-    max-width: 1920px;
-    /* Ограничиваем максимальную ширину под ПК */
-    height: 120px;
-    /* 📐 Жестко фиксируем высоту баннера */
-    margin: 0 auto;
-    object-fit: cover;
-    /* Картинка заполнит блок, аккуратно подрезав края, если монитор узкий */
-}
+
 
 
 /* Кнопка возврата на главный портал обучения */
@@ -600,7 +593,7 @@ body.etrn_base-page {
 /* Активный выбранный подпункт */
 .menu-item.active {
     background-color: var(--sidebar-hover);
-    color: #1b5e20;
+    color: var(--brand-success);
 }
 
 .sidebar-bottom {
@@ -853,12 +846,12 @@ body.etrn_base-page {
 }
 
 .compare-table td.old-process b {
-    color: #c5221f;
+    color: var(--brand-danger);
     /* Выделяем ключевые старые слова темно-красным */
 }
 
 .compare-table td.new-process b {
-    color: #137333;
+    color: var(--brand-success);
     /* Выделяем ключевые новые слова темно-зеленым */
 }
 
@@ -888,13 +881,13 @@ body.etrn_base-page {
     /* Скрыто по умолчанию */
     position: fixed;
     /* 🚀 ГЛАВНОЕ ИСПРАВЛЕНИЕ: окно привязано к экрану, а не к скроллу документа */
-    background-color: #202124;
-    color: #ffffff;
+    background-color: var(--text-main);
+    color: var(--bg-main);
     padding: 12px 16px;
     border-radius: 8px;
     font-size: 13.5px;
     line-height: 1.5;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow-hover);
     width: 260px;
     z-index: 9999;
     /* Поверх всех элементов */
@@ -1653,6 +1646,13 @@ body.etrn_base-page {
     font-weight: 500;
 }
 
+/* НОВЫЙ КЛАСС: Критические запреты (работа с физлицами, мессенджеры) */
+.callout-box.danger-type {
+    background-color: var(--callout-risk-bg, rgba(110, 0, 0, 0.05));
+    border-left-color: var(--brand-danger);
+    color: var(--text-main);
+}
+
 /* Современное оформление цитат */
 .article-wrapper blockquote {
     background-color: var(--bg-main);
@@ -1698,10 +1698,14 @@ body.etrn_base-page {
 
 }
 
-/* Воздух для акцентных блоков */
-.article-wrapper .callout-box {
-    margin-top: 30px;
-    margin-bottom: 30px;
+
+.article-wrapper .callout-box,
+.article-wrapper .article-lead {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-main);
+    max-width: 800px;
+    margin: 0 auto 30px auto;
 }
 
 /* ==========================================
@@ -1832,4 +1836,213 @@ body.etrn_base-page {
     font-weight: 500;
     color: var(--text-sub);
     white-space: nowrap;
+}
+
+/* =========================================
+   СИМУЛЯТОР ОТРАБОТКИ ВОЗРАЖЕНИЙ V2
+   ========================================= */
+:root {
+    --sim-chat-bg: var(--brand-neutral);
+    /*[cite: 2] */
+    --sim-bubble-carrier: #ffffff;
+    /*[cite: 2] */
+    --sim-bubble-user: var(--callout-info-bg);
+    /*[cite: 2] */
+}
+
+[data-theme="dark"] {
+    --sim-chat-bg: #2a2b2e;
+    /*[cite: 2] */
+    --sim-bubble-carrier: var(--card-bg);
+    --sim-bubble-user: #1e3a5f;
+    /*[cite: 2] */
+}
+
+.simulator-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 50px auto;
+    align-items: flex-start;
+}
+
+/* Левая панель с аватаром */
+.sim-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /*[cite: 2] */
+}
+
+.sim-avatar-box {
+    background-color: var(--card-bg);
+    border-radius: 14px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    /*[cite: 2] */
+}
+
+.sim-avatar-emoji {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 15px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /*[cite: 2] */
+}
+
+/* Логика Шкалы лояльности */
+.loyalty-container {
+    width: 100%;
+    height: 12px;
+    background-color: var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    /*[cite: 2] */
+}
+
+.loyalty-fill {
+    height: 100%;
+    background-color: var(--brand-primary);
+    transition: width 0.5s ease, background-color 0.3s ease;
+    /*[cite: 2] */
+}
+
+.loyalty-fill.danger {
+    background-color: var(--brand-danger);
+}
+
+/*[cite: 2] */
+.loyalty-fill.success {
+    background-color: #34a853;
+}
+
+/*[cite: 2] */
+
+/* Центральная панель с чатом */
+.sim-chat-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    border-radius: 14px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    /*[cite: 2] */
+}
+
+.sim-chat-history {
+    padding: 30px 40px;
+    background-color: var(--sim-chat-bg);
+    min-height: 350px;
+    max-height: 500px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /*[cite: 2] */
+}
+
+.sim-bubble {
+    max-width: 85%;
+    padding: 16px 22px;
+    border-radius: 14px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-main);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    animation: contentFadeIn 0.3s ease-out;
+    /*[cite: 2] */
+}
+
+.sim-bubble-carrier {
+    align-self: flex-start;
+    background-color: var(--sim-bubble-carrier);
+    border-bottom-left-radius: 4px;
+    /*[cite: 2] */
+}
+
+.sim-bubble-user {
+    align-self: flex-end;
+    background-color: var(--sim-bubble-user);
+    border-bottom-right-radius: 4px;
+    /*[cite: 2] */
+}
+
+/* Панель управления */
+.sim-controls {
+    padding: 30px 40px;
+    background-color: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    /*[cite: 2] */
+}
+
+.sim-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brand-danger);
+    margin-bottom: 10px;
+    /*[cite: 2] */
+}
+
+.sim-timer.critical {
+    animation: pulseWarning 1s infinite;
+    /*[cite: 2] */
+}
+
+@keyframes pulseWarning {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+    /*[cite: 2] */
+}
+
+.sim-reply-btn {
+    width: 100%;
+    padding: 18px 24px;
+    background-color: var(--card-bg);
+    color: var(--text-main);
+    border: 1px solid var(--brand-primary);
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: left;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    /*[cite: 2] */
+}
+
+.sim-reply-btn:hover {
+    background-color: var(--brand-primary);
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+    /*[cite: 2] */
+}
+
+/* Визуализация критических ошибок (Красная зона 1С) */
+.callout-box.sim-critical-error {
+    border-color: var(--brand-danger) !important;
+    /* */
+    background-color: var(--callout-risk-bg);
 }

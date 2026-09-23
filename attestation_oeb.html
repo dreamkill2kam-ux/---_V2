@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Аттестация: Проверки ОЭБ</title>
+    <link rel="stylesheet" href="style.css"> <!-- Предполагаемый файл стилей -->
+</head>
+
+<body>
+    <script src="theme.js"></script>
+
+    <div class="kb-container" style="max-width: 1100px; display: flex; flex-direction: column;">
+        <a href="extra_training.html" class="header-back-btn">← Вернуться в каталог аттестаций</a>
+
+        <div style="display: flex; gap: 30px; margin-top: 30px; align-items: flex-start;">
+            <main class="main-content"
+                style="flex: 1; background: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow);">
+                <h2 id="main-title" style="margin-top: 0; margin-bottom: 25px; text-align: center;">Аттестация:
+                    Требования и документы ОЭБ</h2>
+
+
+                <!-- КОНТЕЙНЕР ВОПРОСА -->
+                <!-- КОНТЕЙНЕР ВОПРОСА (Запускается сразу) -->
+                <div id="quiz-container" class="article-page"
+                    style="display: block; border: none; box-shadow: none; padding: 0; margin: 0 auto; max-width: 800px;">
+                    <div class="callout-box info-type"
+                        style="margin-bottom: 25px; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; border-radius: 8px;">
+                        <strong style="margin: 0; color: #1a73e8;">Прогресс:</strong>
+                        <span style="font-weight: bold; color: var(--text-main);">Вопрос <span
+                                id="current-question-num">0</span> из <span id="total-questions">0</span></span>
+                    </div>
+
+                    <div class="fc-question" id="question-text"
+                        style="font-size: 20px; line-height: 1.6; color: var(--text-main); margin-bottom: 30px;">
+                        Загрузка кейса...
+                    </div>
+
+                    <div class="fc-actions" id="answer-buttons"
+                        style="display: flex; flex-direction: column; gap: 12px; align-items: stretch;"></div>
+
+                    <div id="explanation-box" class="callout-box"
+                        style="display: none; margin-top: 30px; animation: contentFadeIn 0.3s ease-out;">
+                        <strong id="explanation-title"
+                            style="font-size: 19px; display: block; margin-bottom: 15px;"></strong>
+                        <div id="explanation-text" style="font-size: 16px; line-height: 1.6; color: var(--text-main);">
+                        </div>
+                        <div style="text-align: center; margin-top: 25px;">
+                            <button class="fc-btn" id="next-btn"
+                                style="background-color: var(--text-main); color: var(--bg-main); border: none; padding: 14px 30px; font-weight: bold;"
+                                onclick="nextQuestion()">Следующий кейс ➔</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🏆 ЭКРАН РЕЗУЛЬТАТОВ -->
+                <div id="result-container" style="display: none; text-align: center; margin-top: 20px;">
+                    <div class="fc-question" style="font-size: 32px; margin-bottom: 15px;">Аттестация завершена</div>
+                    <div id="score-text"
+                        style="font-size: 26px; font-weight: bold; margin-bottom: 30px; color: var(--text-main);"></div>
+                    <div id="result-message"
+                        style="margin-bottom: 30px; font-size: 18px; line-height: 1.6; padding: 25px; border-radius: 8px; background: var(--bg-main); border: 1px solid var(--border-color);">
+                    </div>
+
+                    <div id="registration-block"
+                        style="background: var(--card-bg); padding: 30px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; box-shadow: var(--card-shadow); text-align: left;">
+                        <h3 style="margin-top: 0; color: var(--text-main);">Зафиксировать результат</h3>
+                        <p style="color: var(--text-sub); margin-bottom: 20px; font-size: 15px;">Укажите ваши данные,
+                            чтобы передать результат в базу.</p>
+
+                        <input type="text" id="employee-name" placeholder="Фамилия Имя Отчество"
+                            style="width: 100%; max-width: 400px; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 16px; margin-bottom: 20px; background: var(--bg-main); color: var(--text-main);">
+                        <br>
+                        <button class="fc-btn"
+                            style="background-color: #34a853; color: white; border: none; padding: 16px 36px; font-size: 16px; font-weight: bold;"
+                            onclick="sendResultToSheet(event)">📨 Отправить результат</button>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; justify-content: center;">
+                        <button class="fc-btn" onclick="location.reload()">↺ Пройти заново</button>
+                        <a href="extra_training.html" class="fc-btn"
+                            style="background-color: var(--text-sub); color: white; border: none; text-decoration: none; padding: 14px 24px; display: inline-flex; align-items: center;">В
+                            каталог</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="base.js"></script>
+    <script>
+        // === БАЗА ВОПРОСОВ: ОЭБ (Единая для всех 3-х ролей) ===
+        const questionsOEB = [
+            {
+                question: "1. Организация зарегистрирована 4 месяца назад, но у жены директора есть ИП, работающее в грузоперевозках уже 5 лет. Какое действие должен предпринять логист?",
+                answers: [
+                    { text: "А) Отказать контрагенту, так как по правилам компания должна существовать не менее 6 месяцев.", correct: false },
+                    { text: "Б) Сообщить ОЭБ о связанной организации для проведения комплексной проверки.", correct: true },
+                    { text: "В) Оформить перевозку под свою личную ответственность.", correct: false }
+                ],
+                explanationHtml: "Несмотря на общее правило о сроке регистрации, наличие связанной опытной организации (ИП родственника) является весомым фактором для <span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span>. Логист обязан передать эти данные безопасникам для сохранения сделки[cite: 1]."
+            },
+            {
+                question: "2. Перевозчик работает на рынке более 2 лет, однако тягач находится в собственности не самой компании (ООО), а лично у ее директора. Допускается ли работа с таким контрагентом?",
+                answers: [
+                    { text: "А) Нет, собственником транспортного средства всегда должно выступать само юридическое лицо.", correct: false },
+                    { text: "Б) Допускается только в том случае, если стоимость груза не превышает 1 млн рублей.", correct: false },
+                    { text: "В) Оформление допускается по согласованию, так как директор является связанным лицом.", correct: true }
+                ],
+                explanationHtml: "<span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span> допускает использование транспорта, оформленного на директора компании, так как это частая практика оптимизации налогов у малого бизнеса[cite: 1]."
+            },
+            {
+                question: "3. Какой из перечисленных факторов автоматически и безусловно блокирует допуск перевозчика к работе службой ОЭБ?",
+                answers: [
+                    { text: "А) Возраст тягача старше 15 лет.", correct: false },
+                    { text: "Б) Отсутствие платного аккаунта в системе АТИ.", correct: false },
+                    { text: "В) Наличие исполнительных производств (задолженности) свыше 500 000 руб.", correct: true }
+                ],
+                explanationHtml: "Крупные непогашенные долги (от 500 тыс. руб.) являются критическим стоп-фактором. Возраст авто ограничивается только для дорогих грузов, а отсутствие АТИ решается сбором рекомендаций[cite: 1]."
+            },
+            {
+                question: "4. Вам необходимо собрать пакет документов для проверки контрагента. Какой документ строго обязателен для ООО, но не запрашивается у ИП?",
+                answers: [
+                    { text: "А) Свидетельство ИНН (или Лист записи ЕГРЮЛ/ЕГРИП).", correct: false },
+                    { text: "Б) Решение (протокол) о назначении генерального директора.", correct: true },
+                    { text: "В) Первая страница паспорта и прописка руководителя.", correct: false }
+                ],
+                explanation: "Индивидуальный предприниматель действует от своего имени, в то время как полномочия руководителя ООО должны подтверждаться соответствующим Решением или Протоколом учредителей[cite: 1]."
+            },
+            {
+                question: "5. Водитель находится в рейсе и просит вас принять фотографии СТС и паспорта через WhatsApp, так как ему неудобно использовать электронную почту. Ваши действия?",
+                answers: [
+                    { text: "А) Настоять на использовании официальной корпоративной почты.", correct: true },
+                    { text: "Б) Принять документы в WhatsApp, так как приоритетом является скорость выхода машины на рейс.", correct: false },
+                    { text: "В) Попросить водителя передать документы через диспетчера по SMS.", correct: false }
+                ],
+                explanation: "Использование личных мессенджеров для обмена документами и ведения переговоров строго запрещено правилами корпоративной коммуникации[cite: 1]."
+            },
+            {
+                question: "6. Планируется рейс 20 декабря. Стоимость груза составляет 4 млн рублей. Кого категорически запрещено назначать на данный рейс согласно сезонным ограничениям ОЭБ?",
+                answers: [
+                    { text: "А) Водителя младше 25 лет.", correct: false },
+                    { text: "Б) Иностранного водителя.", correct: true },
+                    { text: "В) Водителя со стажем вождения менее 5 лет.", correct: false }
+                ],
+                explanationHtml: "Согласно правилам <span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span>, в период высоких рисков и для дорогих грузов действуют строгие ограничения на привлечение иностранных граждан в качестве водителей[cite: 1]."
+            },
+            {
+                question: "7. Контрагент не зарегистрирован в АТИ. ОЭБ запросил рекомендации для допуска. Какая компания может выступить валидным рекомендателем?",
+                answers: [
+                    { text: "А) Любая компания, директор которой готов подтвердить надежность устно.", correct: false },
+                    { text: "Б) Компания, с которой перевозчик совершил минимум 2 документально подтвержденных рейса за последние 6 месяцев.", correct: true },
+                    { text: "В) Только компания, входящая в ТОП-100 рейтинга АТИ.", correct: false }
+                ],
+                explanationHtml: "Рекомендация должна быть подкреплена фактами. <span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span> принимает рекомендации только от тех контрагентов, с которыми у проверяемого есть реальная, свежая (за последние 6 мес.) и подтвержденная документами история перевозок[cite: 1]."
+            },
+            {
+                question: "8. Перевозчик забирает груз стоимостью 5 млн рублей, требующий температурного режима. Какой дополнительный документ на прицеп-рефрижератор обязательно запросит ОЭБ?",
+                answers: [
+                    { text: "А) Фото работающего прибора измерения (термописца/контроллера температуры).", correct: true },
+                    { text: "Б) Сертификат соответствия экологическому классу Евро-5.", correct: false },
+                    { text: "В) Справку о прохождении санитарной обработки кузова.", correct: false }
+                ],
+                explanationHtml: "Для дорогих температурных грузов <span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span> обязан убедиться в исправности рефрижераторной установки. Фото работающего контроллера температуры — обязательное требование[cite: 1]."
+            },
+            {
+                question: "9. Стоимость заявленного к перевозке груза составляет 7 миллионов рублей. Какое требование к компании-перевозчику становится строго обязательным?",
+                answers: [
+                    { text: "А) Наличие в штате не менее 10 водителей.", correct: false },
+                    { text: "Б) Возраст компании строго более 2 лет.", correct: true },
+                    { text: "В) Уставной капитал не менее 1 миллиона рублей.", correct: false }
+                ],
+                explanationHtml: "Для грузов высокой стоимости (особо ценных) стандартного срока в 6 месяцев недостаточно. <span class=\"term-keyword\" onclick=\"openPopover(event, 'Отдел экономической безопасности')\">ОЭБ</span> требует, чтобы компания существовала на рынке грузоперевозок более 2 лет для минимизации рисков мошенничества[cite: 1]."
+            },
+            {
+                question: "10. В каком исключительном случае логисту разрешено вести переговоры и собирать документы через личные мессенджеры (Telegram, WhatsApp)?",
+                answers: [
+                    { text: "А) Если груз нужно вывезти срочно (в течение 2 часов).", correct: false },
+                    { text: "Б) Если директор компании-перевозчика является иностранцем.", correct: false },
+                    { text: "В) Ни в каком. Это категорически запрещено без исключений.", correct: true }
+                ],
+                explanation: "Правила коммуникации ЕИП не предусматривают исключений. Все переговоры и обмен документами должны вестись строго через официальные каналы (корпоративная почта, СИП-телефония)[cite: 1]."
+            }
+        ];
+
+        // === ЛОГИКА СИМУЛЯТОРА ===
+        let currentQuestions = questionsOEB; // База вопросов ОЭБ подключается сразу
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const testName = "ОЭБ (Единая)"; // Имя для передачи в Google Таблицу
+
+        const quizContainer = document.getElementById('quiz-container');
+        const questionTextElement = document.getElementById('question-text');
+        const answerButtonsElement = document.getElementById('answer-buttons');
+        const explanationBox = document.getElementById('explanation-box');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationText = document.getElementById('explanation-text');
+        const currentNumElement = document.getElementById('current-question-num');
+        const totalNumElement = document.getElementById('total-questions');
+
+        // Автоматический старт теста при загрузке страницы
+        window.onload = function () {
+            totalNumElement.innerText = currentQuestions.length;
+            startQuiz();
+        };
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            showQuestion(currentQuestions[currentQuestionIndex]);
+        }
+
+        function showQuestion(questionData) {
+            currentNumElement.innerText = currentQuestionIndex + 1;
+            questionTextElement.innerText = questionData.question;
+            answerButtonsElement.innerHTML = '';
+            explanationBox.style.display = 'none';
+
+            questionData.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.innerText = answer.text;
+                button.className = 'fc-btn';
+                button.style.textAlign = 'left';
+                button.style.padding = '16px 20px';
+                button.style.fontSize = '16.5px';
+                button.style.width = '100%';
+
+                const expContent = questionData.explanationHtml || `<p>${questionData.explanation}</p>`;
+                button.addEventListener('click', () => selectAnswer(button, answer.correct, expContent));
+                answerButtonsElement.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedButton, isCorrect, explanationHtml) {
+            const allButtons = answerButtonsElement.children;
+            for (let btn of allButtons) {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            }
+
+            selectedButton.style.opacity = '1';
+            explanationBox.style.display = 'block';
+            explanationText.innerHTML = explanationHtml;
+
+            if (isCorrect) {
+                selectedButton.style.backgroundColor = 'var(--callout-succ-bg)';
+                selectedButton.style.borderColor = '#34a853';
+                selectedButton.style.color = 'var(--text-main)';
+                explanationBox.className = 'callout-box success-type';
+                explanationTitle.innerText = "✅ Верно!";
+                score++;
+            } else {
+                selectedButton.style.backgroundColor = 'var(--callout-warn-bg)';
+                selectedButton.style.borderColor = '#ea4335';
+                selectedButton.style.color = 'var(--text-main)';
+                explanationBox.className = 'callout-box warning-type';
+                explanationBox.style.borderLeftColor = '#ea4335';
+                explanationTitle.innerText = "❌ Ошибка.";
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuestions.length) {
+                showQuestion(currentQuestions[currentQuestionIndex]);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizContainer.style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            document.getElementById('score-text').innerText = `Ваш результат: ${score} из ${currentQuestions.length} (${percentage}%)`;
+
+            const messageEl = document.getElementById('result-message');
+            const regBlock = document.getElementById('registration-block');
+
+            if (percentage >= 80) {
+                messageEl.innerHTML = "🏆 <strong>Аттестация пройдена!</strong> Вы уверенно ориентируетесь в регламентах безопасности.";
+                messageEl.style.borderLeft = "4px solid #34a853";
+            } else if (percentage >= 60) {
+                messageEl.innerHTML = "👍 <strong>Тест сдан, но есть пробелы.</strong> Рекомендуем освежить в памяти регламенты ОЭБ.";
+                messageEl.style.borderLeft = "4px solid #fbbc04";
+            } else {
+                messageEl.innerHTML = "🚨 <strong>Аттестация не пройдена.</strong> Изучите материалы перед повторной попыткой. Результат отправлять не нужно.";
+                messageEl.style.borderLeft = "4px solid #ea4335";
+                regBlock.style.display = 'none';
+            }
+        }
+
+        // === СОХРАНЕНИЕ РЕЗУЛЬТАТОВ ===
+        function sendResultToSheet(event) {
+            const empName = document.getElementById('employee-name').value.trim();
+            if (!empName) {
+                alert("Пожалуйста, введите ваше ФИО перед отправкой.");
+                return;
+            }
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx6dFSYqmzpitZ5xXlB4auQF4-wnN8W4zCE9tOh2K5nrF5ek9Emd4s4XD_8eFh-hJs36A/exec';
+            const percentage = Math.round((score / currentQuestions.length) * 100);
+            const resultString = `${score} из ${currentQuestions.length} (${percentage}%)`;
+
+            const urlWithParams = new URL(scriptURL);
+            urlWithParams.searchParams.append("name", empName);
+            urlWithParams.searchParams.append("test", testName);
+            urlWithParams.searchParams.append("result", resultString);
+            urlWithParams.searchParams.append("status", percentage >= 80 ? "Сдано отлично" : "Сдано с недочетами");
+
+            const btn = event.target;
+            btn.innerText = "⏳ Отправка...";
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+
+            fetch(urlWithParams, { mode: 'no-cors' })
+                .then(() => {
+                    btn.innerText = "✅ Результат сохранен в базе";
+                    btn.style.backgroundColor = "var(--border-color)";
+                    btn.style.color = "var(--text-sub)";
+                })
+                .catch(error => {
+                    alert("Произошла ошибка при отправке. Проверьте интернет-соединение.");
+                    btn.innerText = "📨 Отправить результат";
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                });
+        }
+    </script>
+</body>
+
+</html>
