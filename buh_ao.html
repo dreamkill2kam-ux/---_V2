@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1С Рабочая База: Бухгалтер по авансовым отчетам</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="etrn_base-page">
+
+    <!-- Автоматическая кнопка и переключение темной темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🧭 ЛЕВАЯ ПАНЕЛЬ: ИНТЕРАКТИВНОЕ ДЕРЕВО МЕНЮ -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <h2>Бухгалтер по АО</h2>
+            <p>Справочник бухгалтера по авансовым отчетам</p>
+
+            <nav class="menu-list">
+                <button class="menu-item active" data-article="main" onclick="switchTab(this)">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        style="margin-right: 12px; flex-shrink: 0;">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                    Главная
+                </button>
+
+                <!-- 📂 КАТЕГОРИЯ: АВАНСОВЫЕ ОТЧЕТЫ -->
+                <div class="menu-group open" id="group_avans">
+                    <button class="menu-category-btn" onclick="toggleMenuCategory('group_avans')">
+                        <span style="display: flex; align-items: center;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" style="margin-right: 12px; flex-shrink: 0;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Основные задачи
+                        </span>
+                        <span class="category-arrow">▼</span>
+                    </button>
+                    <div class="submenu-list" style="display: block;">
+                        <button class="menu-item active" data-article="avans_daily" onclick="switchTab(this)">Ежедневные операции</button>
+                        <button class="menu-item" data-article="avans_weekly" onclick="switchTab(this)">Еженедельные операции (РСТ)</button>
+                        <button class="menu-item" data-article="avans_verification" onclick="switchTab(this)">Порядок проверки авансового отчета</button>
+                        <button class="menu-item" data-article="avans_closing" onclick="switchTab(this)">Закрытие авансового отчета</button>
+                        <button class="menu-item" data-article="avans_kazminov" onclick="switchTab(this)">Расходы Казьминова</button>
+                        <button class="menu-item" data-article="avans_period_end" onclick="switchTab(this)">Проверка счетов и завершение периода</button>
+                    </div>
+                </div>
+
+                <!-- 📂 КАТЕГОРИЯ: ЗАМЕЩЕНИЕ НА ВРЕМЯ ОТПУСКА -->
+                <div class="menu-group" id="group_zameshenie">
+                    <button class="menu-category-btn" onclick="toggleMenuCategory('group_zameshenie')">
+                        <span style="display: flex; align-items: center;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" style="margin-right: 12px; flex-shrink: 0;">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                            </svg>
+                            Дополнительные задачи
+                        </span>
+                        <span class="category-arrow">▼</span>
+                    </button>
+                    <div class="submenu-list">
+                        <button class="menu-item" data-article="zameshenie_overview" onclick="switchTab(this)">Ежедневно</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="working_procedures.html" class="back-link">← Назад к выбору роли</a>
+        </div>
+    </aside>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА -->
+    <main class="main-content">
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ГЛАВНАЯ -->
+        <!-- ============================================= -->
+        <div class="article-page" id="main">
+            <h1>Бухгалтер по авансовым отчетам</h1>
+
+            <div class="article-lead">
+                Ты обеспечиваешь полный цикл обработки авансовых отчетов водителей и других подотчетных лиц — от приема чеков до закрытия периода.
+            </div>
+
+            <div class="article-body">
+
+                <h2>С кем ты взаимодействуешь</h2>
+                <ul class="custom-list">
+                    <li>Бухгалтер по заработной плате</li>
+                    <li>Отдел документооборота</li>
+                    <li>Логисты</li>
+                    <li>Руководитель отдела</li>
+                    <li>Бухгалтер по окладной части</li>
+                    <li>Механик</li>
+                </ul>
+
+                <h2>Твои права</h2>
+                <ul class="custom-list">
+                    <li>Требовать от водителей и механиков подтверждающие документы — чеки, служебные записки.</li>
+                    <li>Не принимать расходы без согласования.</li>
+                    <li>Запрашивать корректировку счетов учета у бухгалтера по окладам.</li>
+                </ul>
+
+                <div class="callout-box warning-type">
+                    <strong>Зона ответственности:</strong> Правильность закрытия авансовых отчетов и остатков на счете 71, достоверность отражения расходов в РСТ и ББ, своевременная выгрузка АО — до выплаты зарплаты.
+                </div>
+
+                <h2>Квалификационные требования</h2>
+                <ul class="custom-list">
+                    <li>Знание учета подотчетных сумм, ГСМ, суточных, ЖД билетов.</li>
+                    <li>Владение 1С (ББ, РБ): обработки выгрузки АО, контроля расчетов, начисления компенсаций РХ.</li>
+                    <li>Умение работать с реестрами расходов.</li>
+                </ul>
+
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ЕЖЕДНЕВНЫЕ ОПЕРАЦИИ -->
+        <!-- ============================================= -->
+        <div class="article-page active" id="avans_daily">
+            <h1>Ежедневные операции</h1>
+
+            <div class="article-meta">
+                <span>Должностная инструкция №4</span>
+                <span>Раздел 2.1</span>
+            </div>
+
+            <div class="article-lead">
+                Каждый день ты обрабатываешь чеки водителей и проводишь выплаты подотчетных сумм. Порядок действий — ниже.
+            </div>
+
+            <div class="article-body">
+
+                <h2>Шаг 1. Забери и проверь чеки</h2>
+                <ol class="custom-list">
+                    <li>Забери на приеме документов чеки, которые уже обработал отдел документооборота.</li>
+                    <li>Проверь их на корректность.</li>
+                </ol>
+
+                <div class="callout-box">
+                    <strong>К сведению:</strong> Здесь должна быть картинка — скриншот окна приема документов в 1С.
+                </div>
+
+                <h2>Шаг 2. Внеси расходы в РБ</h2>
+                <ol class="custom-list" start="3">
+                    <li>Внеси расходы в <b>РБ</b> (Рабочую базу 1С).</li>
+                    <li>Разложи чеки по машинам — каждый расход должен быть привязан к конкретному ТС.</li>
+                </ol>
+
+                <h2>Шаг 3. Проведи выплаты за вчерашний день</h2>
+                <ol class="custom-list" start="5">
+                    <li>Проведи в <b>ББ</b> (Бухгалтерской базе 1С) банковские выписки по выплате подотчетных сумм за предыдущий день.</li>
+                    <li>В комментарии к операции укажи один из вариантов:
+                        <ul>
+                            <li><b>«аванс РХ»</b></li>
+                            <li><b>«возмещение»</b></li>
+                        </ul>
+                    </li>
+                </ol>
+
+                <div class="callout-box warning-type">
+                    <strong>Внимание:</strong> Комментарий к выписке — обязателен. Без него невозможно будет корректно закрыть авансовый отчет в конце периода.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ЕЖЕНЕДЕЛЬНЫЕ ОПЕРАЦИИ (РСТ) -->
+        <!-- ============================================= -->
+        <div class="article-page" id="avans_weekly" style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <div id="weekly_back" style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showWeeklyStep('weekly_main')" style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <div id="weekly_main">
+                <h1>Еженедельные операции: отработка РСТ</h1>
+
+                <div class="article-meta">
+                    <span>Должностная инструкция №4</span>
+                    <span>Раздел 2.2</span>
+                </div>
+
+                <div class="article-lead">
+                    Раз в неделю ты разносишь расходы по РСТ и проставляешь суточные. Расходы делятся на два типа — в зависимости от того, кто их согласует.
+                </div>
+
+                <div class="article-body">
+
+                    <h2>Шаг 1. Внеси расходы в РСТ</h2>
+                    <p>Выбери вкладку ниже, чтобы посмотреть, что и куда вносить:</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px;">
+                        <button class="nav-card-btn" onclick="showWeeklyStep('weekly_left')">Левая часть РСТ (согласует механик)</button>
+                        <button class="nav-card-btn" onclick="showWeeklyStep('weekly_right')">Правая часть РСТ (согласует логист/руководитель)</button>
+                    </div>
+
+                    <h2>Шаг 2. Учти тип чека</h2>
+                    <ul class="custom-list">
+                        <li>Чек <b>с QR-кодом</b> — отражай и в БУ, и в НУ.</li>
+                        <li>Чек <b>только с печатью</b> (без QR) — отражай только в БУ.</li>
+                    </ul>
+
+                    <h2>Шаг 3. Проставь суточные</h2>
+                    <ol class="custom-list">
+                        <li>До <b>3 числа</b> каждого месяца проставь суточные.</li>
+                        <li>Основание — даты погрузки/разгрузки и акт передачи ТС.</li>
+                    </ol>
+
+                </div>
+            </div>
+
+            <div id="weekly_left" style="display: none;">
+                <h1>Левая часть РСТ</h1>
+                <div class="article-body">
+                    <div class="callout-box success-type">
+                        <strong>Правило:</strong> Сюда вносятся расходы, которые согласует механик.
+                    </div>
+                    <p>Что вносим в левую часть:</p>
+                    <ul class="custom-list">
+                        <li>Запчасти</li>
+                        <li>Масла</li>
+                        <li>Незамерзайка</li>
+                        <li>И прочие технические расходы</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="weekly_right" style="display: none;">
+                <h1>Правая часть РСТ</h1>
+                <div class="article-body">
+                    <div class="callout-box success-type">
+                        <strong>Правило:</strong> Сюда вносятся расходы, которые согласует логист или руководитель.
+                    </div>
+                    <p>Что вносим в правую часть:</p>
+                    <ul class="custom-list">
+                        <li>Штрафы РТО</li>
+                        <li>Стоянки</li>
+                        <li>Гостиницы</li>
+                        <li>Мойки</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ПОРЯДОК ПРОВЕРКИ АВАНСОВОГО ОТЧЕТА -->
+        <!-- ============================================= -->
+        <div class="article-page" id="avans_verification" style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <div id="verification_back" style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showVerificationStep('verification_main')" style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <div id="verification_main">
+                <h1>Порядок проверки авансового отчета</h1>
+
+                <div class="article-meta">
+                    <span>Порядок работы бухгалтера по АО</span>
+                </div>
+
+                <div class="article-lead">
+                    Прежде чем принять расход, проверь его по цепочке: чек → продавец → ИП/ЮЛ → дата → содержание покупки → оплата → служебная цель → первичные документы → БУ → НУ → НДС → отсутствие дубля → отражение в 1С.
+                </div>
+
+                <div class="article-body">
+
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> Принцип «есть чек — значит принимаем» не работает. Каждый пункт цепочки нужно проверить отдельно.
+                    </div>
+
+                    <p>Выбери раздел проверки:</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px;">
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_receipt')">Проверка кассового чека</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_ip')">Проверка «мертвых ИП»</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_duplicates')">Проверка на дубли</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_payment')">Проверка способа оплаты</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_purpose')">Обоснованность расхода</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_type')">Вид расхода: БУ и НУ</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_problem')">Некорректные документы</button>
+                        <button class="nav-card-btn" onclick="showVerificationStep('verification_redflags')">Красные флаги</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_receipt" style="display: none;">
+                <h1>Проверка кассового чека</h1>
+                <div class="article-body">
+
+                    <h2>Обязательные данные в чеке</h2>
+                    <ul class="custom-list">
+                        <li>Дата и время покупки</li>
+                        <li>Наименование и ИНН продавца</li>
+                        <li>Наименование товара/работы/услуги — по нему должно быть понятно, за что заплатила организация</li>
+                        <li>Количество, цена, итоговая сумма</li>
+                        <li>Форма оплаты (наличные/безналичные)</li>
+                        <li>QR-код и фискальные реквизиты</li>
+                    </ul>
+
+                    <h2>Проверка через сервис ФНС</h2>
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> Сомнительные чеки, а при повышенном контроле — все чеки, проверяй через приложение <b>«Проверка чеков ФНС России»</b>.
+                    </div>
+                    <ol class="custom-list">
+                        <li>Отсканируй QR-код чека.</li>
+                        <li>Убедись, что чек найден в системе ФНС.</li>
+                        <li>Сверь дату, сумму, продавца, ИНН и состав покупки.</li>
+                    </ol>
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> При расхождении отметь чек как требующий дополнительной проверки.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_ip" style="display: none;">
+                <h1>Проверка «мертвых ИП»</h1>
+                <div class="article-body">
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> «Мертвый ИП» — предприниматель, деятельность которого прекращена, и соответствующая запись внесена в ЕГРИП. Проверяй статус ИП не только на сегодня, но и <b>на дату самой покупки</b>.
+                    </div>
+
+                    <h2>Алгоритм проверки</h2>
+                    <ol class="custom-list">
+                        <li>Возьми ИНН из чека, определи продавца.</li>
+                        <li>Через сервис ФНС получи сведения из ЕГРИП (электронная выписка — бесплатно).</li>
+                        <li>Сравни дату чека с датой прекращения деятельности ИП по ЕГРИП.</li>
+                    </ol>
+
+                    <h2>Что делать по результату</h2>
+
+                    <div class="callout-box success-type">
+                        <strong>ИП действует на дату покупки:</strong> замечаний по статусу продавца нет, продолжай обычную проверку.
+                    </div>
+
+                    <div class="callout-box success-type">
+                        <strong>ИП закрыт позже даты покупки:</strong> например, чек от 10.04.2026, а ИП прекращен 15.05.2026 — на момент покупки статус ИП ещё действовал. Расход не отклоняй только из-за последующего закрытия, продолжай обычную проверку.
+                    </div>
+
+                    <div class="callout-box warning-type">
+                        <strong>ИП прекратил деятельность ДО даты чека:</strong> например, ИП закрыт 01.04.2026, а чек датирован 15.04.2026. Такой документ нельзя проводить автоматически. Проверь чек через ФНС, сохрани сведения ЕГРИП, проверь продавца в фискальных данных, запроси пояснение у сотрудника и при необходимости — доп. документы, передай вопрос главному бухгалтеру. До решения ставь статус <b>«Не принимать — требуется дополнительная проверка»</b>.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_duplicates" style="display: none;">
+                <h1>Проверка на дубли</h1>
+                <div class="article-body">
+
+                    <p>Проверяй совпадение по: дате, сумме, номеру чека, ФН, ФД, ФП, продавцу, ИНН, сотруднику.</p>
+
+                    <h2>Особое внимание</h2>
+                    <ul class="custom-list">
+                        <li>Один чек приложен к двум АО.</li>
+                        <li>Бумажный и электронный экземпляр одного чека представлены как два расхода.</li>
+                        <li>Один чек представлен разными сотрудниками.</li>
+                        <li>Чек ранее уже был проведен.</li>
+                    </ul>
+
+                    <div class="callout-box warning-type">
+                        <strong>Правило:</strong> при обнаружении дубля — вторично расход не принимать.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_payment" style="display: none;">
+                <h1>Проверка способа оплаты</h1>
+                <div class="article-body">
+
+                    <p>Установи, кем и каким способом произведена оплата:</p>
+                    <ul class="custom-list">
+                        <li>Наличными сотрудника</li>
+                        <li>Подотчетными денежными средствами</li>
+                        <li>Корпоративной картой</li>
+                        <li>Личной банковской картой сотрудника</li>
+                        <li>Иной формой оплаты</li>
+                    </ul>
+
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> нельзя допускать повторного возмещения расхода, который уже был оплачен корпоративной картой или непосредственно организацией.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_purpose" style="display: none;">
+                <h1>Экономическая обоснованность расхода</h1>
+                <div class="article-body">
+
+                    <h2>Задай себе вопрос: для чего этот расход был нужен организации?</h2>
+                    <ul class="custom-list">
+                        <li>Относится ли расход к деятельности компании?</li>
+                        <li>Есть ли производственная/служебная цель?</li>
+                        <li>Соответствует ли расход должностным обязанностям сотрудника?</li>
+                        <li>Есть ли подразделение или объект, к которому относится расход?</li>
+                    </ul>
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> при непонятной цели — запроси служебную записку или пояснение сотрудника.
+                    </div>
+
+                    <h2>Расходы, похожие на личные</h2>
+                    <p>Уделяй особое внимание:</p>
+                    <ul class="custom-list">
+                        <li>продукты питания, алкоголь</li>
+                        <li>бытовые покупки, одежда, товары личного пользования</li>
+                        <li>личные поездки, бензин для поездок «дом — работа — дом»</li>
+                        <li>личная связь, развлечения</li>
+                    </ul>
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> такие расходы нельзя автоматически относить на принимаемые расходы организации. Выясни основание, при необходимости передай вопрос главному бухгалтеру.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="verification_type" style="display: none;">
+                <h1>Определение вида расхода: БУ и НУ</h1>
+                <div class="article-body">
+
+                    <h2>Что именно приобретено</h2>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Покупка</th>
+                                <th>Дальнейшее действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Канцтовары</td><td>Определить статью затрат</td></tr>
+                            <tr><td>Хозяйственные материалы</td><td>Определить соответствующий счет учета</td></tr>
+                            <tr><td>Запчасти</td><td>Определить ТС/объект, для которого приобретены</td></tr>
+                            <tr><td>ГСМ</td><td>Проверить служебное использование</td></tr>
+                            <tr><td>Услуги</td><td>Проверить наличие документа об оказании услуги</td></tr>
+                            <tr><td>Основные средства/оборудование</td><td>Передать на соответствующий учет</td></tr>
+                            <tr><td>Командировочные расходы</td><td>Проверить командировочные документы</td></tr>
+                            <tr><td>Представительские расходы</td><td>Проверить специальный комплект подтверждений</td></tr>
+                            <tr><td>Товары для личных целей</td><td>Не принимать автоматически</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>По каждому расходу определи статус</h2>
+                    <ol class="custom-list">
+                        <li><b>БУ + НУ</b> — расход принимается и в бухгалтерском, и в налоговом учете.</li>
+                        <li><b>Только БУ</b> — расход отражается в бухучете, но не уменьшает налоговую базу по налогу на прибыль.</li>
+                        <li><b>Не принимать до выяснения</b> — документы недостаточны либо есть существенные риски.</li>
+                    </ol>
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> отдельно проверь, выделен ли НДС и есть ли документ, дающий право на его отражение. При спорной ситуации передай документ ответственному за НДС/главному бухгалтеру.
+                    </div>
+
+                    <h2>Расходы на запчасти и ТС</h2>
+                    <p>Для расходов, связанных с автотранспортом, обязательно указывай: госномер ТС, номер РСТ/внутренний номер, наименование детали, количество, причина приобретения, подразделение — и при необходимости заказ-наряд.</p>
+
+                </div>
+            </div>
+
+            <div id="verification_problem" style="display: none;">
+                <h1>Работа с некорректными документами</h1>
+                <div class="article-body">
+
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> если документы оформлены неправильно — не удаляй расход просто так. Зафиксируй причину и верни документ сотруднику на доработку либо передай главному бухгалтеру.
+                    </div>
+
+                    <h2>Примеры формулировок причины</h2>
+                    <ul class="custom-list">
+                        <li>«Нет подтверждающего документа»</li>
+                        <li>«Чек не найден в ФНС»</li>
+                        <li>«ИП прекращен до даты покупки»</li>
+                        <li>«Невозможно определить наименование товара»</li>
+                        <li>«Нет экономического обоснования»</li>
+                        <li>«Дубль чека»</li>
+                        <li>«Расход личного характера»</li>
+                        <li>«Не указан автомобиль»</li>
+                        <li>«Нет документа на оказание услуги»</li>
+                    </ul>
+
+                    <h2>Реестр проблемных документов</h2>
+                    <p>Веди отдельный контрольный реестр:</p>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Дата АО / Сотрудник / ИНН</th>
+                                <th>Сумма / Причина / Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>15.07.26, Иванов, ИНН 123…</td><td>5 400 руб., ИП закрыт → запрошена выписка ЕГРИП, статус «Проверка»</td></tr>
+                            <tr><td>16.07.26, Петров, ИНН 456…</td><td>2 300 руб., чек не найден → запрошено пояснение, статус «На доработке»</td></tr>
+                            <tr><td>17.07.26, Сидоров, ИНН 789…</td><td>7 800 руб., дубль → статус «Отклонено»</td></tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div id="verification_redflags" style="display: none;">
+                <h1>Красные флаги: когда нельзя проводить АО автоматически</h1>
+                <div class="article-body">
+
+                    <div class="callout-box danger-type">
+                        <strong>Не проводи документ, если:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li>ИП закрыт раньше даты чека</li>
+                            <li>чек не находится в ФНС</li>
+                            <li>ИНН или продавец в документах не совпадает</li>
+                            <li>чек уже ранее использовался</li>
+                            <li>непонятно, что приобретено</li>
+                            <li>отсутствует служебная необходимость</li>
+                            <li>расход имеет признаки личного</li>
+                            <li>товары/услуги не подтверждены необходимыми документами</li>
+                            <li>нет привязки запчастей или ГСМ к ТС</li>
+                            <li>дата покупки не соответствует периоду расходов</li>
+                            <li>суммы документов и авансового отчета расходятся</li>
+                        </ul>
+                    </div>
+
+                    <div class="callout-box warning-type">
+                        <strong>Правило:</strong> по таким документам ставь статус «На дополнительную проверку» и не проводи окончательно до устранения замечаний.
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ЗАКРЫТИЕ АВАНСОВОГО ОТЧЕТА -->
+        <!-- ============================================= -->
+        <div class="article-page" id="avans_closing" style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <div id="closing_back" style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showClosingStep('closing_main')" style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <div id="closing_main">
+                <h1>Закрытие авансового отчета</h1>
+
+                <div class="article-meta">
+                    <span>Должностная инструкция №4</span>
+                    <span>Раздел 2.3</span>
+                    <span>Срок: 4–10 число</span>
+                </div>
+
+                <div class="article-lead">
+                    В начале месяца ты закрываешь авансовые отчеты водителей за предыдущий период. Важно ничего не пропустить — от сверки остатков до выгрузки в ББ.
+                </div>
+
+                <div class="article-body">
+
+                    <h2>Шаг 1. Проверь остатки</h2>
+                    <p>Сверь остатки в РСТ (тягач, реф, ГСМ, моточасы) с актом инвентаризации из сканов.</p>
+
+                    <h2>Шаг 2. Проверь согласование расходов</h2>
+                    <p>Убедись, что все расходы согласованы. Если нет — напиши ответственному. Полный порядок проверки самого содержания расходов — в разделе «Порядок проверки авансового отчета».</p>
+
+                    <h2>Шаг 3. Закрой АО</h2>
+                    <p>Технические правила закрытия — на отдельном экране:</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px; max-width: 400px;">
+                        <button class="nav-card-btn" onclick="showClosingStep('closing_howto')">Как правильно закрыть АО</button>
+                    </div>
+
+                    <h2>Шаг 4. После закрытия всех РСТ проверь</h2>
+                    <ul class="custom-list">
+                        <li>Отчет «Не принимаемые расходы водителей».</li>
+                        <li>Расходы Казьминова — отдельная проверка до 8 числа (см. пункт меню «Расходы Казьминова»).</li>
+                        <li>ЖД билеты, если покупались — отрази в РБ (ППИ) и в ББ (в АО).</li>
+                    </ul>
+
+                    <h2>Шаг 5. Выгрузи АО в ББ</h2>
+                    <p>Используй обработку <b>«Выгрузка АО в базу Промлогистик»</b>.</p>
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> подробный ручной алгоритм выгрузки и сверки АО (на случай замещения или если обработка недоступна) — в разделе «Замещение на время отпуска» → «Выгрузка АО в Бухгалтерскую базу».
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="closing_howto" style="display: none;">
+                <h1>Как правильно закрыть АО</h1>
+                <div class="article-body">
+                    <ol class="custom-list">
+                        <li><b>Дата АО</b> = дата акта передачи ТС / инвентаризации.</li>
+                        <li>Установи состояние <b>«Закрыть расчет – сдача авто»</b>, выбери инвентаризацию сдачи авто, отрази в РСТ.</li>
+                        <li>В комментарии укажи:
+                            <ul>
+                                <li>сумму <b>удержания</b> — если остаток положительный;</li>
+                                <li>сумму <b>доплаты</b> — если остаток отрицательный.</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> Здесь должна быть картинка — скриншот окна закрытия АО с указанием состояния и комментария.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: РАСХОДЫ КАЗЬМИНОВА -->
+        <!-- ============================================= -->
+        <div class="article-page" id="avans_kazminov">
+            <h1>Расходы Казьминова</h1>
+
+            <div class="article-meta">
+                <span>Должностная инструкция №4</span>
+                <span>Раздел 2.4</span>
+                <span>Срок: до 8 числа</span>
+            </div>
+
+            <div class="article-lead">
+                Расходы Казьминова проверяются отдельно от остальных водителей — по нему нет обычного авансового отчета.
+            </div>
+
+            <div class="article-body">
+
+                <ol class="custom-list">
+                    <li>Зайди в <b>«Касса – АО по сотрудникам»</b>, выбери Казьминова, просмотри расходы за предыдущий месяц.</li>
+                    <li>Если водителю выдавались деньги — должна быть служебная записка или чек. Внеси расход, сформируй ППИ.</li>
+                    <li>Проставь в строке <b>СДДС</b> — за номером машины обратись к Гальченко.</li>
+                    <li>Передай все чеки по расходам Казьминова бухгалтеру Кудиновой — она отражает их в ББ.</li>
+                    <li>В РСТ расходы Казьминова отрази по водителям. В ББ их <b>не отражай</b> — Кудинова проводит их самостоятельно.</li>
+                </ol>
+
+                <div class="callout-box warning-type">
+                    <strong>Внимание:</strong> В ББ расходы Казьминова не вносятся — это зона ответственности Кудиновой. Твоя задача — корректно отразить их только в РСТ.
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ПРОВЕРКА СЧЕТОВ И ЗАВЕРШЕНИЕ ПЕРИОДА -->
+        <!-- ============================================= -->
+        <div class="article-page" id="avans_period_end" style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <div id="period_back" style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showPeriodStep('period_main')" style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <div id="period_main">
+                <h1>Проверка счетов и завершение периода</h1>
+
+                <div class="article-meta">
+                    <span>Должностная инструкция №4</span>
+                    <span>Раздел 2.5</span>
+                </div>
+
+                <div class="article-lead">
+                    Финальный этап закрытия месяца — сверка счетов 10 и 71, подготовка документов для ИФНС.
+                </div>
+
+                <div class="article-body">
+
+                    <h2>Шаг 1. Проверь счет 10</h2>
+                    <p>После выгрузки АО проверь счет 10 (расходные материалы). При необходимости смени счета учета.</p>
+
+                    <h2>Шаг 2. Проверь счет 71</h2>
+                    <p>Порядок действий — на отдельном экране:</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px;">
+                        <button class="nav-card-btn" onclick="showPeriodStep('period_71')">Проверка счета 71</button>
+                        <button class="nav-card-btn" onclick="showPeriodStep('period_ifns')">Документы для ИФНС</button>
+                    </div>
+
+                    <h2>Шаг 3. Проанализируй целесообразность</h2>
+                    <p>Проанализируй целесообразность отражения расходов.</p>
+
+                </div>
+            </div>
+
+            <div id="period_71" style="display: none;">
+                <h1>Проверка счета 71</h1>
+                <div class="article-body">
+
+                    <h2>Выгрузка и сверка</h2>
+                    <ol class="custom-list">
+                        <li>Выгрузи авансы РХ в ББ через обработку <b>«Начисление компенсаций за РХ»</b> — сначала за предыдущий месяц, затем за текущий.</li>
+                        <li>Сформируй ОСВ по 71 счету в ББ и универсальный отчет в РБ, сверь их между собой.</li>
+                        <li>Перед закрытием периода удали созданные авансы РХ — операции вручную, с содержанием <b>«зачет аванса РХ»</b>.</li>
+                    </ol>
+
+                    <h2>После проведения АО проверь расчеты с сотрудником</h2>
+                    <p>Возможны три ситуации:</p>
+                    <ul class="custom-list">
+                        <li><b>Остаток подотчетных средств</b> — сотрудник должен вернуть деньги в установленном порядке.</li>
+                        <li><b>Перерасход</b> — после утверждения расхода организация возмещает сотруднику согласованную сумму.</li>
+                        <li><b>Расчет закрыт</b> — задолженность сотрудника и организации отсутствует.</li>
+                    </ul>
+
+                    <h2>Контроль старой задолженности</h2>
+                    <p>Регулярно формируй ОСВ по счету 71 и проверяй:</p>
+                    <ul class="custom-list">
+                        <li>сотрудников с дебетовыми остатками;</li>
+                        <li>сотрудников с кредитовыми остатками;</li>
+                        <li>давние незакрытые авансы;</li>
+                        <li>АО, не представленные в установленный срок;</li>
+                        <li>суммы без подтверждающих документов.</li>
+                    </ul>
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> по проблемным остаткам сформируй список и передай ответственным лицам.
+                    </div>
+
+                    <h2>Ежемесячная контрольная проверка</h2>
+                    <p>В конце месяца проверь:</p>
+                    <ul class="custom-list">
+                        <li>ОСВ 71, незакрытые авансы, перерасходы;</li>
+                        <li>АО на доработке;</li>
+                        <li>«мертвых ИП», подозрительные чеки, дубли;</li>
+                        <li>расходы, принятые только в БУ, и не принимаемые в НУ;</li>
+                        <li>соответствие аналитики.</li>
+                    </ul>
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> по итогам сформируй перечень проблем и передай его главному бухгалтеру.
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="period_ifns" style="display: none;">
+                <h1>Документы для ИФНС</h1>
+                <div class="article-body">
+                    <div class="callout-box warning-type">
+                        <strong>Срок:</strong> до 18–24 числа.
+                    </div>
+                    <ul class="custom-list">
+                        <li><b>Путевые листы</b> — печатай обработкой «Пакетная печать отчета водителей» (период — предыдущий месяц, фамилия бухгалтера по АО).</li>
+                        <li><b>Бухгалтерская справка</b> — печатай из ББ: Банк и касса → АО → печать бухгалтерской справки.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ============================================= -->
+        <!-- 📄 СТАТЬЯ: ЗАМЕЩЕНИЕ НА ВРЕМЯ ОТПУСКА (НОВЫЙ БЛОК) -->
+        <!-- ============================================= -->
+        <div class="article-page" id="zameshenie_overview" style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <div id="zam_back" style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showZamStep('zam_main')" style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <div id="zam_main">
+                <h1>Дополнительные ежедневные задачи</h1>
+
+
+                <div class="article-lead">
+                    Часть функционала, не входящая в основные рабочие задачи - периодически обязательна к выполнению
+                </div>
+
+                <div class="article-body">
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> Часть шагов пересекается с обычными разделами инструкции (РСТ, закрытие АО) — там, где это так, стоит ссылка на нужный раздел.
+                    </div>
+
+                    <h2>Шаг 1. Ежедневный ввод данных</h2>
+                    <ol class="custom-list">
+                        <li>Внеси в программу чеки и маршрутные листы, полученные с ТСД, по расходам водителей.</li>
+                        <li>Проставь в РСТ суточные по водителям.</li>
+                        <li>Сверь данные по акту сдачи ТС.</li>
+                        <img src="img/buhAO/sc1.jpg" alt="Описание скриншота" class="instruction-img" onclick="openFullscreenImage(this.src)">
+                    </ol>
+
+                    <h2>Шаг 2. Маршрутные листы водителя (МП)</h2>
+                    <p>Дальше действие переходит на отдельный экран — там подробно про вкладку МП:</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px; max-width: 400px;">
+                        <button class="nav-card-btn" onclick="showZamStep('zam_mp')">Работа с маршрутными листами (МП)</button>
+                    </div>
+
+                    <h2>Шаг 3. Закрытие авансового отчета водителя</h2>
+                    <p>Порядок закрытия — на отдельном экране:</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px; max-width: 400px;">
+                        <button class="nav-card-btn" onclick="showZamStep('zam_close')">Закрытие АО водителя</button>
+                    </div>
+
+                    <h2>Шаг 4. Расчет заработной платы водителя</h2>
+                    <p>При расчете ЗП водителю во вкладке «Бухгалтерия» автоматически подтягивается остаток — возмещения/удержания по водителю.</p>
+
+                    <h2>Шаг 5. Выгрузка АО в Бухгалтерскую базу</h2>
+                    <p>После окончания выплаты по всем водителям — выгружаем АО в Бух.базу. Подробный порядок — на отдельном экране:</p>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px; max-width: 400px;">
+                        <button class="nav-card-btn" onclick="showZamStep('zam_upload')">Выгрузка АО в Бухгалтерскую базу</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: РАБОТА С МАРШРУТНЫМИ ЛИСТАМИ (МП) -->
+            <div id="zam_mp" style="display: none;">
+                <h1>Работа с маршрутными листами (МП)</h1>
+                <div class="article-body">
+
+                    <ol class="custom-list">
+                        <li>Зайди во вкладку <b>«Маршрутные листы водителя (МП)»</b>.</li>
+                        <li>Внеси расходы — данные, которые указал водитель.</li>
+                        <li>Используй отчет <b>«Контроль расчета ЗП водителей»</b> (тест расчета от даты сдачи ТСД), чтобы понять, по какому водителю пора закрывать АО.</li>
+                    </ol>
+                        <img src="img/buhAO/sc2.jpg" alt="Описание скриншота" class="instruction-img" onclick="openFullscreenImage(this.src)">
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: ЗАКРЫТИЕ АО ВОДИТЕЛЯ -->
+            <div id="zam_close" style="display: none;">
+                <h1>Закрытие АО водителя</h1>
+                <div class="article-body">
+
+                    <h2>Закрытие авансового отчета</h2>
+                    <ol class="custom-list">
+                        <li>Перейди в раздел <b>«Собственный транспорт» → «Авансовый отчет водителя»</b>.</li>
+                        <li>Отберись по нужному водителю.</li>
+                        <li>Закрой его авансовый отчет — для возмещения денежных средств по рейсу.</li>
+                        <img src="img/buhAO/sc3.jpg" alt="Описание скриншота" class="instruction-img" onclick="openFullscreenImage(this.src)">
+                    </ol>
+
+                    <h2>Отметка в РСТ</h2>
+                    <ol class="custom-list">
+                        <li>Перейди в РСТ.</li>
+                        <li>Проставь галку <b>«Расчет сверен»</b>.</li>
+                        <img src="img/buhAO/sc4.jpg" alt="Описание скриншота" class="instruction-img" onclick="openFullscreenImage(this.src)">
+                    </ol>
+
+                    <div class="callout-box warning-type">
+                        <strong>Внимание:</strong> при возмещении расхода водителю на конец месяца остаток в поле <b>«ДС на конец»</b> должен быть пустым.
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: ВЫГРУЗКА АО В БУХГАЛТЕРСКУЮ БАЗУ -->
+            <div id="zam_upload" style="display: none;">
+                <h1>Выгрузка АО в Бухгалтерскую базу</h1>
+                <div class="article-body">
+
+                    <div class="callout-box">
+                        <strong>К сведению:</strong> процесс ниже может совпадать с обработкой «Выгрузка АО в базу Промлогистик» из раздела «Закрытие авансового отчета» — здесь он расписан подробнее, шаг за шагом.
+                    </div>
+
+                    <h2>Шаг 1. Отбор и создание документов</h2>
+                    <ol class="custom-list">
+                        <li>В 1С перейди в <b>Сервис - Дополнительные внешние обработки - доп.внеш.обработки </b> и выбираем <b>"Промлогистик (код 682)"</b></li>
+                        <li>Выбири месяц за который выгружаем</li>
+                        <li>Отберись по бухгалтеру АО.</li>
+                        <li>Укажи признак <b>«Собственный транспорт»</b>.</li>
+                        <li>Нажми <b>«Отобрать РСТ»</b>.</li>
+                        <li>Нажми <b>«Создать АО»</b>, затем <b>«Создать ПКО»</b>.</li>
+                    </ol>
+
+                    <div class="callout-box">
+                        <strong>ИЗОБРАЖЕНИЕ</strong>
+                    </div>
+
+                    <p>АО выгружаются в Бухгалтерскую базу.</p>
+
+                    <h2>Шаг 2. Сверка каждого АО</h2>
+                    <ol class="custom-list">
+                        <li>Отберись по бухгалтеру АО.</li>
+                        <li>Провались в каждый АО и сверь расходы по водителю и номеру ТС, а также счет учета расходов.</li>
+                        <li>Приклей первичные документы для бухгалтерской справки (сделай ксерокопии и подложи документы к ней).</li>
+                    </ol>
+
+                    <div class="callout-box">
+                        <strong>ИЗОБРАЖЕНИЕ</strong>
+                    </div>
+
+                    <h2>Шаг 3. Работа со складом</h2>
+                    <ol class="custom-list">
+                        <li>Перейди во вкладку <b>«Склад» → «Расход материалов» → «Требования-накладные»</b>.</li>
+                        <li>Проверь счет учета, при необходимости исправь на правильный.</li>
+                        <li>Проведи документ и распечатай <b>Акт на списание материалов</b>.</li>
+                    </ol>
+
+                    <div class="callout-box">
+                        <strong>ИЗОБРАЖЕНИЕ</strong>
+                    </div>
+
+                    <h2>Шаг 4. Финальная сверка</h2>
+                    <p>За отчетный период сверь <b>счет 71</b> и <b>счет 10</b> (учет утечки).</p>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ⚙️ ПОДКЛЮЧЕНИЕ БАЗОВОЙ ЛОГИКИ ПОРТАЛА -->
+    <script src="base.js"></script>
+    <script>
+        // Переключение вложенных экранов: Еженедельные операции (РСТ)
+        function showWeeklyStep(stepId) {
+            document.getElementById('weekly_main').style.display = 'none';
+            document.getElementById('weekly_left').style.display = 'none';
+            document.getElementById('weekly_right').style.display = 'none';
+
+            const backBtn = document.getElementById('weekly_back');
+            if (backBtn) backBtn.style.display = (stepId === 'weekly_main') ? 'none' : 'block';
+
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+
+        // Переключение вложенных экранов: Порядок проверки авансового отчета
+        function showVerificationStep(stepId) {
+            const screens = ['verification_main', 'verification_receipt', 'verification_ip', 'verification_duplicates',
+                'verification_payment', 'verification_purpose', 'verification_type', 'verification_problem', 'verification_redflags'];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+
+            const backBtn = document.getElementById('verification_back');
+            if (backBtn) backBtn.style.display = (stepId === 'verification_main') ? 'none' : 'block';
+
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+
+        // Переключение вложенных экранов: Закрытие авансового отчета
+        function showClosingStep(stepId) {
+            document.getElementById('closing_main').style.display = 'none';
+            document.getElementById('closing_howto').style.display = 'none';
+
+            const backBtn = document.getElementById('closing_back');
+            if (backBtn) backBtn.style.display = (stepId === 'closing_main') ? 'none' : 'block';
+
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+
+        // Переключение вложенных экранов: Проверка счетов и завершение периода
+        function showPeriodStep(stepId) {
+            document.getElementById('period_main').style.display = 'none';
+            document.getElementById('period_71').style.display = 'none';
+            document.getElementById('period_ifns').style.display = 'none';
+
+            const backBtn = document.getElementById('period_back');
+            if (backBtn) backBtn.style.display = (stepId === 'period_main') ? 'none' : 'block';
+
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+
+        // Переключение вложенных экранов: Замещение на время отпуска
+        function showZamStep(stepId) {
+            const screens = ['zam_main', 'zam_mp', 'zam_close', 'zam_upload'];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+
+            const backBtn = document.getElementById('zam_back');
+            if (backBtn) backBtn.style.display = (stepId === 'zam_main') ? 'none' : 'block';
+
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+    </script>
+</body>
+
+</html>
