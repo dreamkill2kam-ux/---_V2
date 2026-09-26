@@ -377,3 +377,84 @@ filterChips.forEach(chip => {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. ЛОГИКА ТУЛТИПОВ (Hover с debounce для lw-btn)
+    const popover = document.getElementById('textPopover');
+    let tooltipTimeout;
+
+    // Ищем только те lw-btn, у которых есть data-tooltip
+    const scenarioBtns = document.querySelectorAll('.lw-btn[data-tooltip]');
+
+    scenarioBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', function () {
+            const tooltipText = this.getAttribute('data-tooltip');
+            if (!tooltipText || !popover) return;
+
+            // Задержка 350мс, чтобы убрать эффект "мигания"
+            tooltipTimeout = setTimeout(() => {
+                popover.innerHTML = tooltipText;
+                popover.style.display = 'block';
+
+                const rect = this.getBoundingClientRect();
+
+                // Центрируем над кнопкой с учетом прокрутки страницы (scrollX / scrollY)
+                let topPos = rect.top + window.scrollY - popover.offsetHeight - 12;
+                let leftPos = rect.left + window.scrollX + (rect.width / 2) - (popover.offsetWidth / 2);
+
+                // Если вылезает за верх экрана - показываем под кнопкой
+                if (rect.top - popover.offsetHeight < 0) {
+                    topPos = rect.bottom + window.scrollY + 12;
+                    popover.classList.add('popover-bottom');
+                } else {
+                    popover.classList.remove('popover-bottom');
+                }
+
+                popover.style.top = topPos + 'px';
+                popover.style.left = leftPos + 'px';
+            }, 350);
+        });
+
+        btn.addEventListener('mouseleave', function () {
+            clearTimeout(tooltipTimeout);
+            if (popover) {
+                popover.style.display = 'none';
+            }
+        });
+    });
+});
+
+// 2. ЛОГИКА АККОРДЕОНА СПРАВОЧНИКА
+function toggleScenarioDict() {
+    const dictContent = document.getElementById('scenario-dict');
+    const dictIcon = document.getElementById('dict-icon');
+
+    if (dictContent.style.maxHeight && dictContent.style.maxHeight !== '0px') {
+        dictContent.style.maxHeight = '0px';
+        dictContent.style.opacity = '0';
+        dictIcon.style.transform = 'rotate(0deg)';
+    } else {
+        dictContent.style.maxHeight = dictContent.scrollHeight + "px";
+        dictContent.style.opacity = '1';
+        dictIcon.style.transform = 'rotate(180deg)';
+    }
+}
+
+// ==========================================
+// ЛОГИКА УРОВНЯ 2: Аккордеон справочника
+// ==========================================
+function toggleScenarioDict() {
+    const dictContent = document.getElementById('scenario-dict');
+    const dictIcon = document.getElementById('dict-icon');
+
+    if (dictContent.style.maxHeight && dictContent.style.maxHeight !== '0px') {
+        // Сворачиваем
+        dictContent.style.maxHeight = '0px';
+        dictContent.style.opacity = '0';
+        dictIcon.style.transform = 'rotate(0deg)';
+    } else {
+        // Раскрываем (scrollHeight позволяет анимировать динамическую высоту)
+        dictContent.style.maxHeight = dictContent.scrollHeight + "px";
+        dictContent.style.opacity = '1';
+        dictIcon.style.transform = 'rotate(180deg)';
+    }
+}

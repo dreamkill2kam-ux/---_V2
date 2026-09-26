@@ -202,6 +202,12 @@
                     платформы <span class="term-keyword"
                         onclick="openPopover(event, 'Национальная цифровая транспортно-логистическая платформа. Через неё государство ведёт реестр экспедиторов (обязателен с 1 марта 2026 года) и реестр перевозчиков (с 1 марта 2027 года)')">ГосЛог</span>
                     — это требование действует уже сейчас, отдельно от перехода на ЭПД.</p>
+                <div class="callout-box success-type">
+                    Наша компания состоит в реестре с 29.04.2026 года и имеет реестровый номер:<br>
+                    GL-B044-00112-00/00008107<br><br>
+                    <a href="https://logvisor.ru/ekspeditor/transportnye-tehnologii-7810?ysclid=muhynmit340081734">Страница
+                        в ГосЛог</a>
+                </div>
 
                 <h3><b>4. </b>Электронный путевой лист (ЭПЛ)</h3>
                 <p>Отдельный документ, фиксирует выпуск машины и водителя на линию: медосмотр, техконтроль, показания
@@ -224,7 +230,7 @@
                     В разных источниках можно встретить информацию о <b>9 титулах ЭТрН.</b> При этом, количество и
                     состав титулов строго определены <b>Постановлением Правительства РФ от 21.05.2022 №
                         931.</b> где количество титулов <b>равно 8.</b> <br>
-                    Kюбые «нулевые» титулы (каким можно считать титул №9) или статусы являются лишь техническими
+                    Любые «нулевые» титулы (каким можно считать титул №9) или статусы являются лишь техническими
                     черновиками систем учета и не входят в утвержденную законом схему документа.
                 </div>
 
@@ -2786,8 +2792,10 @@
             <div class="article-body">
                 <div class="callout-box">
                     <strong>К сведению:</strong> Этот инструмент помогает быстро найти порядок действий в 1С по
-                    известному номеру сценария. Если вы не знаете свой сценарий, воспользуйтесь «Общим конструктором».
+                    известному номеру сценария. При выборе ветки (СТ или ПТ) - можно ознакомиться с кратким описанием сценариев перед выбором.
                 </div>
+
+
 
                 <div class="logist-wizard-container">
 
@@ -2818,16 +2826,209 @@
                     <!-- УЗЕЛ: СПИСОК ПТ -->
                     <div id="lw_node_list_pt" class="lw-node">
                         <div class="lw-question">Выберите сценарий (Ветка ПТ)</div>
+                        <!-- УРОВЕНЬ 2: Сворачиваемый справочник (Аккордеон) -->
+                        <div class="callout-box success-type" style="margin-bottom: 30px; text-align: center;">
+                            <strong>Справочник:</strong> Как распределяются роли в зависимости от схемы работы.
+                            <button onclick="toggleScenarioDict()"
+                                style="display: flex; align-items: center; background: none; border: none; padding: 0; margin-top: 12px; font-size: 14.5px; font-weight: 600; color: var(--brand-primary); cursor: pointer;">
+                                <span style="border-bottom: 1px dashed var(--brand-primary); text-align: center;">Показать краткий
+                                    справочник</span>
+                                <span id="dict-icon"
+                                    style="margin-left: 8px; font-size: 12px; transition: transform 0.3s ease;">▼</span>
+                            </button>
+
+                            <div id="scenario-dict"
+                                style="max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease;">
+                                <div style="padding-top: 20px;">
+                                    <table class="compare-table"
+                                        style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                                        <thead>
+                                            <tr style="background-color: var(--table-header-bg);">
+                                                <th
+                                                    style="padding: 12px; border-bottom: 2px solid var(--border-color);">
+                                                    Сценарий</th>
+                                                <th
+                                                    style="padding: 12px; border-bottom: 2px solid var(--border-color);">
+                                                    Как это
+                                                    работает (простыми словами)</th>
+                                                <th
+                                                    style="padding: 12px; border-bottom: 2px solid var(--border-color);">
+                                                    Кто
+                                                    Отправитель (ГО)</th>
+                                                <th
+                                                    style="padding: 12px; border-bottom: 2px solid var(--border-color);">
+                                                    Кто
+                                                    Перевозчик (ПРВ)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>1.2
+                                                        ПТ</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Прямой
+                                                    договор перевозки. Мы используем машину, которую взяли в
+                                                    аренду.
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Клиент.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Наша
+                                                    компания.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>2.1</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Агентский договор. Мы выполняем поручение клиента строго от его
+                                                    имени[cite:
+                                                    1].</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Клиент.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Фактический перевозчик.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>2.2
+                                                        / 2.3</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Агентский договор. Мы действуем как агент, но выступаем от
+                                                    своего
+                                                    имени.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Наша
+                                                    компания.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Фактический перевозчик.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>3.1
+                                                        ПТ</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Экспедирование (ТЭУ). Мы берем груз под свою ответственность и
+                                                    нанимаем
+                                                    машину.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Наша
+                                                    компания.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Фактический перевозчик.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>3.2
+                                                        / 4.2</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Экспедирование (ТЭУ). Рейс организуется по доверенности клиента,
+                                                    без
+                                                    принятия груза в наше владение.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Клиент
+                                                    / Экспедитор 1.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Фактический перевозчик.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>4.1
+                                                        ПТ1</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Экспедирование (ТЭУ). Берем груз под свою ответственность и
+                                                    нанимаем
+                                                    стороннюю машину для клиента.</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Наша
+                                                    компания (Экспедитор 2).</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Фактический перевозчик.</td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    <b>4.1
+                                                        ПТ2</b>
+                                                </td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Субэкспедирование. Перевозчик, которого мы наняли (ПТ1), передал
+                                                    заказ
+                                                    другому исполнителю (ПТ2).</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Наша
+                                                    компания (Экспедитор 2).</td>
+                                                <td
+                                                    style="padding: 10px; border-bottom: 1px solid var(--border-color);">
+                                                    Вторичный перевозчик (ПТ2).</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="lw-grid">
-                            <button class="lw-btn" onclick="goToLogistNode('card_1_2_pt')">1.2 ПТ</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_2_1')">2.1</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_2_2')">2.2</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_2_3')">2.3</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_3_1_pt')">3.1 ПТ</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_3_2')">3.2</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_4_1_pt1')">4.1 ПТ1</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_4_1_pt2')">4.1 ПТ2</button>
-                            <button class="lw-btn" onclick="goToLogistNode('card_4_2')">4.2</button>
+                            <div class="lw-grid">
+                                <button class="lw-btn"
+                                    data-tooltip="Прямой договор с клиентом. Везем груз на арендованной нами машине."
+                                    onclick="goToLogistNode('card_1_2_pt')">1.2 ПТ</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Агентская схема. Выполняем рейс строго от имени клиента."
+                                    onclick="goToLogistNode('card_2_1')">2.1</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Агентская схема. Выступаем от своего собственного имени."
+                                    onclick="goToLogistNode('card_2_2')">2.2</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Агентская схема. Действуем от своего имени (аналог 2.2)."
+                                    onclick="goToLogistNode('card_2_3')">2.3</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Экспедирование. Берем груз под свою ответственность и нанимаем машину."
+                                    onclick="goToLogistNode('card_3_1_pt')">3.1 ПТ</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Экспедирование. Организуем рейс по доверенности, не принимая груз на себя."
+                                    onclick="goToLogistNode('card_3_2')">3.2</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Экспедирование. Принимаем груз и привлекаем стороннего перевозчика."
+                                    onclick="goToLogistNode('card_4_1_pt1')">4.1 ПТ1</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Субэкспедирование. Наш перевозчик сам передал заказ другому исполнителю."
+                                    onclick="goToLogistNode('card_4_1_pt2')">4.1 ПТ2</button>
+                                <button class="lw-btn"
+                                    data-tooltip="Экспедирование. Работаем по доверенности клиента без принятия груза."
+                                    onclick="goToLogistNode('card_4_2')">4.2</button>
+                            </div>
                         </div>
                         <button class="lw-btn-restart" onclick="startLogistWizard()">↺ Назад</button>
                     </div>
@@ -2836,14 +3037,16 @@
 
                     <!-- КАРТОЧКА: 1.1СТ -->
                     <div id="lw_node_card_1_1_st" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 1.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            1.1
                             СТ — что делать</h2>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — Клиент; Т2 — ТТ (приём груза); Т3 —
                             Грузополучатель; Т4 — ТТ (выдача).</p>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
                         <ol style="line-height: 1.8;">
-                            <li><span class="placeholder-step">[1С-ШАГ: открыть рейс в «Рабочей базе», убедиться, что
+                            <li><span class="placeholder-step">[1С-ШАГ: открыть рейс в «Рабочей базе», убедиться,
+                                    что
                                     сценарий 1.1СТ проставлен корректно]</span></li>
                             <li><span class="placeholder-step">[1С-ШАГ: сформировать ЭЗЗ с клиентом, если ещё не
                                     сформирована]</span></li>
@@ -2851,12 +3054,14 @@
                             </li>
                             <li>Дождаться подписания Т1 клиентом (грузоотправитель).</li>
                             <li>При погрузке подписать Т2 (приём груза) от лица ТТ.</li>
-                            <li><span class="placeholder-step">[1С-ШАГ: проконтролировать подписание Т3 грузополучателем
+                            <li><span class="placeholder-step">[1С-ШАГ: проконтролировать подписание Т3
+                                    грузополучателем
                                     при приёмке]</span></li>
                             <li>При выгрузке подписать Т4 (выдача) от лица ТТ.</li>
                         </ol>
 
-                        <div class="placeholder-img">[СКРИНШОТ: экран рейса в 1С с проставленным сценарием 1.1СТ]</div>
+                        <div class="placeholder-img">[СКРИНШОТ: экран рейса в 1С с проставленным сценарием 1.1СТ]
+                        </div>
                         <div class="placeholder-img">[СКРИНШОТ: карточка ЭТрН со статусами Т1–Т4]</div>
 
                         <h3 style="margin-top: 25px;">Проверить перед отправкой:</h3>
@@ -2877,16 +3082,19 @@
 
                     <!-- КАРТОЧКА: 3.1СТ -->
                     <div id="lw_node_card_3_1_st" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 3.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            3.1
                             СТ — что делать</h2>
-                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ (грузоотправитель); Т2 — ТТ (приём груза);
+                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ (грузоотправитель); Т2 — ТТ (приём
+                            груза);
                             Т3 — Грузополучатель; Т4 — ТТ (выдача).</p>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
                         <ol style="line-height: 1.8;">
                             <li><span class="placeholder-step">[1С-ШАГ: открыть рейс, убедиться, что сценарий 3.1СТ
                                     проставлен корректно]</span></li>
-                            <li><span class="placeholder-step">[1С-ШАГ: получить/зафиксировать ЭПЭ от клиента]</span>
+                            <li><span class="placeholder-step">[1С-ШАГ: получить/зафиксировать ЭПЭ от
+                                    клиента]</span>
                             </li>
                             <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЭР при приёме груза — документ
                                     односторонний, подписывает только ТТ; печатной формы в 1С нет, формируется у
@@ -2912,7 +3120,8 @@
 
                         <h3 style="margin-top: 25px;">Когда эскалировать именно в этом сценарии:</h3>
                         <ul>
-                            <li>ТТ не может быть проставлена одновременно грузоотправителем и перевозчиком в системе.
+                            <li>ТТ не может быть проставлена одновременно грузоотправителем и перевозчиком в
+                                системе.
                             </li>
                             <li>Содержание ЭПЭ не совпадает с фактическими условиями рейса.</li>
                         </ul>
@@ -2921,9 +3130,11 @@
 
                     <!-- КАРТОЧКА: 4.1СТ -->
                     <div id="lw_node_card_4_1_st" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 4.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            4.1
                             СТ — что делать</h2>
-                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — ТТ; Т3 — Грузополучатель; Т4 — ТТ.
+                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — ТТ; Т3 — Грузополучатель; Т4 —
+                            ТТ.
                         </p>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
@@ -2948,7 +3159,8 @@
 
                         <h3 style="margin-top: 25px;">Проверить перед отправкой:</h3>
                         <ul>
-                            <li>Реквизиты заказчика в ОЗ совпадают с Экспедитором 1, а не с конечным грузовладельцем.
+                            <li>Реквизиты заказчика в ОЗ совпадают с Экспедитором 1, а не с конечным
+                                грузовладельцем.
                             </li>
                             <li>ЭЭР оформлена.</li>
                         </ul>
@@ -2965,7 +3177,8 @@
 
                     <!-- КАРТОЧКА: 1.2ПТ -->
                     <div id="lw_node_card_1_2_pt" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 1.2
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            1.2
                             ПТ — что делать</h2>
                         <div class="callout-box warning-type">
                             <strong>Внимание:</strong> Статус сценария — <b>тестируется</b>. Есть неразрешённое
@@ -3008,21 +3221,25 @@
 
                     <!-- КАРТОЧКА: 2.1 -->
                     <div id="lw_node_card_2_1" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 2.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            2.1
                             — что делать</h2>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — клиент (или ТТ по МЧД от его имени); Т2 —
-                            фактический перевозчик; Т3 — Грузополучатель; Т4 — фактический перевозчик. ТТ титулы ЭТрН по
+                            фактический перевозчик; Т3 — Грузополучатель; Т4 — фактический перевозчик. ТТ титулы
+                            ЭТрН по
                             умолчанию <b>не подписывает</b>.</p>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
                         <ol style="line-height: 1.8;">
                             <li><span class="placeholder-step">[1С-ШАГ: открыть рейс, убедиться, что сценарий 2.1
                                     проставлен корректно]</span></li>
-                            <li><span class="placeholder-step">[1С-ШАГ: проверить наличие и срок действия МЧД, если Т1
+                            <li><span class="placeholder-step">[1С-ШАГ: проверить наличие и срок действия МЧД, если
+                                    Т1
                                     подписывает ТТ]</span></li>
                             <li>Если МЧД есть — подписать Т1 от имени клиента. Если нет — контролировать, что клиент
                                 подписал Т1 сам.</li>
-                            <li><span class="placeholder-step">[1С-ШАГ: проконтролировать оформление ЭЗЗ между клиентом
+                            <li><span class="placeholder-step">[1С-ШАГ: проконтролировать оформление ЭЗЗ между
+                                    клиентом
                                     и фактическим перевозчиком]</span></li>
                             <li>Проконтролировать подписание Т2 и Т4 фактическим перевозчиком.</li>
                         </ol>
@@ -3045,11 +3262,13 @@
 
                     <!-- КАРТОЧКА: 2.2 -->
                     <div id="lw_node_card_2_2" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 2.2
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            2.2
                             — что делать</h2>
                         <div class="callout-box warning-type">
                             <strong>Внимание:</strong> Эта схема несёт риск переквалификации в договор ТЭУ. Если
-                            формулировки в отчёте или переписке с клиентом описывают организацию перевозки — сообщите
+                            формулировки в отчёте или переписке с клиентом описывают организацию перевозки —
+                            сообщите
                             руководителю.
                         </div>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — фактический перевозчик; Т3 —
@@ -3082,7 +3301,8 @@
 
                     <!-- КАРТОЧКА: 2.3 -->
                     <div id="lw_node_card_2_3" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 2.3
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            2.3
                             — что делать</h2>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — фактический перевозчик; Т3 —
                             Грузополучатель; Т4 — фактический перевозчик.</p>
@@ -3093,7 +3313,8 @@
                                     проставлен корректно]</span></li>
                             <li>Подтвердить у клиента/СОХ, что груз физически передан перевозчику.</li>
                             <li>Подписать Т1 от лица ТТ.</li>
-                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим перевозчиком]</span>
+                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим
+                                    перевозчиком]</span>
                             </li>
                             <li>Проконтролировать подписание Т2 и Т4 перевозчиком.</li>
                         </ol>
@@ -3113,7 +3334,8 @@
 
                     <!-- КАРТОЧКА: 3.1ПТ -->
                     <div id="lw_node_card_3_1_pt" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 3.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            3.1
                             ПТ — что делать</h2>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — фактический перевозчик; Т3 —
                             Грузополучатель; Т4 — фактический перевозчик.</p>
@@ -3122,13 +3344,15 @@
                         <ol style="line-height: 1.8;">
                             <li><span class="placeholder-step">[1С-ШАГ: открыть рейс, убедиться, что сценарий 3.1ПТ
                                     проставлен корректно]</span></li>
-                            <li><span class="placeholder-step">[1С-ШАГ: получить/зафиксировать ЭПЭ от клиента]</span>
+                            <li><span class="placeholder-step">[1С-ШАГ: получить/зафиксировать ЭПЭ от
+                                    клиента]</span>
                             </li>
                             <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЭР при приёме груза — документ
                                     односторонний, подписывает только ТТ; печатной формы в 1С нет, формируется у
                                     оператора ЭДО]</span></li>
                             <li>Подписать Т1 от лица ТТ.</li>
-                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим перевозчиком]</span>
+                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим
+                                    перевозчиком]</span>
                             </li>
                             <li>Проконтролировать подписание Т2 и Т4 перевозчиком.</li>
                         </ol>
@@ -3143,7 +3367,8 @@
 
                         <h3 style="margin-top: 25px;">Когда эскалировать именно в этом сценарии:</h3>
                         <ul>
-                            <li>Перевозчик не подписывает Т2/Т4 при верных данных — действовать по «Памятке логисту».
+                            <li>Перевозчик не подписывает Т2/Т4 при верных данных — действовать по «Памятке
+                                логисту».
                             </li>
                         </ul>
                         <button class="lw-btn-restart" onclick="startLogistWizard()">↺ Начать заново</button>
@@ -3151,7 +3376,8 @@
 
                     <!-- КАРТОЧКА: 3.2 -->
                     <div id="lw_node_card_3_2" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 3.2
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            3.2
                             — что делать</h2>
                         <div class="callout-box warning-type">
                             <strong>Внимание:</strong> ТТ <b>не подписывает ЭТрН вообще</b> в этом сценарии.
@@ -3165,7 +3391,8 @@
                                     проставлен корректно]</span></li>
                             <li><span class="placeholder-step">[1С-ШАГ: оформить только ЭПЭ с клиентом — ЭЭР не
                                     оформляется]</span></li>
-                            <li>Проконтролировать, что клиент и перевозчик заключили договор перевозки напрямую.</li>
+                            <li>Проконтролировать, что клиент и перевозчик заключили договор перевозки напрямую.
+                            </li>
                             <li>Проконтролировать подписание Т1–Т4 клиентом и перевозчиком.</li>
                         </ol>
 
@@ -3183,7 +3410,8 @@
 
                     <!-- КАРТОЧКА: 4.1ПТ1 -->
                     <div id="lw_node_card_4_1_pt1" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 4.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            4.1
                             ПТ1 — что делать</h2>
                         <p><b>Кто и в каком порядке подписывает:</b> Т1 — ТТ; Т2 — фактический перевозчик; Т3 —
                             Грузополучатель; Т4 — фактический перевозчик.</p>
@@ -3198,7 +3426,8 @@
                                     односторонний, подписывает только ТТ; печатной формы в 1С нет, формируется у
                                     оператора ЭДО]</span></li>
                             <li>Подписать Т1 от лица ТТ.</li>
-                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим перевозчиком]</span>
+                            <li><span class="placeholder-step">[1С-ШАГ: оформить ЭЗЗ с фактическим
+                                    перевозчиком]</span>
                             </li>
                             <li>Проконтролировать подписание Т2 и Т4 перевозчиком.</li>
                         </ol>
@@ -3219,18 +3448,21 @@
 
                     <!-- КАРТОЧКА: 4.1ПТ2 -->
                     <div id="lw_node_card_4_1_pt2" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 4.1
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            4.1
                             ПТ2 — что делать</h2>
                         <div class="callout-box warning-type">
                             <strong>Внимание:</strong> Статус сценария — <b>тестируется</b>. Договорная роль первого
-                            привлечённого перевозчика (ПТ1) ещё не определена. <b>Не оформляйте документ по этой схеме
+                            привлечённого перевозчика (ПТ1) ещё не определена. <b>Не оформляйте документ по этой
+                                схеме
                                 самостоятельно.</b>
                         </div>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
                         <ol style="line-height: 1.8;">
                             <li>Не формировать ЭТрН по этому сценарию.</li>
-                            <li>Эскалировать ответственному с данными: номер ОЗ, клиент, оба привлечённых перевозчика
+                            <li>Эскалировать ответственному с данными: номер ОЗ, клиент, оба привлечённых
+                                перевозчика
                                 (ПТ1 и ПТ2).</li>
                             <li>Дождаться решения перед любыми действиями в 1С.</li>
                         </ol>
@@ -3243,19 +3475,22 @@
                         <div style="display: flex; gap: 15px; margin-top: 25px;">
                             <button class="lw-btn" style="background-color: #b05c0f; color: #ffffff;"
                                 onclick="alert('Эскалировать ответственному')">Эскалировать</button>
-                            <button class="lw-btn-restart" style="margin-top: 0;" onclick="startLogistWizard()">↺ Начать
+                            <button class="lw-btn-restart" style="margin-top: 0;" onclick="startLogistWizard()">↺
+                                Начать
                                 заново</button>
                         </div>
                     </div>
 
                     <!-- КАРТОЧКА: 4.2 -->
                     <div id="lw_node_card_4_2" class="lw-node">
-                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий 4.2
+                        <h2 style="color: #b05c0f; border-bottom: 2px solid #fdc69c; padding-bottom: 10px;">Сценарий
+                            4.2
                             — что делать</h2>
                         <div class="callout-box warning-type">
                             <strong>Внимание:</strong> ТТ <b>не подписывает ЭТрН</b> в этом сценарии.
                         </div>
-                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — Экспедитор 1; Т2 — фактический перевозчик; Т3
+                        <p><b>Кто и в каком порядке подписывает:</b> Т1 — Экспедитор 1; Т2 — фактический перевозчик;
+                            Т3
                             — Грузополучатель; Т4 — фактический перевозчик.</p>
 
                         <h3 style="margin-top: 25px;">Порядок действий:</h3>
@@ -3264,7 +3499,8 @@
                                     проставлен корректно]</span></li>
                             <li><span class="placeholder-step">[1С-ШАГ: оформить только ЭПЭ с Экспедитором 1]</span>
                             </li>
-                            <li>Проконтролировать, что Экспедитор 1 и перевозчик заключили договор напрямую, минуя ТТ.
+                            <li>Проконтролировать, что Экспедитор 1 и перевозчик заключили договор напрямую, минуя
+                                ТТ.
                             </li>
                             <li>Проконтролировать подписание Т1–Т4.</li>
                         </ol>
