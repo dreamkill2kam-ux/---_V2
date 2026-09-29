@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание карточки КА(перевозчик)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="etrn_base-page">
+    <!-- Автоматическая кнопка и переключение темной темы -->
+    <script src="theme.js"></script>
+
+    <!-- 🧭 ЛЕВАЯ ПАНЕЛЬ: ИНТЕРАКТИВНОЕ ДЕРЕВО МЕНЮ -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <h2>Создание контрагента перевозчика</h2>
+            <p>Алгоритм заведения перевозчика в базу 1СРБ</p>
+
+            <nav class="menu-list">
+                <div class="menu-group">
+                    <button class="menu-item active" data-article="ka_create" onclick="switchTab(this)">Создание
+                        карточки КА</button>
+                    <button class="menu-item active" data-article="article_driver" onclick="switchTab(this)">
+                        📄 Создание карточки водителя
+                    </button>
+                    <button class="menu-item" data-article="article_truck" onclick="switchTab(this)">
+                        📄 Создание карточки тягача
+                    </button>
+                    <button class="menu-item" data-article="article_trailer" onclick="switchTab(this)">
+                        📄 Создание карточки прицепа
+                    </button>
+                    <button class="menu-item" data-article="article_transport" onclick="switchTab(this)">
+                        📄 Создание транспорта
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="working_procedures.html" class="back-link">← Вернуться к процедурам</a>
+        </div>
+    </aside>
+
+    <!-- 🖥️ ЦЕНТРАЛЬНАЯ ПАНЕЛЬ КОНТЕНТА -->
+    <main class="main-content">
+        <!-- 📄 СТАТЬЯ 1: Создание карточки КА -->
+        <div class="article-page active" id="ka_create"
+            style="position: relative; padding-right: 260px; min-height: 80vh;">
+
+            <!-- 🌟 ЕДИНАЯ ПАРЯЩАЯ КНОПКА ВОЗВРАТА (Скрыта по умолчанию) -->
+            <div id="global_ka_back"
+                style="display: none; position: absolute; right: 0; top: 0; width: 230px; height: 100%; pointer-events: none;">
+                <div style="position: sticky; top: 40px; pointer-events: auto; animation: contentFadeIn 0.3s ease-out;">
+                    <button class="side-back-btn" onclick="showKaSubStep('ka_create_main')"
+                        style="width: 100%; justify-content: center;">
+                        <span style="font-size: 18px; margin-right: 8px;">←</span> Назад к шагам
+                    </button>
+                </div>
+            </div>
+
+            <!-- 🏠 ГЛАВНЫЙ ЭКРАН (ОСНОВНЫЕ ШАГИ) -->
+            <div id="ka_create_main" style="max-width: 900px;">
+                <h1 style="margin-top: 0;">Создание карточки Контрагента (КА)</h1>
+                <div class="article-body">
+
+                    <div class="callout-box info-type">
+                        <strong>Алгоритм действий:</strong> Ниже описан пошаговый процесс заведения нового
+                        контрагента-перевозчика в
+                        базу.
+                    </div>
+
+                    <ol class="custom-list">
+                        <li>Открой 1С и перейди во вкладку <strong>«Покупка»</strong> ➔ <strong>«Контрагенты»</strong>.
+                            <img src="img/KA.png" alt="Скриншот вкладки Общая"
+                                style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+                        </li>
+                        <li>Проверь наличие КА в действующей базе. Введи его ИНН в строку <b>"Поиск по ИНН"</b> окна
+                            <b>"Контрагенты"</b> и нажми Enter
+                            <img src="img/KA_INN.png" alt="Скриншот вкладки Общая"
+                                style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+                            <div class="callout-box warning-type" style="margin: 10px 0;">
+                                <strong>Внимание:</strong> Если КА уже есть в базе — новую карточку <b>НЕ СОЗДАВАЙ!</b>
+                                Просто открой её для дальнейшей работы или редактирования.
+                            </div>
+                        </li>
+                        <li>Если по ИНН никого не нашлось - для создания новой карточки нажми кнопку
+                            <strong>«Создать»</strong>. Откроется окно с пустой карточкой для заполнения.
+                            <div class="callout-box succes-type" style="margin: 10px 0;">
+                                <strong>Другой вариант:</strong> Кнопка <b>"Создать с заполнением DaData"</b> позволит
+                                провести автозаполнение карточки, взяв информацию из внешних источников. Для этого
+                                нужно ввести ИНН или ОГРН организации и нажать <b>"Получить данные"</b>
+                                <img src="img/KA_DADATA.png" alt="Скриншот вкладки Общая"
+                                    style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+                                Выбрать из списка поиска нужную организацию и нажать <b>"Создать контрагента(обычная
+                                    форма)"</b>
+                                <img src="img/KA_DADATA_2.png" alt="Скриншот вкладки Общая"
+                                    style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+                                Откроется стандартная форма карточки КА, где некоторые поля уже заполнены.
+
+                            </div>
+                        </li>
+                        <li>
+                            В карточке переходите на вкладки из списка ниже, заполняя их.<br> <strong>Выберите вкладку
+                                для просмотра
+                                правил заполнения:</strong>
+
+                            <!-- Навигационные кнопки-карточки (Минимализм) -->
+                            <div
+                                style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; margin-bottom: 25px;">
+
+                                <button class="nav-card-btn" onclick="showKaSubStep('ka_general')">
+                                    Общие
+                                </button>
+
+                                <button class="nav-card-btn" onclick="showKaSubStep('ka_address')">
+                                    Адреса и телефоны
+                                </button>
+
+                                <button class="nav-card-btn" onclick="showKaSubStep('ka_contacts')">
+                                    Контакты
+                                </button>
+
+                                <button class="nav-card-btn" onclick="showKaSubStep('ka_accounts')">
+                                    Счета и договоры
+                                </button>
+
+                            </div>
+                        </li>
+                        <li>Заполнив все вкладки, для завершения создания карточки нажми кнопку <strong>«Записать и
+                                закрыть»</strong> или <strong>«Записать» (дискета)</strong>. После закрытия карточки её
+                            можно будет найти в общем списке по ИНН или названию.
+                            <img src="img/KA_SAVE.png" alt="Скриншот вкладки Общая"
+                                style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+                        </li>
+                    </ol>
+                    <p> Для работы с контрагентом его нужно <b>проверить в службе безопасности</b>. Как отправить
+                        карточку КА на проверку - читайте в соответствующем разделе:</p>
+                    <div class="grid-kb" style="margin-top: 20px;">
+                        <div class="kb-card">
+                            <div class="card-top">
+                                <h3>Проверка перевозчика в ОЭБ</h3>
+                                <p>Правила, требования и процедура проверки перевозчика в ОЭБ</p>
+                            </div>
+                            <a href="oeb_check.html" target="_blank" class="open-btn">Открыть</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================== -->
+            <!-- НИЖЕ ИДУТ ВЛОЖЕННЫЕ ЭКРАНЫ С ПРАВИЛАМИ     -->
+            <!-- ========================================== -->
+
+            <!-- 📄 ПОДЭКРАН: ОБЩАЯ -->
+            <div id="ka_general" style="display: none;">
+
+
+
+                <h1 style="margin-top: 0;">Вкладка «Общие»</h1>
+                <div class="article-body">
+                    <div class="callout-box">Информацию для заполнения берем из документов, которые предоставил КА.
+                    </div>
+
+                    <img src="img/1c_ka_tabs.png" alt="Скриншот вкладки Общая"
+                        style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin: 20px 0; display: block;">
+
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30%;">Поле</th>
+                                <th>Правила заполнения</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Наименование</strong></td>
+                                <td>Название организации или ИП. Допускается использовать сокращения.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Код в АТИ</strong></td>
+                                <td>Индивидуальный код. Если нет в документах — ищем на сайте АТИ.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Юр./Физ.лицо</strong></td>
+                                <td>ООО — юридическое лицо. ИП — физическое лицо.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Полное наименование</strong></td>
+                                <td>Полное название без сокращений.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ИНН / ОГРН</strong></td>
+                                <td>Идентификационный и регистрационный номера.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Форма оплаты</strong></td>
+                                <td>Выбираем: С НДС 15 Б.Д / БЕЗ НДС 21 Б.Д.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Город / Регион</strong></td>
+                                <td>Берем из учредительных документов.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Статус КА</strong></td>
+                                <td>Перевозчик, перевозчик-экспедитор или грузовладелец-перевозчик.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: АДРЕСА И ТЕЛЕФОНЫ -->
+            <div id="ka_address" style="display: none;">
+
+
+                <h1 style="margin-top: 0;">Вкладка «Адреса и телефоны»</h1>
+                <div class="article-body">
+                    <img src="img/1c_ka_address.png" alt="Скриншот вкладки Адреса"
+                        style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin-bottom: 20px; display: block;">
+                    <ul class="custom-list">
+                        <li><strong>Юридический адрес:</strong> Формат: <i>Индекс, Край, Район, Город, Улица, Дом,
+                                Квартира.</i>
+                            <div class="callout-box warning-type" style="margin-top: 5px;">ВАЖНО! У ООО — это адрес
+                                регистрации. У ИП — это прописка в паспорте директора.</div>
+                        </li>
+                        <li><strong>Фактический адрес:</strong> Заполняется в аналогичном формате.
+                            <div class="callout-box warning-type" style="margin-top: 5px;">ВАЖНО! У ИП — это
+                                прописка в
+                                паспорте директора, если не указан иной адрес.</div>
+                        </li>
+                        <li><strong>Телефоны:</strong> Формат: <code>79280067895</code>.
+                            <div class="callout-box warning-type" style="margin-top: 5px;">ВАЖНО! Только цифры, без
+                                пробелов. Если номеров несколько — указываем через запятую.</div>
+                        </li>
+                        <li><strong>Адрес для конвертов:</strong> Если отдельно не указан, дублируем фактический
+                            адрес.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: КОНТАКТЫ -->
+            <div id="ka_contacts" style="display: none;">
+
+
+                <h1 style="margin-top: 0;">Вкладка «Контакты»</h1>
+                <div class="article-body">
+                    <img src="img/1c_ka_contacts.png" alt="Скриншот вкладки Контакты"
+                        style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin-bottom: 20px; display: block;">
+                    <ol class="custom-list">
+                        <li>Добавь новое контактное лицо (кнопка <strong>«Создать»</strong>).</li>
+                        <li>Заполни обязательные поля: «Пол», «ФИО», телефоны, почту и нажми <strong>«Записать и
+                                закрыть»</strong>.</li>
+                        <li>Выдели в списке лицо для переговоров о рейсах и нажми <strong>«Установить
+                                основным»</strong>.</li>
+                        <li>Под блоком «Контактные лица» заполни дополнительные поля:
+                            <ul>
+                                <li><strong>Моб. телефон перевозчика:</strong> без пробелов.</li>
+                                <li><strong>Телефон принадлежит:</strong> (ИП, Руководитель ООО, Сотрудник).</li>
+                                <li><strong>Эл. почта принадлежит:</strong> (ИП, Руководитель ООО, Сотрудник). Адрес
+                                    должен быть активным!</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- 📄 ПОДЭКРАН: СЧЕТА И ДОГОВОРЫ -->
+            <div id="ka_accounts" style="display: none;">
+
+
+                <h1 style="margin-top: 0;">Вкладка «Счета и договоры»</h1>
+                <div class="article-body">
+                    <img src="img/1c_ka_accounts.png" alt="Скриншот вкладки Счета"
+                        style="width: 100%; max-width: 700px; border-radius: 8px; border: 1px solid var(--border-color); box-shadow: var(--card-shadow); margin-bottom: 20px; display: block;">
+                    <ol class="custom-list">
+                        <li>Добавь новый банковский счет (кнопка <strong>«Создать»</strong>).</li>
+                        <li>Заполни реквизиты: «Номер счета», «БИК», «Корр. Счет» и нажми <strong>«Записать и
+                                закрыть»</strong>.</li>
+                        <li>После создания выбери счет в списке и нажми кнопку <strong>«Основной»</strong>.</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- СТАТЬЯ 1: Создание карточки водителя -->
+        <div class="article-page" id="article_driver">
+            <h1>Создание карточки водителя</h1>
+            <div class="article-body">
+                <Ol>
+                    <li>В карточке контрагента (КА) необходимо нажать кнопку <b>«Перейти»</b>, выбрать пункт
+                        <b>«Водители
+                            контрагентов»</b> и нажать кнопку <b>«Создать»</b>.
+                        <img src="img/KA_vod_1.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>В первой вкладке <b>«Данные водителя»</b> необходимо заполнить обязательные поля, включая:<br>
+                        - ФИО водителя<br>
+                        - Дату и место рождения (как в паспорте)<br>
+                        - Серию, номер, дату выдачи паспорта<br>
+                        - Код подразделения и кем выдан<br>
+                        <div class="callout-box success-type">
+                            Также в этой вкладке указывается прописка, гражданство (например, РФ), телефон водителя
+                            (основной номер пишется первым без пробелов, например 79181826966, дополнительные номера
+                            указываются через пробел), данные водительского удостоверения, срок его действия и наличие
+                            медицинской книжки.
+                        </div>
+                    </li>
+
+                    <img src="img/KA_vod_2.png" alt="Описание скриншота" class="instruction-img"
+                        onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>При создании карточки водителя - мы <b>обязаны</b> позвонить ему через IP телефонию (СИП) и
+                        уточнить:<br>
+                        <ul>
+                            <li>
+                                Его опыт работы на тягаче, который заявлен в рейс
+                            </li>
+                            <li>
+                                Его опыт работы с данным контрагентом (перевозчиком)
+                            </li>
+                        </ul>
+                        Эту информацию необходимо зафиксировать в блоке <b>"Опыт работы водителя"</b> (указывается в
+                        годах/месяцах/рейсах)
+                        <img src="img/KA_vod_3.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                        <div class="callout-box warning-type">
+                            <strong>Важно:</strong> В звонке необходимо уточнить номер родственника (жена,
+                            брат, сестра..). Нужно объяснить - просто так родственнику никто звонить не будет (в том
+                            числе в процессе
+                            проверки). Мы запрашиваем номер, чтобы связаться в случае экстренной ситуации!<br><br>
+                            После получения информации нужно заполнить соответствующий блок. Если водитель отказывается
+                            предоставлять номер - в соответствующем блоке пишет "Отказ"
+                            <img src="img/KA_VOD_4.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </div>
+
+                    </li>
+                    <li>В блоке <b>«Посредники перевозки»</b> требуется указать нашу организацию, от которой совершается
+                        рейс,
+                        перевозчика и водителя.
+                        <img src="img/KA_VOD_5.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>В блоке <b>«Планируемый рейс»</b> вносим информацию по рейсу, на который ставим водителя:
+                        <ul>
+                            <li>
+                                Если ПЗ (предварительная заявка) уже есть в системе - выбираем её из списка, нажав на
+                                кнопку "...". Остальные данные заполняться автоматически
+                            </li>
+                            <li>
+                                Если ПЗ еще нет (например, информация о рейсе поступило лично от клиентского менеджера
+                                или через телеграм группу) - заполняем данные вручную
+                            </li>
+                        </ul>
+                        <img src="img/KA_VOD_6.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+
+                        <div class="callout-box succes-type">
+                            Не забываем заполнить <b>"Контактное лицо"</b>, нажав на значок <b>"лупа"</b> и выбрав
+                            контактное
+                            лицо, с кем общались по рейсу (выбор из списка контактов контрагента, который заполнялся
+                            ранее)
+                        </div>
+
+                    </li>
+                    <li>В блоке <b>«Паспорт и прочие документы»</b> через кнопку <b>«Добавить»</b> прикрепляем паспорт,
+                        права и прочие документы при необходимости (например, свидетельство о временной регистрации)
+                        <img src="img/KA_VOD_7.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>
+                        Нажимаем кнопку <b>«Записать и закрыть»</b>
+                        <img src="img/KA_VOD_8.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                        <div class="callout-box warning-type">
+                            Обратите внимание на нижнюю часть экрана. Система оповестит об ошибках заполнения, если они
+                            были. Исправьте их и нажмите <b>«Записать и закрыть»</b> снова.
+                            <img src="img/KA_VOD_9.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </div>
+                        Если ошибок не возникает - форма создания карточки будет закрыта, а сама карточка - создана.
+
+                    </li>
+                </Ol>
+            </div>
+        </div>
+
+        <!-- СТАТЬЯ 2: Создание карточки тягача -->
+        <div class="article-page" id="article_truck">
+            <h1>Создание карточки тягача</h1>
+            <div class="article-body">
+                <ol>
+                    <li>В карточке КА нужно нажать кнопку <b>«Перейти»</b>, выбрать <b>«Тягачи контрагентов»</b> и
+                        нажать
+                        <b>«Создать»</b>.
+                        <img src="img/KA_TYAG_1.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>В первой вкладке <b>«Данные тягача»</b> заполняются поля:
+                        <ul>
+                            <li>
+                                Марка тягача, модель ТС, номер тягача (строго русскими буквами, например
+                                Е111ТР123)
+                            </li>
+                            <li>
+                                Год выпуска, наличие системы слежения
+                            </li>
+                            <li>
+                                Цвет по документам
+                            </li>
+                            <li>
+                                Полное наименование (например, ДАФ FT XE 105 SPACE CAB)
+                            </li>
+                            <li>
+                                VIN тягача
+                            </li>
+                            <li>
+                                Серия/номер/дата выдачи СТС и ПТС
+                            </li>
+                            <li>
+                                Тип владения ТС (если по договору аренды/лизинга - № договора и дата), ФИО и № телефона
+                                собственника по ПТС
+                            </li>
+                            <li>
+                                ИНН собственника по документам
+                            </li>
+                            <img src="img/KA_TYAG_2.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </ul>
+                    </li>
+                    <li>В блоке <b>«Планируемый рейс»</b> вносим информацию по рейсу, на который ставим тягач:
+                        <ul>
+                            <li>
+                                Если ПЗ (предварительная заявка) уже есть в системе - выбираем её из списка, нажав на
+                                кнопку <b>"..."</b>. Остальные данные заполняться автоматически
+                            </li>
+                            <li>
+                                Если ПЗ еще нет (например, информация о рейсе поступило лично от клиентского менеджера
+                                или через телеграм группу) - заполняем данные вручную
+                            </li>
+                            <img src="img/KA_TYAG_3.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </ul>
+                    </li>
+                    <li>В блоке <b>«Сканы документов»</b> через кнопку <b>«Добавить»</b>
+                        прикрепляются документы (СТС/ПТС).
+                        <img src="img/KA_TYAG_4.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>По завершении нажимается кнопка <b>«Записать и закрыть»</b>.
+                        <img src="img/KA_TYAG_6.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                        <div class="callout-box warning-type">
+                            Если возникло окно с ошибками - исправляем
+                            их и нажимаем <b>«Записать и закрыть»</b> снова
+                            <img src="img/KA_TYAG_5.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- СТАТЬЯ 3: Создание карточки прицепа -->
+        <div class="article-page" id="article_trailer">
+            <h1>Создание карточки п/прицепа (полуприцепа)</h1>
+            <div class="article-body">
+                <ol>
+                    <li>В карточке КА нажимаем кнопку <b>«Перейти»</b>, выбираем <b>«Прицепы контрагентов»</b> и
+                        нажимаем
+                        <b>«Создать»</b>.
+                        <img src="img/KA_PRIC_1.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>В первой вкладке <b>«Данные о прицепе»</b> заполняем поля:
+                        <ul>
+                            <li>
+                                П/прицеп (марка прицепа, например SCHMITZ)
+                            </li>
+                            <li>
+                                Номер п/прицепа (только русские буквы)
+                            </li>
+                            <li>
+                                Полное наименование (марка + модель если есть)
+                            </li>
+                            <li>
+                                Транспортное средство (выбираем из списка: Рефрижератор, Тентованный, Изотермический)
+                            </li>
+                            <li>
+                                Год выпуска
+                            </li>
+                            <li>
+                                VIN прицепа
+                            </li>
+                            <img src="img/KA_PRIC_2.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </ul>
+                    </li>
+                    <li>В блоке <b>«Планируемый рейс»</b> вносим информацию по рейсу, на который ставим прицеп:
+                        <ul>
+                            <li>
+                                Если ПЗ (предварительная заявка) уже есть в системе - выбираем её из списка, нажав на
+                                кнопку <b>"..."</b>. Остальные данные заполняться автоматически
+                            </li>
+                            <li>
+                                Если ПЗ еще нет (например, информация о рейсе поступило лично от клиентского менеджера
+                                или через телеграм группу) - заполняем данные вручную
+                            </li>
+                            <img src="img/KA_TYAG_3.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </ul>
+                    </li>
+                    <li>В блоке <b>«Сканы документов»</b> через кнопку <b>«Добавить»</b>
+                        прикрепляются документы (СТС/ПТС).
+                        <img src="img/KA_PRIC_3.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                    </li>
+                    <li>По завершении нажимается кнопка <b>«Записать и закрыть»</b>.
+                        <img src="img/KA_PRIC_4.png" alt="Описание скриншота" class="instruction-img"
+                            onclick="openFullscreenImage(this.src)">
+                        <div class="callout-box warning-type">
+                            Если возникло окно с ошибками - исправляем
+                            их и нажимаем <b>«Записать и закрыть»</b> снова
+                            <img src="img/KA_PRIC_5.png" alt="Описание скриншота" class="instruction-img"
+                                onclick="openFullscreenImage(this.src)">
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- СТАТЬЯ 4: Создание транспорта -->
+        <div class="article-page" id="article_transport">
+            <h1>Создание транспорта и отправка в ОЭБ</h1>
+            <div class="article-body">
+                <div class="callout-box">
+                    <strong>Из созданных карточек (водитель, тягач, прицеп) необходимо создать связку
+                        транспорта</strong>
+                    Именно созданная связка (которую заявил перевозчик) ставиться в рейс. Процесс создания транспорта и
+                    отправка на проверку в ОЭБ подробно описан в соответствующем разделе <b>"Базы знаний"</b>.<br><br>
+                    Перейдите на страницу <b>"Проверка перевозчика в ОЭБ"</b> - <b>"Алгоритм отправки в ОЭБ"</b>
+                </div>
+                <div class="grid-kb" style="margin-top: 20px;">
+                    <div class="kb-card">
+                        <div class="card-top">
+                            <h3>Проверка перевозчика в ОЭБ</h3>
+                            <p>Правила, требования и процедура проверки перевозчика в ОЭБ</p>
+                        </div>
+                        <a href="oeb_check.html" target="_blank" class="open-btn">Открыть</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ⚙️ ПОДКЛЮЧЕНИЕ БАЗОВОЙ ЛОГИКИ ПОРТАЛА (Меню, картинки, поповеры) -->
+    <script src="base.js"></script>
+    <script>
+        // Функция для переключения вложенных экранов
+        function showKaSubStep(stepId) {
+            // 1. Прячем все экраны
+            document.getElementById('ka_create_main').style.display = 'none';
+            document.getElementById('ka_general').style.display = 'none';
+            document.getElementById('ka_address').style.display = 'none';
+            document.getElementById('ka_contacts').style.display = 'none';
+            document.getElementById('ka_accounts').style.display = 'none';
+
+            // 2. Управляем появлением боковой кнопки "Назад"
+            const backBtn = document.getElementById('global_ka_back');
+            if (backBtn) {
+                // Если мы на главном экране — прячем кнопку. На других — показываем.
+                backBtn.style.display = (stepId === 'ka_create_main') ? 'none' : 'block';
+            }
+
+            // 3. Показываем нужный экран с плавной анимацией
+            const target = document.getElementById(stepId);
+            if (target) {
+                target.style.display = 'block';
+                target.style.animation = 'contentFadeIn 0.3s ease-out';
+            }
+        }
+    </script>
+</body>
+
+</html>
