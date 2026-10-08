@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сценарий 3.1ПТ · Оформление ЭТрН через Loginet</title>
+<!--
+=====================================================================
+КАК ДОБАВИТЬ СКРИНШОТЫ
+1. Положите файлы в папку img/ рядом с этим HTML (например img/3-1.png).
+2. Найдите блок <figure class="shot" id="s-3-1"> (id = номер шага).
+3. Замените <div class="ph">…</div> на:
+   <img src="img/3-1.png" alt="Что показано на скриншоте">
+Подпись под скриншотом — <figcaption> (необязательно).
+Маркер <span class="verify"> — место, которое нужно сверить в вашем
+аккаунте Loginet / оператора. После проверки удалите маркер.
+Метки .tag.lg (Loginet) и .tag.op (оператор ЭДО) показывают, где
+выполняется этап.
+=====================================================================
+-->
+<style>
+:root{
+  --ink:#232a33; --muted:#5d6773; --line:#dfe3e8; --bg:#f4f5f7; --card:#fff;
+  --accent:#2a9a4b; --accent-d:#1e7538; --warn:#8a5a00; --warn-bg:#fff4d6;
+  --lg:#1c5fa8; --lg-bg:#e6f0fb; --op:#6a3d9a; --op-bg:#f0e8f8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",Calibri,Roboto,Arial,sans-serif}
+a{color:var(--accent-d)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.layout{max-width:1180px;margin:0 auto;padding:24px 20px 64px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:32px}
+nav{position:sticky;top:16px;align-self:start;font-size:14px}
+nav b{display:block;margin-bottom:8px;color:var(--muted);font-weight:600}
+nav a{display:block;padding:5px 10px;border-left:3px solid var(--line);text-decoration:none;color:var(--ink)}
+nav a:hover{border-left-color:var(--accent);background:#fff}
+main{min-width:0}
+h1{font-size:28px;line-height:1.25;margin:0 0 8px;color:var(--accent)}
+h2{font-size:22px;margin:0 0 4px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:17px;margin:20px 0 6px}
+.meta{color:var(--muted);font-size:14px;margin:0 0 20px}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px 26px;margin:0 0 20px}
+.lead{color:var(--muted);margin:8px 0 12px}
+ol{padding-left:22px;margin:8px 0}
+li{margin:8px 0}
+li::marker{color:var(--accent-d);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f0f2f4;font-weight:600}
+.tw{overflow-x:auto}
+.tag{display:inline-block;border-radius:4px;padding:0 8px;font-size:13px;font-weight:600;margin-left:8px;vertical-align:middle}
+.tag.lg{background:var(--lg-bg);color:var(--lg)}
+.tag.op{background:var(--op-bg);color:var(--op)}
+.verify{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #ecd28a;border-radius:4px;padding:0 6px;font-size:13px;font-weight:600;margin-left:4px}
+.note{background:#eef7f0;border-left:4px solid var(--accent);padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0}
+.note.w{background:var(--warn-bg);border-left-color:#d9a300}
+.data{font-size:14px;color:var(--muted);margin:10px 0 0}
+.shot{margin:12px 0 18px}
+.shot img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.shot figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.ph{border:2px dashed #b9c1ca;border-radius:6px;background:repeating-linear-gradient(45deg,#fafbfc,#fafbfc 10px,#f3f5f7 10px,#f3f5f7 20px);color:var(--muted);padding:34px 16px;text-align:center;font-size:14px}
+.ph small{display:block;margin-top:4px;font-family:Consolas,monospace}
+details{border-bottom:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer;font-weight:600}
+@media (max-width:900px){.layout{grid-template-columns:1fr}nav{position:static}}
+@media print{nav{display:none}.layout{display:block}section{break-inside:avoid;border:0}.ph{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav aria-label="Содержание">
+  <b>Содержание</b>
+  <a href="#how">Как это устроено</a>
+  <a href="#s0">0. Подготовка</a>
+  <a href="#s1">1. ЭПЭ: подписать Т2</a>
+  <a href="#s2">2. Перевозка в Loginet</a>
+  <a href="#s3">3. ЭЗЗ: заявка перевозчику</a>
+  <a href="#s4">4. ЭЭР: расписка</a>
+  <a href="#s5">5. ЭТрН: подписать Т1</a>
+  <a href="#s6">6. Контроль Т2, Т3, Т4</a>
+  <a href="#s7">7. Фиксация в 1С</a>
+  <a href="#faq">Типовые проблемы</a>
+</nav>
+
+<main>
+<h1>Сценарий 3.1ПТ: оформление ЭТрН через Loginet</h1>
+<p class="meta">Договор ТЭУ, груз принят, привлечён перевозчик · Версия 1.0 · Проверено: 30.09.2026 · Владелец: ________</p>
+
+<section id="how">
+  <h2>Как это устроено</h2>
+  <div class="note w">Loginet не оператор ЭДО. Это платформа (TMS): в ней готовятся данные и XML-черновики ЭТрН и ЭЗЗ, а подписываются документы у оператора (в тестовой среде Loginet это Контур.Логистика, также поддерживается Тензор Saby). Статусы возвращаются обратно в Loginet. Поэтому в инструкции два места работы.</div>
+  <div class="tw"><table>
+    <tr><th>Шаг</th><th>Документ / действие</th><th>Кто подписывает</th><th>Где</th></tr>
+    <tr><td>1</td><td>ЭПЭ (поручение экспедитору)</td><td>Т1 клиент, <b>Т2 мы</b></td><td><span class="tag op">Оператор</span></td></tr>
+    <tr><td>2</td><td>Приём перевозки, водитель, ТС, конечный перевозчик</td><td>Без подписи</td><td><span class="tag lg">Loginet</span></td></tr>
+    <tr><td>3</td><td>ЭЗЗ (заказ-заявка)</td><td><b>Т1 мы</b>, Т2 перевозчик</td><td><span class="tag lg">Loginet</span> XML → <span class="tag op">Оператор</span></td></tr>
+    <tr><td>4</td><td>ЭЭР (экспедиторская расписка)</td><td><b>Только мы</b></td><td><span class="tag op">Оператор</span> <span class="verify">Проверить</span></td></tr>
+    <tr><td>5</td><td>ЭТрН</td><td><b>Т1 мы</b>, Т2 перевозчик, Т3 грузополучатель, Т4 перевозчик</td><td><span class="tag lg">Loginet</span> → <span class="tag op">Оператор</span></td></tr>
+  </table></div>
+  <p class="data">Сначала ЭЗЗ, затем ЭТрН. ЭПЭ подписываем до передачи груза. В материалах Loginet, которые я нашёл, ЭПЭ и ЭЭР не описаны, поэтому они вынесены на оператора. <span class="verify">Уточнить у поддержки Loginet</span></p>
+</section>
+
+<section id="s0">
+  <h2>0. Подготовка <span class="tag lg">Loginet</span></h2>
+  <p class="lead">Ошибки в справочниках всплывают уже при передаче документа оператору. Проверьте данные до начала.</p>
+  <ol>
+    <li>Заполнены карточки водителей, машин, прицепов, контрагентов и грузополучателя (при необходимости через модуль «Деловые связи» → «Партнеры»).</li>
+    <li>У сотрудников есть электронные подписи, МЧД и права на нужные действия («Структура», «Настройка прав и ролей»). <span class="verify">Уточнить у ответственного по МЧД, какие полномочия нужны на каждый тип документа</span></li>
+    <li>Выяснено, у какого оператора грузополучатель ждёт документ, и настроен роуминг между перевозчиком и получателем.</li>
+    <li>Данные водителя и ТС внесены в ваши справочники заранее, даже если машина и водитель принадлежат перевозчику.</li>
+  </ol>
+  <figure class="shot" id="s-0-1"><div class="ph">Скрин 0.1: карточки водителя и ТС в Loginet<small>img/0-1.png</small></div></figure>
+</section>
+
+<section id="s1">
+  <h2>1. ЭПЭ: подписываем Т2 <span class="tag op">Оператор</span></h2>
+  <p class="lead">Т1 создаёт и подписывает клиент. Мы подписываем Т2. Подписание Т2 экспедитором бесплатное.</p>
+  <ol>
+    <li>Откройте входящее поручение в кабинете оператора (Контур.Диадок или Контур.Логистика).</li>
+    <li>Сверьте поручение с заявкой в 1С: маршрут, груз, грузоотправитель и грузополучатель, требования к ТС, реквизиты.</li>
+    <li>Если есть расхождения, <b>не подписывайте</b>. Попросите клиента исправить Т1.</li>
+    <li>Если всё верно, заполните Т2, выберите сертификат и МЧД и подпишите.</li>
+  </ol>
+  <p>Подробный порядок с кнопками: инструкция «Сценарий 3.1ПТ в Контур.Диадок», этап 1.</p>
+  <figure class="shot" id="s-1-1"><div class="ph">Скрин 1.1: подписание Т2 ЭПЭ у оператора<small>img/1-1.png</small></div></figure>
+</section>
+
+<section id="s2">
+  <h2>2. Перевозка в Loginet <span class="tag lg">Loginet</span></h2>
+  <p class="lead">Экспедитор принимает перевозку, добавляет водителя и транспорт и указывает конечного перевозчика.</p>
+  <ol>
+    <li>Откройте модуль «Перевозки» и найдите нужную перевозку. <span class="verify">Проверить название раздела</span></li>
+    <li>Если перевозку создаёте вы, внесите название, точки и время погрузки и выгрузки, груз, получателя, параметры рейса и транспорт. Данные можно ввести вручную, загрузить из шаблона или получить через API. При необходимости добавьте температурный режим, упаковку, габариты. <span class="verify">Если клиент не работает в Loginet, уточнить, кто создаёт перевозку</span></li>
+    <li>Примите перевозку в роли экспедитора и выберите <b>экспедиторский сценарий</b>. Именно после выбора роли право создавать ЭТрН переходит к вам.</li>
+    <li>Добавьте водителя, машину и прицеп.</li>
+    <li>Укажите конечного перевозчика.</li>
+    <li>Проверьте все данные до создания документов: при нехватке сведений исправьте карточки контрагентов, водителей и машин.</li>
+  </ol>
+  <figure class="shot" id="s-2-1"><div class="ph">Скрин 2.1: карточка перевозки, выбор роли экспедитора<small>img/2-1.png</small></div></figure>
+  <figure class="shot" id="s-2-2"><div class="ph">Скрин 2.2: водитель, ТС, прицеп и конечный перевозчик<small>img/2-2.png</small></div></figure>
+  <p class="data"><b>Данные из 1С:</b> номер рейса и заявки, перевозчик (ИНН, КПП), водитель (ФИО, ВУ), ТС и прицеп (госномера), маршрут и адреса, груз (наименование, вес, объём, места).</p>
+</section>
+
+<section id="s3">
+  <h2>3. ЭЗЗ: заказ-заявка перевозчику <span class="tag lg">Loginet</span> <span class="tag op">Оператор</span></h2>
+  <p class="lead">Мы грузоотправитель (Т1), перевозчик подписывает Т2. Loginet формирует XML заказ-заявки прямо из карточки перевозки.</p>
+  <ol>
+    <li>В карточке перевозки сформируйте XML заказа-заявки. <span class="verify">Проверить название кнопки</span></li>
+    <li>Скачайте файл и загрузите его в кабинете оператора (в Диадоке: «Новый документ», загрузка готового XML). Если в файле есть ошибки или пустые поля, оператор предложит исправить их в редакторе. <span class="verify">Проверить, загружается ли ЭЗЗ этим способом у вашего оператора</span></li>
+    <li>Проверьте перевозчика, пункты погрузки и выгрузки, груз и требования к ТС.</li>
+    <li>Выберите сертификат и МЧД, подпишите и отправьте Т1.</li>
+    <li>Дождитесь подписи Т2 перевозчиком. Пока её нет, ЭТрН не оформляйте.</li>
+  </ol>
+  <figure class="shot" id="s-3-1"><div class="ph">Скрин 3.1: выгрузка XML ЭЗЗ из карточки перевозки<small>img/3-1.png</small></div></figure>
+  <figure class="shot" id="s-3-2"><div class="ph">Скрин 3.2: загрузка XML и подписание Т1 у оператора<small>img/3-2.png</small></div></figure>
+</section>
+
+<section id="s4">
+  <h2>4. ЭЭР: экспедиторская расписка <span class="tag op">Оператор</span></h2>
+  <p class="lead">Оформляет и подписывает только экспедитор, клиент в ЭЭР не участвует. Печатной формы в 1С нет.</p>
+  <div class="note w">Материалы Контура описывают ЭЭР в веб-версии Логистики. В Loginet этот документ я не нашёл. <span class="verify">Проверить</span></div>
+  <ol>
+    <li>Убедитесь, что Т2 ЭПЭ подписан (шаг 1).</li>
+    <li>Создайте ЭЭР на основании ЭПЭ в Логистике (роль «Экспедитор»).</li>
+    <li>Внесите фактические данные принятого груза: что, когда и в каком объёме.</li>
+    <li>Подпишите (сертификат и МЧД) и сохраните печатную форму.</li>
+  </ol>
+  <p>Если при входе в Логистику нет роли «Экспедитор», обратитесь к администратору организации в Контуре.</p>
+  <figure class="shot" id="s-4-1"><div class="ph">Скрин 4.1: создание и подписание ЭЭР<small>img/4-1.png</small></div></figure>
+</section>
+
+<section id="s5">
+  <h2>5. ЭТрН: подписываем Т1 <span class="tag lg">Loginet</span> <span class="tag op">Оператор</span></h2>
+  <p class="lead">Мы приняли груз во владение, поэтому в ЭТрН мы грузоотправитель. Создаём и подписываем Т1. Клиент видит документ, но не подписывает его.</p>
+  <ol>
+    <li>Убедитесь, что ЭЭР оформлена, а Т2 ЭЗЗ подписан.</li>
+    <li>В карточке перевозки создайте ЭТрН. Loginet сам определит, сколько документов нужно, если груз идёт нескольким получателям или на несколько точек. <span class="verify">Проверить название кнопки</span></li>
+    <li>Платформа создаст XML-черновик и передаст его оператору. В карточке перевозки появится ссылка на документ.</li>
+    <li>Откройте документ по ссылке. Если используете другого оператора, скачайте XML и загрузите его в личный кабинет этого оператора.</li>
+    <li>Проверьте <b>лицо, осуществляющее погрузку (ЛОП)</b>. Loginet по умолчанию указывает в этой роли грузоотправителя. Если погрузку фактически выполняет клиент или склад (СОХ), исправьте ЛОП у оператора. Отдельный выбор ЛОП в Loginet пока не реализован.</li>
+    <li>Сверьте ЭТрН с ЭЗЗ: перевозчик, ТС, водитель, груз и адреса.</li>
+    <li>Выберите сертификат и МЧД, подпишите Т1.</li>
+  </ol>
+  <figure class="shot" id="s-5-1"><div class="ph">Скрин 5.1: создание ЭТрН в карточке перевозки<small>img/5-1.png</small></div></figure>
+  <figure class="shot" id="s-5-2"><div class="ph">Скрин 5.2: ссылка на документ и проверка ЛОП<small>img/5-2.png</small></div></figure>
+  <figure class="shot" id="s-5-3"><div class="ph">Скрин 5.3: подписание Т1 у оператора<small>img/5-3.png</small></div></figure>
+</section>
+
+<section id="s6">
+  <h2>6. Контроль Т2, Т3, Т4 <span class="tag lg">Loginet</span></h2>
+  <div class="tw"><table>
+    <tr><th>Титул</th><th>Кто</th><th>Что делаем мы</th></tr>
+    <tr><td>Т2</td><td>Перевозчик (приём груза)</td><td>Ждём. Если водитель не может подписать, помогаем через оператора</td></tr>
+    <tr><td>Т3</td><td>Грузополучатель (выгрузка)</td><td>Ждём. Получатель подписывает у своего оператора, в Loginet ему заходить не нужно</td></tr>
+    <tr><td>Т4</td><td>Перевозчик (завершение)</td><td>Ждём, затем проверяем итоговый статус</td></tr>
+  </table></div>
+  <ol>
+    <li>Статусы возвращаются в Loginet автоматически, задержка может составлять до минуты. Откройте документ из перевозки или из отдельного раздела ЭДО.</li>
+    <li>Там же можно скачать XML и проверить историю подписания.</li>
+    <li>Если статус не обновился, откройте документ у оператора и сравните.</li>
+  </ol>
+  <figure class="shot" id="s-6-1"><div class="ph">Скрин 6.1: статусы титулов и раздел ЭДО<small>img/6-1.png</small></div></figure>
+</section>
+
+<section id="s7">
+  <h2>7. Фиксация в 1С и закрытие рейса</h2>
+  <ol>
+    <li>Внесите в рейс: номера ЭПЭ, ЭЗЗ, ЭЭР и ЭТрН, площадку (Loginet + оператор), статус ЭТрН, дату Т4. Если полей нет, запишите в комментарий рейса.</li>
+    <li>Сохраните в карточку рейса печатные формы ЭПЭ, ЭЗЗ, ЭЭР и ЭТрН.</li>
+    <li>Закрывайте рейс только после статуса «Т4 подписан».</li>
+  </ol>
+  <figure class="shot" id="s-7-1"><div class="ph">Скрин 7.1: карточка рейса в 1С с полями ЭТрН<small>img/7-1.png</small></div></figure>
+</section>
+
+<section id="faq">
+  <h2>Типовые проблемы</h2>
+  <div class="tw"><table>
+    <tr><th>Проблема</th><th>Что делать</th></tr>
+    <tr><td>Нет права создать ЭТрН</td><td>Проверьте, что в перевозке выбрана экспедиторская роль</td></tr>
+    <tr><td>Ошибка при передаче документа оператору</td><td>Проверьте карточки водителя, ТС, прицепа, перевозчика и получателя</td></tr>
+    <tr><td>Оператор получателя другой</td><td>Настройте роуминг или скачайте XML и загрузите его у нужного оператора</td></tr>
+    <tr><td>Неверный ЛОП в ЭТрН</td><td>Исправьте у оператора до подписания Т1</td></tr>
+    <tr><td>Нет подписи или МЧД</td><td>Обратитесь к ответственному за МЧД</td></tr>
+    <tr><td>Статус не обновился в Loginet</td><td>Подождите минуту, затем сверьте статус у оператора</td></tr>
+    <tr><td>Поддержка Loginet</td><td>support@loginet.ru, 8 800 775 50 11 (будни 7:00–19:00)</td></tr>
+  </table></div>
+  <p class="data">Источники: блог и новости Loginet (июль–август 2026), справка Контур.Логистики. Интерфейс меняется, сверяйте скриншоты при обновлениях.</p>
+</section>
+</main>
+</div>
+</body>
+</html>

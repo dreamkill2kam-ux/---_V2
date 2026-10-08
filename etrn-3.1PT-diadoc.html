@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Сценарий 3.1ПТ · Оформление ЭТрН в Контур.Диадок</title>
+<!--
+=====================================================================
+КАК ДОБАВИТЬ СКРИНШОТЫ
+1. Положите файлы в папку img/ рядом с этим HTML (например img/2-1.png).
+2. Найдите блок <figure class="shot" id="s-2-1"> (id = номер шага).
+3. Замените <div class="ph">…</div> на:
+   <img src="img/2-1.png" alt="Что показано на скриншоте">
+Подпись под скриншотом — <figcaption> (необязательно).
+Маркер <span class="verify"> — место, которое нужно сверить с вашим
+аккаунтом. После проверки удалите маркер.
+=====================================================================
+-->
+<style>
+:root{
+  --ink:#232a33; --muted:#5d6773; --line:#dfe3e8; --bg:#f4f5f7; --card:#fff;
+  --accent:#2a9a4b; --accent-d:#1e7538; --warn:#8a5a00; --warn-bg:#fff4d6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:16px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",Calibri,Roboto,Arial,sans-serif}
+a{color:var(--accent-d)}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.layout{max-width:1180px;margin:0 auto;padding:24px 20px 64px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:32px}
+nav{position:sticky;top:16px;align-self:start;font-size:14px}
+nav b{display:block;margin-bottom:8px;color:var(--muted);font-weight:600}
+nav a{display:block;padding:5px 10px;border-left:3px solid var(--line);text-decoration:none;color:var(--ink)}
+nav a:hover{border-left-color:var(--accent);background:#fff}
+main{min-width:0}
+h1{font-size:28px;line-height:1.25;margin:0 0 8px;color:var(--accent)}
+h2{font-size:22px;margin:0 0 4px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--line)}
+h3{font-size:17px;margin:20px 0 6px}
+.meta{color:var(--muted);font-size:14px;margin:0 0 20px}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px 26px;margin:0 0 20px}
+.lead{color:var(--muted);margin:8px 0 12px}
+ol{padding-left:22px;margin:8px 0}
+li{margin:8px 0}
+li::marker{color:var(--accent-d);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f0f2f4;font-weight:600}
+.tw{overflow-x:auto}
+.verify{display:inline-block;background:var(--warn-bg);color:var(--warn);border:1px solid #ecd28a;border-radius:4px;padding:0 6px;font-size:13px;font-weight:600;margin-left:4px}
+.note{background:#eef7f0;border-left:4px solid var(--accent);padding:10px 14px;margin:12px 0;border-radius:0 6px 6px 0}
+.note.w{background:var(--warn-bg);border-left-color:#d9a300}
+.data{font-size:14px;color:var(--muted);margin:10px 0 0}
+.shot{margin:12px 0 18px}
+.shot img{display:block;max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.shot figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+.ph{border:2px dashed #b9c1ca;border-radius:6px;background:repeating-linear-gradient(45deg,#fafbfc,#fafbfc 10px,#f3f5f7 10px,#f3f5f7 20px);color:var(--muted);padding:34px 16px;text-align:center;font-size:14px}
+.ph small{display:block;margin-top:4px;font-family:Consolas,monospace}
+details{border-bottom:1px solid var(--line);padding:8px 0}
+summary{cursor:pointer;font-weight:600}
+@media (max-width:900px){.layout{grid-template-columns:1fr}nav{position:static}}
+@media print{nav{display:none}.layout{display:block}section{break-inside:avoid;border:0}.ph{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav aria-label="Содержание">
+  <b>Содержание</b>
+  <a href="#order">Порядок документов</a>
+  <a href="#s0">0. Проверки перед рейсом</a>
+  <a href="#s1">1. ЭПЭ: подписать Т2</a>
+  <a href="#s2">2. ЭЗЗ: заявка перевозчику</a>
+  <a href="#s3">3. ЭЭР: расписка</a>
+  <a href="#s4">4. ЭТрН: подписать Т1</a>
+  <a href="#s5">5. Контроль Т2, Т3, Т4</a>
+  <a href="#s6">6. Фиксация в 1С</a>
+  <a href="#faq">Типовые проблемы</a>
+</nav>
+
+<main>
+<h1>Сценарий 3.1ПТ: оформление ЭТрН в Контур.Диадок</h1>
+<p class="meta">Договор ТЭУ, груз принят, привлечён перевозчик</p>
+
+<section id="order">
+  <h2>Порядок документов</h2>
+  <p class="lead">Сначала ЭЗЗ, затем ЭТрН. ЭПЭ подписываем до передачи груза.</p>
+  <div class="tw"><table>
+    <tr><th>Шаг</th><th>Документ</th><th>Кто подписывает</th><th>Где</th></tr>
+    <tr><td>1</td><td>ЭПЭ (поручение экспедитору)</td><td>Т1 клиент, <b>Т2 мы</b></td><td>Диадок</td></tr>
+    <tr><td>2</td><td>ЭЗЗ (заказ-заявка)</td><td><b>Т1 мы</b>, Т2 перевозчик</td><td>Диадок</td></tr>
+    <tr><td>3</td><td>ЭЭР (экспедиторская расписка)</td><td><b>Только мы</b></td><td>Логистика <span class="verify">Проверить</span></td></tr>
+    <tr><td>4</td><td>ЭТрН</td><td><b>Т1 мы</b>, Т2 перевозчик, Т3 грузополучатель, Т4 перевозчик</td><td>Диадок</td></tr>
+  </table></div>
+</section>
+
+<section id="s0">
+  <h2>0. Проверки перед рейсом</h2>
+  <h3>Готовность перевозчика и клиента</h3>
+  <ol>
+    <li>Откройте «Контрагенты» → «Пригласить новых». На баннере о транспортных документах нажмите «Проверить».</li>
+    <li>Если контрагент работает через роуминг, в документе появится поле «Роуминговый оператор». Его готовность неизвестна, уточните её у контрагента.</li>
+    <li>Статус готовности информационный. Если договорённость об обмене есть, работать можно.</li>
+  </ol>
+  <figure class="shot" id="s-0-1"><div class="ph">Скрин 0.1: баннер проверки готовности контрагентов<small>img/0-1.png</small></div></figure>
+
+  <h3>Тариф</h3>
+  <ol>
+    <li>Откройте «Новый документ» → «Проверить тариф». Перевозочные документы оплачиваются отдельно. Проверьте, что остатка хватит на ЭПЭ, ЭЗЗ и ЭТрН.</li>
+  </ol>
+  <figure class="shot" id="s-0-2"><div class="ph">Скрин 0.2: проверка тарифа<small>img/0-2.png</small></div></figure>
+
+  <h3>Подпись и МЧД</h3>
+  <p>При подписании выбираются сертификат и доверенность. Убедитесь, что МЧД действует и покрывает транспортные документы. <span class="verify">Уточнить у ответственного по МЧД, нужны ли отдельные полномочия на каждый тип документа</span></p>
+</section>
+
+<section id="s1">
+  <h2>1. ЭПЭ: подписываем Т2</h2>
+  <p class="lead">Т1 создаёт и подписывает клиент. Мы подписываем Т2.</p>
+  <ol>
+    <li>Откройте «Документы» → «Входящие», в фильтре типа выберите «Поручение экспедитору». <span class="verify">Проверить название раздела</span></li>
+    <li>Сверьте поручение с заявкой в 1С: маршрут, груз, грузоотправитель и грузополучатель, требования к ТС, реквизиты.</li>
+    <li>Если есть расхождения, <b>не подписывайте</b>. Попросите клиента исправить Т1.</li>
+    <li>Если всё верно, заполните Т2, выберите сертификат и МЧД, нажмите «Подписать и отправить».</li>
+  </ol>
+  <figure class="shot" id="s-1-1"><div class="ph">Скрин 1.1: входящее поручение в списке документов<small>img/1-1.png</small></div></figure>
+  <figure class="shot" id="s-1-2"><div class="ph">Скрин 1.2: подписание Т2<small>img/1-2.png</small></div></figure>
+</section>
+
+<section id="s2">
+  <h2>2. ЭЗЗ: заказ-заявка перевозчику</h2>
+  <p class="lead">Мы грузоотправитель (Т1), перевозчик подписывает Т2.</p>
+  <ol>
+    <li>Нажмите «Новый документ» → «Заказ-заявка».</li>
+    <li>Заполните общие данные.</li>
+    <li>Сведения о грузоотправителе (ООО «ТТ») частично заполнятся автоматически. Проверьте их.</li>
+    <li>Сведения о перевозчике: выберите тип, введите название или ИНН и выберите из списка.
+      <details><summary>Если перевозчика нет в списке</summary>
+        Нажмите внизу списка «Искать в базе ФНС», введите ИНН-КПП или ID участника ЭДО, выберите нужного оператора и нажмите «Сохранить». При другом операторе обмен пойдёт через роуминг.
+      </details></li>
+    <li>Проверьте индикатор готовности перевозчика (см. шаг 0).</li>
+    <li>Заполните пункты подачи ТС, погрузки и выгрузки.</li>
+    <li>Заполните сведения о грузе. Нужен минимум один раздел, новые добавляются кнопкой «+» в левом меню.</li>
+    <li>Заполните параметры и требования к ТС.</li>
+    <li>Нажмите «Сохранить и перейти к отправке». Получатель определится автоматически по разделу «Перевозчик».</li>
+    <li>Выберите сертификат и МЧД, нажмите «Подписать и отправить».</li>
+    <li>Дождитесь подписи Т2 перевозчиком. Пока её нет, ЭТрН не оформляйте.</li>
+  </ol>
+  <figure class="shot" id="s-2-1"><div class="ph">Скрин 2.1: «Новый документ» → «Заказ-заявка»<small>img/2-1.png</small></div></figure>
+  <figure class="shot" id="s-2-2"><div class="ph">Скрин 2.2: раздел «Перевозчик», выбор из списка<small>img/2-2.png</small></div></figure>
+  <figure class="shot" id="s-2-3"><div class="ph">Скрин 2.3: поиск в базе ФНС и роуминговый оператор<small>img/2-3.png</small></div></figure>
+  <figure class="shot" id="s-2-4"><div class="ph">Скрин 2.4: пункты погрузки, выгрузки и сведения о грузе<small>img/2-4.png</small></div></figure>
+  <figure class="shot" id="s-2-5"><div class="ph">Скрин 2.5: отправка, сертификат и МЧД<small>img/2-5.png</small></div></figure>
+  <p class="data"><b>Данные из 1С:</b> перевозчик (ИНН, КПП), маршрут и адреса, груз (наименование, вес, объём, места), требования к ТС, номер рейса.</p>
+</section>
+
+<section id="s3">
+  <h2>3. ЭЭР: экспедиторская расписка</h2>
+  <p class="lead">Оформляет и подписывает только экспедитор, клиент в ЭЭР не участвует. Печатной формы в 1С нет, документ формируется у оператора ЭДО.</p>
+  <div class="note w">Материалы Контура описывают ЭЭР в веб-версии Логистики. В Диадоке я её не нашёл. Проверьте, есть ли ЭЭР в «Новый документ». <span class="verify">Проверить</span></div>
+  <ol>
+    <li>Убедитесь, что Т2 ЭПЭ подписан (шаг 1).</li>
+    <li>Создайте ЭЭР на основании ЭПЭ (Логистика, роль «Экспедитор»).</li>
+    <li>Внесите фактические данные принятого груза: что, когда и в каком объёме.</li>
+    <li>Подпишите (сертификат и МЧД).</li>
+    <li>Сохраните печатную форму ЭЭР.</li>
+  </ol>
+  <p>Если при входе в Логистику нет роли «Экспедитор», обратитесь к администратору организации в Контуре.</p>
+  <figure class="shot" id="s-3-1"><div class="ph">Скрин 3.1: создание ЭЭР на основании ЭПЭ<small>img/3-1.png</small></div></figure>
+  <figure class="shot" id="s-3-2"><div class="ph">Скрин 3.2: данные принятого груза и подписание<small>img/3-2.png</small></div></figure>
+</section>
+
+<section id="s4">
+  <h2>4. ЭТрН: подписываем Т1</h2>
+  <p class="lead">Мы принимали груз во владение, поэтому в ЭТрН мы грузоотправитель. Перед созданием убедитесь, что ЭЭР оформлена и Т2 ЭЗЗ подписан.</p>
+  <ol>
+    <li>Подготовьте данные: груз, адреса погрузки и выгрузки, водитель (ФИО, ВУ), номер ТС, перевозчик, номер ЭЗЗ.</li>
+    <li>Нажмите «Новый документ». Есть два способа: загрузить готовый XML или создать в редакторе («Транспортный ЭДО» → «Транспортная накладная (ЭТрН)»).</li>
+    <li>Заполните все поля Т1. При создании от лица экспедитора укажите основание составителя. <span class="verify">Проверить название поля</span></li>
+    <li>Сверьте ЭТрН с ЭЗЗ: перевозчик, ТС, груз и адреса должны совпадать.</li>
+    <li>Выберите сертификат и МЧД, подпишите и отправьте Т1. Документ уйдёт в ГИС ЭПД.</li>
+  </ol>
+  <figure class="shot" id="s-4-1"><div class="ph">Скрин 4.1: блок «Транспортный ЭДО» → ЭТрН<small>img/4-1.png</small></div></figure>
+  <figure class="shot" id="s-4-2"><div class="ph">Скрин 4.2: форма Т1<small>img/4-2.png</small></div></figure>
+  <figure class="shot" id="s-4-3"><div class="ph">Скрин 4.3: подписание и отправка Т1<small>img/4-3.png</small></div></figure>
+</section>
+
+<section id="s5">
+  <h2>5. Контроль подписания Т2, Т3, Т4</h2>
+  <div class="tw"><table>
+    <tr><th>Титул</th><th>Кто</th><th>Что делаем мы</th></tr>
+    <tr><td>Т2</td><td>Перевозчик (приём груза)</td><td>Ждём. Если водитель не может подписать, отправляем ему СМС-ссылку через Логистику</td></tr>
+    <tr><td>Т3</td><td>Грузополучатель (выгрузка)</td><td>Ждём. При задержке напоминаем клиенту или получателю</td></tr>
+    <tr><td>Т4</td><td>Перевозчик (завершение)</td><td>Ждём, затем проверяем итоговый статус</td></tr>
+  </table></div>
+  <ol>
+    <li>Статус смотрите в «Документы» → «Исходящие» (фильтр по типу документа). На странице документа видны все титулы и история подписания.</li>
+    <li>Чтобы срочно изменить рейс или связаться с водителем, нажмите на странице ЭТрН «Детали по документу в Логистике». Без прав администратора сервис покажет список администраторов организации.</li>
+  </ol>
+  <figure class="shot" id="s-5-1"><div class="ph">Скрин 5.1: страница ЭТрН с титулами и историей подписания<small>img/5-1.png</small></div></figure>
+</section>
+
+<section id="s6">
+  <h2>6. Фиксация в 1С и закрытие рейса</h2>
+  <ol>
+    <li>Внесите в рейс: номера ЭПЭ, ЭЗЗ, ЭЭР и ЭТрН, площадку (Диадок), статус ЭТрН, дату Т4. Если полей нет, запишите в комментарий рейса.</li>
+    <li>Сохраните в карточку рейса печатные формы ЭПЭ, ЭЗЗ, ЭЭР и ЭТрН.</li>
+    <li>Закрывайте рейс только после статуса «Т4 подписан».</li>
+  </ol>
+  <figure class="shot" id="s-6-1"><div class="ph">Скрин 6.1: карточка рейса в 1С с полями ЭТрН<small>img/6-1.png</small></div></figure>
+</section>
+
+<section id="faq">
+  <h2>Типовые проблемы</h2>
+  <div class="tw"><table>
+    <tr><th>Проблема</th><th>Что делать</th></tr>
+    <tr><td>Нет кнопки «Новый документ»</td><td>Нужны права на создание документов. Запросите у администратора</td></tr>
+    <tr><td>Неактивна кнопка «Подписание»</td><td>Проверьте сертификат и МЧД</td></tr>
+    <tr><td>Ошибка при отправке</td><td>Переотправьте документ по инструкции Диадока «Как переотправить документ»</td></tr>
+    <tr><td>Перевозчик на другом операторе</td><td>Обмен пойдёт через роуминг. Заранее уточните готовность</td></tr>
+    <tr><td>Перевозчика нет в списке</td><td>«Искать в базе ФНС», поиск по ИНН-КПП или ID участника</td></tr>
+    <tr><td>Не найден документ</td><td>Фильтр по типу документа во «Входящих» или «Исходящих»</td></tr>
+    <tr><td>ЭПЭ не пришёл от клиента</td><td>Напомните клиенту. <span class="verify">Указать ответственного и срок эскалации</span></td></tr>
+  </table></div>
+  <p class="data">Источник: справка Контур.Диадок, раздел «Транспортный ЭДО». Интерфейс меняется, сверяйте скриншоты при обновлениях.</p>
+</section>
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Программа обучения: менеджер по работе с перевозчиками</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="etrn_base-page">
+    <!-- Исходный theme.js -->
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <h2>Менеджер по работе с перевозчиками</h2>
+            <p>Привлеченный транспорт</p>
+            <nav class="menu-list" aria-label="Программа обучения"><button class="menu-item active" data-article="main"
+                    onclick="switchTab(this)">О программе</button>
+                <div class="menu-group" id="group_1"><button class="menu-category-btn"
+                        onclick="toggleMenuCategory('group_1')"><span>I блок. Изучение основ</span><span
+                            class="category-arrow">▼</span></button>
+                    <div class="submenu-list"><button class="menu-item" data-article="block1"
+                            onclick="switchTab(this)">Вводная часть</button><button class="menu-item"
+                            data-article="knowledge_base" onclick="switchTab(this)">Инструменты и
+                            ресурсы</button><button class="menu-item" data-article="transport_rules"
+                            onclick="switchTab(this)">Грузоперевозки</button><button class="menu-item"
+                            data-article="block1_results" onclick="switchTab(this)">Итоги I блока</button></div>
+                </div>
+                <div class="menu-group" id="group_2"><button class="menu-category-btn"
+                        onclick="toggleMenuCategory('group_2')"><span>II блок. Базовые процедуры</span><span
+                            class="category-arrow">▼</span></button>
+                    <div class="submenu-list"><button class="menu-item" data-article="block2"
+                            onclick="switchTab(this)">Вводная часть</button><button class="menu-item"
+                            data-article="counterparty" onclick="switchTab(this)">Контрагенты: создание
+                            карточки</button><button class="menu-item" data-article="transport_cards"
+                            onclick="switchTab(this)">Контрагенты: проверка ОЭБ</button><button class="menu-item"
+                            data-article="preliminary_request" onclick="switchTab(this)">Работа с ПЗ</button><button
+                            class="menu-item" data-article="ka_pz_test" onclick="switchTab(this)">КА и
+                            ПЗ</button><button class="menu-item" data-article="interactions"
+                            onclick="switchTab(this)">Взаимодействия: диалоги</button><button class="menu-item"
+                            data-article="first_calls" onclick="switchTab(this)">Взаимодействия: первые звонки</button>
+                    </div>
+                </div>
+                <div class="menu-group" id="group_3"><button class="menu-category-btn"
+                        onclick="toggleMenuCategory('group_3')"><span>III блок. Как закрыть заявку</span><span
+                            class="category-arrow">▼</span></button>
+                    <div class="submenu-list"><button class="menu-item" data-article="block3"
+                            onclick="switchTab(this)">Вводная часть</button><button class="menu-item"
+                            data-article="close_pz" onclick="switchTab(this)">Закрытие ПЗ</button><button
+                            class="menu-item" data-article="ati" onclick="switchTab(this)">АТИ</button><button
+                            class="menu-item" data-article="main_request" onclick="switchTab(this)">Основная
+                            заявка</button><button class="menu-item" data-article="control"
+                            onclick="switchTab(this)">Контроль перевозки, срыв</button></div>
+                </div>
+            </nav>
+        </div>
+        <div class="sidebar-bottom"><a href="education_programs.html" class="back-link">← К программам обучения</a>
+        </div>
+    </aside>
+    <main class="main-content">
+        <section class="article-page active" id="main" aria-label="Программа обучения логиста">
+            <h1>Программа обучения логиста</h1>
+            <div class="article-body">
+                <p>Логист — это специалист, который обеспечивает бесперебойную доставку грузов, координируя транспорт на
+                    пути от точки А до точки Б.</p>
+                <p>Он всегда на связи: ищет новых партнёров, контролирует машины в рейсе и оперативно решает любые
+                    сложности, возникающие в процессе перевозки.</p>
+                <p>Его главная цель в нашей компании — закрывать рейсы клиентов и выстраивать долгосрочные
+                    партнёрские отношения с перевозчиками. Вы будете постоянно расширять базу перевозчиков для
+                    максимального охвата
+                    направлений, кратно увеличивая свой доход и прибыль для компании.</p>
+                <div class="callout-box info-type">Мы предоставляем Вам уникальную возможность освоить эту непростую, но
+                    интересную и перспективную профессию. Наша команда профессионалов с радостью поделится опытом,
+                    который десятилетиями успешно применяется на практике и ведёт компанию вперёд.</div>
+                <h2>Программа обучения поделена на блоки</h2>
+                <ul class="custom-list">
+                    <li>Блоки обучения распложены в левом меню страницы</li>
+                    <li>Не перескакивайте их, идите по порядку</li>
+                    <li>Внимательно слушайте специалиста по обучению, задавайте ему вопросы и отрабатывайте сложные темы
+                    </li>
+                </ul>
+                <h2>Обязательная проверка знаний</h2>
+                <ul class="custom-list">
+                    <li>Тестирование и аттестация для проверки знаний каждого блока</li>
+                    <li>Заполнение <span class="term-keyword"
+                            onclick="openPopover(event, 'Рабочая тетрадь - это Google документ, ссылку на который Вы получаете от отдела обучения. Если у Вас её нет - обратитесь к специалисту по обучению О')"><b>Рабочей
+                                тетради</b></span> и разбор ошибок со специалистом по обучению</li>
+                    <li>Итоговое тестирование в конце обучения
+                    </li>
+                </ul>
+                <h1>Начинайте свой путь в логистике с нами! Удачной дороги</h1>
+
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('block1')">Изучение основ →</button></div>
+        </section>
+        <section class="article-page" id="block1" aria-label="Изучение основ">
+            <h1>Изучение основ</h1>
+            <div class="article-meta"><span>I блок обучения</span></div>
+            <div class="article-body">
+                <p>Добро пожаловать в компанию «Транспортные технологии»!<br><br>
+                    Мы рады приветствовать Вас на нашей программе обучения на должность <b>Менеджер по работе с
+                        перевозчиками</b>. Программа для новичка рассчитана на 5 дней. Вы изучите всю "базу"
+                    грузоперевозок автомобильным транспортом, научитесь работать в нашей 1С, поймете как закрывать рейсы
+                    и прокачаете свои навыки ведения диалога.
+                </p>
+                <div class="callout-box warning-type">
+                    <strong>Внимание:</strong> Если Вы еще не прошли базовый курс новичка - сделайте это до начала
+                    обучения по программе. Перейдите в портал новичка по ссылке ниже
+                </div>
+                <div class="grid-kb" style="margin-top: 20px;">
+                    <div class="kb-card">
+                        <div class="card-top">
+                            <h3>Портал новичка</h3>
+                            <p>Познакомьтесь с компанией и пройдите базовый курс 1СРБ</p>
+                        </div>
+                        <a href="\\fs.roslog.local\Docs\00.ОбучениеСтажеров\01. Добро пожаловать в компанию (для всех должностей)\Welcome_TT\index.html"
+                            target="_blank" class="open-btn">Открыть портал новичка</a>
+                    </div>
+                </div>
+
+                <h2>I блок обучения содержит</h2>
+                <ul class="custom-list">
+                    <li>Знакомство основными ресурсами и инструментами для дальнейшей работы</li>
+                    <li>Теорию и базовые знания по процессам грузоперевозок автомобильным транспортом</li>
+                </ul>
+                <p>Это вводный блок, в рамках которого мы изучим самые основы. Если Вы до этого не работали в логистике
+                    и не знаете, чем один прицеп отличается от другого - рекомендуем уделить ему больше времени</p>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('main')">←
+                    Программа обучения логиста</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('knowledge_base')">Инструменты и ресурсы →</button></div>
+        </section>
+        <section class="article-page" id="knowledge_base" aria-label="База знаний">
+            <h1>Инструменты и ресурсы для обучения и работы</h1>
+            <div class="article-meta"><span>I блок обучения</span></div>
+            <div class="article-body">
+                <p>Давайте познакомимся с различными инструментами и ресурсами, которые будут помогать Вам в обучении и
+                    дальнейшей работе. К некоторым из них доступ есть уже сейчас, к остальным появится со временем.</p>
+                <h2>Информационный портал</h2>
+                <img src="img/pt_program_img/baza.png" alt="Описание картинки или схемы" class="static-img">
+                <p>Это ресурс, откуда Вы уже открыли эту программу обучения.<br>
+                    Кроме программ обучения в нём вы найдете <b>Базу знаний</b>, в которой можно ознакомиться с важной
+                    информацией, изучить рабочие процедуры, почитать полезные статьи и так далее.<br>
+                    Наша программа обучения часто ссылается на определенные разделы из <b>Информационного портала</b>.
+                <div class="callout-box success-type">
+                    <strong>Как открыть:</strong> Используйте ярлык на рабочем столе с одноименным названием
+                </div>
+                </p>
+                <h2>АТТ</h2>
+                <img src="img/pt_program_img/att.png" alt="Описание картинки или схемы" class="instruction-img">
+                <p>Инструмент, который изначально использовался как площадка для автоматических торгов, где клиентские
+                    менеджеры могли участвовать в тендерах.<br>
+                    Сейчас <span class="term-keyword"
+                        onclick="openPopover(event, 'АТТ - AutoTradesTT, разработка нашей компании только для сотрудников')">АТТ</span>
+                    представляет из себя мощный ресурс, закрывающий множество потребностей сотрудников. Он постоянно
+                    обновляется, масштабируется и становится лучше. Сейчас в АТТ можно:
+                <ul>
+                    <li>Отслеживать актуальные торги на всех популярных тендерных площадках (обновляется в режиме
+                        реального времени). Запускать автоматические или ручные торги прямо из интерфейса АТТ</li>
+                    <li>Формировать отчеты, смотреть маржу, количество заявок и многое другое по подразделениям и
+                        сотрудникам компании</li>
+                    <li>Следить за своей эффективностью и ежемесячным рейтингом, победа в номинациях которого
+                        вознаграждается денежной премией</li>
+                    <li>Прочитать регламенты или найти информацию в них используя встроенный <span class="term-keyword"
+                            onclick="openPopover(event, 'В АТТ вшит искуственный интелект, который позволяет найти информацию из действующих регламентов и ознакомиться с ней в удобном виде')">ИИ</span>
+                    </li>
+                    <li>Проходить тестирования на проверку знаний по действующим стандартам и регламентам комнпаии</li>
+                    <div class="callout-box success-type">
+                        <strong>Как открыть:</strong> Доступ в АТТ предоставляется каждому сотруднику компании по
+                        отдельному запросу руководителя или отдела обучения. Обычно, он выдается при оформлении
+                        сотрудника в штат
+                    </div>
+                </ul>
+                </p>
+                <h2>SIP net</h2>
+                <img src="img/pt_program_img/sip.png" alt="Описание картинки или схемы" class="static-img">
+                <p>Программа для совершения звонков по IP телефонии. Тут всё просто - вводишь номер телефона (или
+                    вставляешь через Ctrl+V) и звонишь.
+                    Звонить именно через СИП необязательно, но в ряде случаев это необходимомо согласно действующим
+                    процедурам
+                <div class="callout-box success-type">
+                    <strong>Как открыть:</strong> Ярлык на рабочем столе с названием <b>"3CXPhone"</b>. Инструкцию по
+                    настройке найдете в <b>"Базе знаний"</b>
+                </div>
+                </p>
+
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('block1')">←
+                    Вводная часть</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('transport_rules')">Грузоперевозки →</button></div>
+        </section>
+        <section class="article-page" id="transport_rules" aria-label="Правила грузоперевозок">
+            <h1>Грузоперевозки</h1>
+            <div class="article-meta"><span>I блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">
+                    <ul class="custom-list">
+                        <li>Процесс перевозки груза на территории РФ регулируется на законодательном уровне. Существуют
+                            правила и законы, соблюдение которых - зона ответственности каждого участника процесса
+                            грузоперевозки.
+                        </li>
+                    </ul>
+                </div>
+                <ol class="custom-list">
+                    <li>
+                        Посмотрите наше пособие по грузоперевозкам. Там Вы найдете базовую информацию о типах
+                        транспорта, грузоподьемных механизмках и перевозимом грузе. Посмотрите, какаие документы сейчас
+                        используются и особенности работы с ними:
+                    </li>
+                    <div class="grid-kb" style="margin-top: 20px;">
+                        <div class="kb-card">
+                            <div class="card-top">
+                                <h3>Грузоперевозки</h3>
+                                <p>Методическое информационное пособие по составляющим грузоперевозки</p>
+                            </div>
+                            <a href="freight_handbook.html" target="_blank" class="open-btn">Открыть пособие</a>
+                        </div>
+                    </div>
+                    <li>Ответьте на вопросы из рабочей тетради: <b>«1 блок - Правила грузоперевозок»</b></li>
+                </ol>
+                <div class="callout-box warning-type">Если у Вас нет рабочей тетради - запросите её в отделе обучения
+                </div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('knowledge_base')">← База знаний</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('block1_results')">Итоги I блока →</button></div>
+        </section>
+        <section class="article-page" id="block1_results" aria-label="Итоги I блока">
+            <h1>Итоги I блока</h1>
+            <div class="article-meta"><span>I блок обучения</span></div>
+            <div class="article-body">
+                <p>Это был короткий вводный блок, в рамках которого мы узнали:</p>
+                <ul class="custom-list">
+                    <li>Инструменты и ресурсы, которые будем использовать в работе далее</li>
+                    <li>Процесс и правила грузоперевозок автомобильным транспортом</li>
+                </ul>
+                Перейдите по ссылке для прохождения тестирования по итогам I блока:
+                <a class="open-btn training-test" href="https://forms.gle/w3xCJLTbSp9KEzgU8" target="_blank"
+                    rel="noopener noreferrer">Тестирование по итогам I блока</a>
+                </p>
+                <div class="callout-box warning-type"><strong>ЗАВЕРШИВ ТЕСТИРОВАНИЕ</strong> разберите с специалистом по
+                    обучению все сложные блоки и ошибки. Проверьте вместе рабочую тетрадь и можем двигаться дальше</div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('transport_rules')">← Грузоперевозки</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('block2')">ll блок. Базовые процедуры →</button>
+            </div>
+        </section>
+        <section class="article-page" id="block2" aria-label="Базовые процедуры">
+            <h1>Базовые процедуры</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <p>В данном блоке мы переходим к основным рабочим процедурам:
+                <ul>
+                    <li>
+                        Работа с контрагентами
+                    </li>
+                    <li>
+                        Работа с <span class="term-keyword"
+                            onclick="openPopover(event, 'ПЗ - Предварительные заявки. Это заявка, которая отображается в 1С. Она содержит информацию о рейсе, под который необходимо найти машину')">ПЗ</span>
+                    </li>
+                    <li>
+                        Проверка в службе безопасности
+                    </li>
+                    <li>
+                        Первые взаимодействия и база перевозчиков
+                    </li>
+
+                </ul>
+                </p>
+                <h2>По итогу вы научитесь:</h2>
+                <ul class="custom-list">
+                    <li>Создавать карточки контрагентов и работать с ними в 1С</li>
+                    <li>Работать с предварительными заявками</li>
+                    <li>Определять критерии отправки перевозчика на проверку в <span class="term-keyword"
+                            onclick="openPopover(event, 'ОЭБ - Отдел экономической безопасности. Служба безопасности, которая проверяет всех контрагентов')">ОЭБ</span>
+                        и правила взаимодействия с ними</li>
+                    <li>Звонить перевозчикам, искать его в нашей огромной базе и вести свою собственную базу
+                        перевозчиков</li>
+                </ul>
+                <p>
+                    Прежде чем переходить к изучению нового раздела - закрепите знания, полученные в первом блоке:
+                    <a class="open-btn training-test" href="https://forms.gle/sG5Hh2UwSrrpQyMh6" target="_blank"
+                        rel="noopener noreferrer">⌂
+                        Закрепить знания первого блока</a>
+                </p>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('block1_results')">← Итоги I блока</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('counterparty')">Контрагенты
+                    →</button></div>
+        </section>
+        <section class="article-page" id="counterparty" aria-label="Контрагенты: создание карточки">
+            <h1>Создание карточки контрагента-перевозчика</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">
+                    <ul class="custom-list">
+                        <li>Контрагент — одна из сторон договора (физическое или юридическое лицо), т. е. любой партнёр
+                            по договору: заказчик, поставщик, перевозчик, покупатель или исполнитель</li>
+                        <li>В контексте Вашей должности - чаще всего контрагентом называют именно перевозчика</li>
+                        <li>Каждый перевозчик, которого Вы хотите поставить в рейс - должен быть занесен как контрагент
+                            в нашу базу 1СРБ</li>
+
+                    </ul>
+                </div>
+                <p>Практику создания карточек <span class="term-keyword"
+                        onclick="openPopover(event, 'КА - контрагент. Вы часто будете встречать именно сокращенную формулировку')">КА</span>
+                    мы делаем в <b>Ученической базе 1С</b>.
+                    <br><br>
+                    Она визуально практически не отличается от обычной, но функционал в ней ограничен. Вы
+                    можете не переживать за
+                    то, что совершите ошибку или нажмете не ту кнопку - данные не попадут в основную базу, испортить
+                    ничего
+                    не получиться.
+                <div class="callout-box warning-type">
+                    <strong>Внимание:</strong> Для получения учетных данных стажера обратитесь к специалисту по обучению
+                </div>
+                </p>
+                <h1>Создаем первую карточку</h1>
+                <ol class="custom-list">
+                    <li>На рабочем столе откройте ярлык <b>«Ученическая база 1С»</b>.
+                        <div class="callout-box warning-type">
+                            <strong>Внимание:</strong> Если ярлык на рабочем столе отсутствует - его всегда можно найти
+                            на сетевом ресурсе по адресу: \\fs.roslog.local\Docs\00.ОбучениеСтажеров<br><br>
+                            Сетевой ресурс обычно открывается через ярлык <b>"Документы"</b> или <b>"Docs"</b> на
+                            рабочем столе
+                        </div>
+                    </li>
+                    <li>Откройте процедуру создания карточки КА. Следуйте инструкциям и создайте одну полноценную
+                        карточку <b>Индивидуального Предпринимателя (ИП)</b>
+                        <div class="callout-box info-type">
+                            <ul class="custom-list">
+                                <li>Документы и данные для создания тестовой карточки находятся в <span
+                                        class="term-keyword"
+                                        onclick="openPopover(event, 'Рабочая тетрадь - это Google Документ, ссылку на который Вам присылал специалист пообучению. Если она отсутствует - обратитесь в отдел обучения')"><b>«Рабочей
+                                            тетради»</b></span>, раздел
+                                    <b>«Полезные ссылки»</b>
+                                </li>
+                                <div class="callout-box warning-type">
+                                    <strong>Внимание:</strong> Создав карточку по процедуре - <b>НЕ
+                                        НАПРАВЛЯЙТЕ</b> её
+                                    на проверку в <span class="term-keyword"
+                                        onclick="openPopover(event, 'ОЭБ - отдел экономической безопасности. Так у нас называют службу безопасности. Она проверяет всех контрагентов перед тем, как мы начинаем с ними работать')">ОЭБ</span>.
+                                    Вернитесь на эту страницу и продолжайте обучение
+                                </div>
+                            </ul>
+
+                        </div>
+                        <div class="grid-kb" style="margin-top: 20px;">
+                            <div class="kb-card">
+                                <div class="card-top">
+                                    <h3>Создание КА: Перевозчик</h3>
+                                    <p>Инструкция по созданию карточки перевозчика</p>
+                                </div>
+                                <a href="create_KA.html" target="_blank" class="open-btn">Открыть</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>По аналогии создайте еще одну карточку компании (ООО). Данные для создания находятся там же, в
+                        <b>"Рабочей тетради"</b>
+                    </li>
+                    <li>
+                        Пройдите аттестацию по созданию карточки контрагента-перевозчика:
+                        <div class="grid-kb" style="margin-top: 20px;">
+                            <div class="kb-card">
+                                <div class="card-top">
+                                    <h3>Аттестация</h3>
+                                    <p>Проверка знаний и отработка ошибок при создании карточки КА</p>
+                                </div>
+                                <a href="#" target="_blank" class="open-btn">Открыть</a>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+                <div class="callout-box warning-type"><strong>ОБЯЗАТЕЛЬНО</strong> Разбирайте все вопросы и
+                    ошибки по процессу со специалистом по обучению или наставником.</div>
+                <p>Создав карточки, пройдя аттестацию и разобрав ошибки - переходите к следующему разделу</p>
+            </div>
+
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('block2')">←
+                    Вводная часть</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('transport_cards')">Контрагенты: проверка ОЭБ →</button></div>
+        </section>
+        <section class="article-page" id="transport_cards" aria-label="Контрагенты: транспорт">
+            <h1>Контрагенты: проверка в Отделе Экономической Безопасности</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box success-type">
+                    <strong>Правило:</strong>
+                    <ul>
+                        <li>
+                            ОЭБ - очень важный департамент. Его специалисты занимаются проверкой контрагентов (и не
+                            только) на соответствие нашим правилам и стандартам.
+                        </li>
+                        <li>
+                            Все перевозчики, клиенты, соискатели на определенные рабочие вакансии проходят проверку в
+                            ОЭБ. Без определенного допуска - дальнейшее сотрудничество невозможно.
+                        </li>
+                    </ul>
+                </div>
+                <h1>Направляем контрагента на проверку в ОЭБ</h1>
+                <ol>
+                    <li>
+                        Процедура отправки на проверку контрагента-перевозчика прописана в отдельном блоке
+                        по ссылке ниже. Направьте на проверку обе карточки, которые создали ранее:
+                        <div class="callout-box warning-type">
+                            <strong>Внимание:</strong> Полностью изучите требования и правила отправки на проверку в
+                            ОЭБ. Отправьте на проверку тестовые карточки, созданные ранее. После этого вернитесь на
+                            данную страницу обучения
+                        </div>
+                        <div class="grid-kb" style="margin-top: 20px;">
+                            <div class="kb-card">
+                                <div class="card-top">
+                                    <h3>Проверка в ОЭБ</h3>
+                                    <p>Требования для перевозчиков и правила для сотрудников</p>
+                                </div>
+                                <a href="oeb_check.html" target="_blank" class="open-btn">Ознакомиться с правилами</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        Пройдите аттестацию по проверке перевозчика в ОЭБ:
+                        <div class="grid-kb" style="margin-top: 20px;">
+                            <div class="kb-card">
+                                <div class="card-top">
+                                    <h3>Аттестация</h3>
+                                    <p>Проверка контрагентов-перевозчиков в ОЭБ</p>
+                                </div>
+                                <a href="attestation_oeb.html" target="_blank" class="open-btn">Пройти аттестацию</a>
+                            </div>
+                        </div>
+                    </li>
+                    <p>Изучив правила проверки и направив тестовые карточки, пройдя аттестацию - можете переходить к
+                        следующему разделу</p>
+                </ol>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('counterparty')">← Контрагенты: создание карточки</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('preliminary_request')">Работа с ПЗ →</button>
+            </div>
+        </section>
+        <section class="article-page" id="preliminary_request" aria-label="Работа с ПЗ">
+            <h1>Работа с ПЗ</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">ПЗ — предварительная заявка на перевозку груза. Она размещается в 1С
+                    менеджером по работе с клиентами. Логист берёт из неё данные о рейсе (маршрут, груз, ставка и пр.) и
+                    приступает к поиску перевозчика.</div>
+                <ol class="custom-list">
+                    <li>На рабочем столе откройте рабочую базу 1С.</li>
+                    <li>В базе знаний откройте соответствующий раздел работы с ПЗ. Следуя инструкции, откройте список
+                        предварительных
+                        заявок.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Список заявок и фильтр">Список заявок и
+                                    фильтр</span></li>
+                        </ul>
+                    </li>
+                    <li>Выберите любую заявку. Изучите её содержание и вкладки, следуя
+                        инструкциям.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Информация по заявке">Информация по
+                                    заявке</span></li>
+                        </ul>
+                        <div class="callout-box info-type">Узнать актуальность заявки и дополнительные сведения по
+                            данному рейсу можно у ответственного менеджера, данные которого можно найти в нижней части
+                            заявки.</div>
+                    </li>
+                    <li>Ознакомьтесь с процедурой поиска перевозчика по предварительной
+                        заявке.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Список свободных машин">Список
+                                    свободных машин</span></li>
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Ранее ездившие по маршруту">Ранее
+                                    ездившие по маршруту</span></li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('transport_cards')">← Контрагенты: транспорт</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('ka_pz_test')">КА и ПЗ →</button></div>
+        </section>
+        <section class="article-page" id="ka_pz_test" aria-label="КА и ПЗ">
+            <h1>КА и ПЗ</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <ol class="custom-list">
+                    <li>Открой и заполни рабочую тетрадь: <b>«2 блок — КА и ПЗ»</b></li>
+                    <li>Пройдите тестирование по поиску информации в «Базе знаний»:<p><a class="open-btn training-test"
+                                href="https://forms.gle/v2z1YVPSf2BrtBvA9" target="_blank"
+                                rel="noopener noreferrer">Тестирование: КА и ПЗ</a></p>
+                    </li>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('preliminary_request')">← Работа с ПЗ</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('interactions')">Взаимодействия: диалоги
+                    →</button></div>
+        </section>
+        <section class="article-page" id="interactions" aria-label="Взаимодействия: диалоги">
+            <h1>Взаимодействия: диалоги</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <ol class="custom-list">
+                    <li>Ознакомьтесь с базовым скриптом диалога и отработки
+                        возражений.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Скрипт диалога">Скрипт диалога</span>
+                            </li>
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Отработка возражений">Отработка
+                                    возражений</span></li>
+                        </ul>
+                    </li>
+                    <li>В рабочей тетради откройте ссылку <b>«Диалоги 2 блок»</b></li>
+                    <li>В рабочей тетради откройте раздел: <b>«2 блок - Взаимодействия»</b></li>
+                    <li>Прослушивайте диалоги по порядку и заполняйте рабочую тетрадь. Фиксируйте все важные моменты
+                        (ошибки, верные действия, лайфхаки).</li>
+                </ol>
+                <div class="callout-box info-type">Совместно разберите прослушанные диалоги с менеджером по обучению.
+                </div>
+                <div class="callout-box info-type">
+                    <ul class="custom-list">
+                        <li>Вы не привязаны к скрипту. Используйте его как базовый шаблон</li>
+                        <li>Всегда старайтесь отрабатывать возражения, даже если это кажется ненужным. <b>Запомните
+                                главное:</b> никто не знает заранее, что ответит человек на том конце провода и как
+                            обернётся диалог.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('ka_pz_test')">←
+                    КА и ПЗ</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('first_calls')">Взаимодействия: первые звонки →</button></div>
+        </section>
+        <section class="article-page" id="first_calls" aria-label="Взаимодействия: первые звонки">
+            <h1>Взаимодействия: первые звонки</h1>
+            <div class="article-meta"><span>II блок обучения</span></div>
+            <div class="article-body">
+                <ol class="custom-list">
+                    <li>Подготовьтесь к совершению первых звонков
+                        перевозчикам.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Подготовка к диалогу">Подготовка к
+                                    диалогу</span></li>
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Процедура звонка по заявке">Процедура
+                                    звонка по заявке</span></li>
+                        </ul>
+                    </li>
+                    <li>Убедитесь в том, что СИП настроен и готов к совершению звонков. В рабочей тетради открой ссылку
+                        <b>«Как настроить СИП»</b>
+                    </li>
+                    <li>Под контролем менеджера по обучению/наставника соверши <b>10 звонков</b> по предварительной
+                        заявке.<div class="callout-box info-type">Уже на этом этапе начинай формировать свою базу
+                            перевозчиков (посоветуйся с менеджером/наставником как это сделать лучше всего и выбери
+                            удобный для себя вариант).</div>
+                    </li>
+                    <li>Совместно с менеджером по обучению/наставником разберите совершенные звонки. Фиксируйте ошибки,
+                        совершенные в диалоге в рабочую тетрадь: <b>«2 блок - Мои звонки»</b></li>
+                </ol>
+                <div class="callout-box info-type">
+                    <ul class="custom-list">
+                        <li>Перечитайте ещё раз свою рабочую тетрадь. Вспомните блоки, которые давались труднее всего
+                        </li>
+                        <li>Разберите вопросы, которые вызвали сложности с менеджером по обучению</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('interactions')">← Взаимодействия: диалоги</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('block3')">Как закрыть заявку →</button></div>
+        </section>
+        <section class="article-page" id="block3" aria-label="Как закрыть заявку">
+            <h1>Как закрыть заявку</h1>
+            <div class="article-meta"><span>III блок обучения</span></div>
+            <div class="article-body">
+                <p>В данном блоке разберём действия при получении согласия перевозчика на рейс, как перевести ПЗ в ОЗ, а
+                    также как работать с сервисом ATI.SU.</p>
+                <p>Разберём внутренний тендер, какие запрашивать документы и куда их передавать, чтобы по итогу
+                    подписать договор на перевозку груза и закрыть заявку.</p>
+                <h2>III блок обучения содержит</h2>
+                <ul class="custom-list">
+                    <li>Информацию о том, какие действия мы совершаем, чтобы предварительная заявка (ПЗ) стала основной
+                        (ОЗ)</li>
+                    <li>Разбор крупнейшей в РФ биржи автомобильных грузоперевозок — ATI.SU. Как выставлять груз и искать
+                        перевозчиков</li>
+                    <li>Практику выставления грузов на АТИ и звонки перевозчикам</li>
+                </ul>
+                <ol class="custom-list">
+                    <li>Закрепите знания, полученные во II блоке:<p><a class="open-btn training-test"
+                                href="https://forms.gle/UFtt7q8sU2z3qz898" target="_blank"
+                                rel="noopener noreferrer">Закрепить знания II блока</a></p>
+                    </li>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('first_calls')">← Взаимодействия: первые звонки</button><button
+                    class="side-back-btn" onclick="openTrainingArticle('close_pz')">Закрытие ПЗ →</button></div>
+        </section>
+        <section class="article-page" id="close_pz" aria-label="Закрытие ПЗ">
+            <h1>Закрытие ПЗ</h1>
+            <div class="article-meta"><span>III блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box warning-type">Внутренний аукцион (тендер) — торги, проходящие внутри компании в
+                    рамках предварительной заявки. <strong>Запрещено</strong> сообщать перевозчикам/клиентам о наличии
+                    таких торгов.</div>
+                <ol class="custom-list">
+                    <li>Ознакомьтесь с правилами проведения внутренних
+                        тендеров.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="ПЗ: Внутренний аукцион">Внутренний аукцион</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Посмотрите процесс подачи предложения в
+                        тендер.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Внутренний аукцион">Внутренний
+                                    аукцион</span></li>
+                        </ul>
+                        <div class="callout-box info-type">
+                            <ul class="custom-list">
+                                <li>Подача предложения во внутренний тендер — первый и обязательный шаг к закрытию
+                                    предварительной заявки</li>
+                                <li>Не путайте торги, проходящие на внешних площадках, и внутренние торги внутри нашей
+                                    компании</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Ознакомьтесь с процессом изменения результата и закрытия
+                        ПЗ.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ПЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Изменить результат">Изменить
+                                    результат</span></li>
+                            <li><span class="kb-reference" data-kb="Работа с ПЗ: Закрытие ПЗ / вывод ОЗ">Закрытие ПЗ /
+                                    вывод ОЗ</span></li>
+                        </ul>
+                    </li>
+                    <li>Пройдите тестирование по процедуре закрытия предварительной заявки:<p><a
+                                class="open-btn training-test" href="https://forms.gle/wGJetVSkNNZ7cnwcA"
+                                target="_blank" rel="noopener noreferrer">Тестирование: закрытие ПЗ</a></p>
+                    </li>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('block3')">← Как
+                    закрыть заявку</button><button class="side-back-btn" onclick="openTrainingArticle('ati')">АТИ
+                    →</button></div>
+        </section>
+        <section class="article-page" id="ati" aria-label="АТИ">
+            <h1>АТИ</h1>
+            <div class="article-meta"><span>III блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">АТИ (ATI.SU) — крупнейшая биржа грузоперевозок РФ. Площадка, которая
+                    связывает грузовладельцев и перевозчиков, помогая быстро находить транспорт или грузы.</div>
+                <ol class="custom-list">
+                    <li>Ознакомьтесь с правилами работы в
+                        АТИ.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>АТИ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="АТИ: Правила работы в АТИ">Правила работы в
+                                    АТИ</span></li>
+                        </ul>
+                    </li>
+                    <li>Посмотрите, как происходит процесс размещения груза, поиска перевозчика и просмотра информации
+                        по нему.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>АТИ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="АТИ: Размещение груза в АТИ">Размещение груза в
+                                    АТИ</span></li>
+                            <li><span class="kb-reference" data-kb="АТИ: Поиск перевозчика">Поиск перевозчика</span>
+                            </li>
+                            <li><span class="kb-reference" data-kb="АТИ: Информация о перевозчике">Информация о
+                                    перевозчике</span></li>
+                        </ul>
+                    </li>
+                    <li>Пройдите короткое тестирование на проверку знаний:<p><a class="open-btn training-test"
+                                href="https://forms.gle/9ydjznkmTf17cqqp6" target="_blank"
+                                rel="noopener noreferrer">Тестирование: АТИ</a></p>
+                    </li>
+                    <li>Практика в АТИ:<ul class="custom-list">
+                            <li>Разместите несколько грузов (от 1 до 3)</li>
+                            <li>Найдите несколько перевозчиков (от 1 до 5), попробуйте открыть их карточки в нашей базе
+                                1С</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="callout-box warning-type">Всегда держите в голове правила работы с сервисом. За нарушение
+                    правил на компанию могут быть наложены <b>штрафы и взыскания</b>.</div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('close_pz')">←
+                    Закрытие ПЗ</button><button class="side-back-btn"
+                    onclick="openTrainingArticle('main_request')">Основная заявка →</button></div>
+        </section>
+        <section class="article-page" id="main_request" aria-label="Основная заявка">
+            <h1>Основная заявка</h1>
+            <div class="article-meta"><span>III блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">Когда под конкретную ПЗ найден перевозчик и все условия согласованы —
+                    <b>ПЗ становится ОЗ</b>.<p>ОЗ «выводит» ответственный клиентский менеджер и далее мы берём её в
+                        работу для последующего контроля за рейсом.</p>
+                </div>
+                <ol class="custom-list">
+                    <li>Сформируйте список заявок на перевозку
+                        груза.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ОЗ: Список заявок">Список заявок</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Откройте любую заявку. Ознакомьтесь с её содержанием и интерфейсом, следуя
+                        инструкции.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ОЗ: Информация по заявке">Информация по
+                                    заявке</span></li>
+                        </ul>
+                        <div class="callout-box info-type">
+                            <ul class="custom-list">
+                                <li>ОЗ содержит ту же информацию о перевозке, что и ПЗ</li>
+                                <li>В ОЗ мы формируем заявку для перевозчика и отправляем ему на подпись. Эта заявка
+                                    свидетельствует о заключении договора на перевозку</li>
+                                <li>Подписать заявку перевозчик может в том числе через мобильное приложение ТТ-онлайн
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Для отправки перевозчика в рейс необходимо подписать договор на перевозку груза. Посмотрите, как
+                        проходит этот
+                        процесс.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference"
+                                    data-kb="Работа с ОЗ: Подписание и загрузка заявки">Подписание и загрузка
+                                    заявки</span></li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="callout-box info-type">
+                    <ul class="custom-list">
+                        <li>Более приоритетно для нас — чтобы заявка была подписана через мобильное приложение
+                            <b>ТТ-онлайн</b>
+                        </li>
+                        <li>Если заявка подписана, загружена и в поле «История проверок заявки перевозчика» нет ошибок —
+                            значит договор заключён</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn" onclick="openTrainingArticle('ati')">←
+                    АТИ</button><button class="side-back-btn" onclick="openTrainingArticle('control')">Контроль
+                    перевозки, срыв →</button></div>
+        </section>
+        <section class="article-page" id="control" aria-label="Контроль перевозки, срыв">
+            <h1>Контроль перевозки, срыв</h1>
+            <div class="article-meta"><span>III блок обучения</span></div>
+            <div class="article-body">
+                <div class="callout-box info-type">Логист контролирует перевозку на протяжении существования рейса.
+                    Существуют правила контроля перевозки, которые необходимо учитывать в процессе.</div>
+                <ol class="custom-list">
+                    <li>Ознакомьтесь с правилами контроля
+                        перевозки.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ОЗ: Правила контроля перевозки">Правила
+                                    контроля перевозки</span></li>
+                        </ul>
+                    </li>
+                    <li>Посмотрите, как проходит процесс контроля перевозки со стороны
+                        логиста.<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ОЗ: Контроль перевозки">Контроль
+                                    перевозки</span></li>
+                        </ul>
+                    </li>
+                    <li>Ответьте на вопросы в рабочей тетради: <b>«3 блок - Контроль перевозки»</b></li>
+                    <li>Ознакомьтесь с тем, как нужно действовать в случаях, когда рейс нужно отменить (срыв
+                        перевозки).<!-- Добавьте ссылки на действующие разделы базы знаний вокруг названий ниже. -->
+                        <p>В базе знаний: <b>Работа с ОЗ</b>.</p>
+                        <ul class="custom-list">
+                            <li><span class="kb-reference" data-kb="Работа с ОЗ: Срыв перевозки">Срыв перевозки</span>
+                            </li>
+                        </ul>
+                        <div class="callout-box info-type">
+                            <ul class="custom-list">
+                                <li>В Базе знаний вы всегда можете получить ответы на вопросы, которые вызывают
+                                    затруднения. Не забывайте обращаться к ней, когда что-то забыли</li>
+                                <li>В процессе работы Вы будете сталкиваться с ситуациями, не прописанными в Базе
+                                    Знаний. Не стесняйтесь обращаться к своему руководителю или старшим сотрудникам
+                                    отдела за помощью</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Пройди итоговое тестирование по 3 блоку:<p><a class="open-btn training-test"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSdqVs4Aach8nwSx9A__G4DDxB2bWA2iy_BB7KRbpV2MJdQq_Q/viewform?usp=dialog"
+                                target="_blank" rel="noopener noreferrer">Итоговое тестирование по III блоку</a></p>
+                    </li>
+                </ol>
+            </div>
+            <div class="training-navigation"><button class="side-back-btn"
+                    onclick="openTrainingArticle('main_request')">← Основная заявка</button></div>
+        </section>
+    </main>
+    <!-- Исходный base.js -->
+    <script src="base.js"></script>
+    <script src="theme.js"></script>
+    <script id="training-navigation">function openTrainingArticle(articleId) {
+            const button = document.querySelector('.menu-item[data-article="' + articleId + '"]');
+            if (!button) return;
+            switchTab(button);
+            const group = button.closest('.menu-group');
+            if (group && !group.classList.contains('open')) toggleMenuCategory(group.id);
+            button.scrollIntoView({ block: 'nearest' });
+            if (window.matchMedia('(max-width: 640px)').matches) document.querySelector('.main-content').scrollIntoView({ block: 'start' });
+        }
+    </script>
+</body>
+
+</html>
